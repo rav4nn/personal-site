@@ -11,7 +11,7 @@ export function AboutMeBento({ linkTo }: { linkTo?: string }) {
           <h2 className="mb-4 text-base font-medium">Learn more about me</h2>
           <p className="mb-2 text-balance pr-1 text-text-secondary md:pr-4">
             {timeOfDayGreeting} <br />
-            I&apos;m Braydon, an experienced front-end developer.
+            I&apos;m Hardeep, a builder and former chemical engineer.
           </p>
         </div>
         <div className="relative">
@@ -28,7 +28,7 @@ export function AboutMeBento({ linkTo }: { linkTo?: string }) {
           </div>
           <img
             className="absolute -top-1 left-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow transition-all duration-500 group-hover:rotate-[4deg] group-hover:scale-105"
-            src="/braydon_headshot_1.jpeg"
+            src="/hero.jpg"
             alt="A headshot"
           />
         </div>

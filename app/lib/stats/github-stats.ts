@@ -3,8 +3,7 @@
 import { unstable_cache } from "next/cache";
 import type { GitHubStats, ContributionData } from "./types";
 
-const GITHUB_REPO = "braydoncoyer/braydoncoyer.dev";
-const GITHUB_USERNAME = "braydoncoyer";
+const GITHUB_USERNAME = "rav4nn";
 
 async function fetchContributions(token: string): Promise<ContributionData | null> {
   // Calculate rolling 365-day window ending today
@@ -77,47 +76,51 @@ export const getGitHubStats = unstable_cache(
       };
     }
 
-    const headers: HeadersInit = {
-      Authorization: `Bearer ${token}`,
-      Accept: "application/vnd.github.v3+json",
-    };
-
     try {
-      // Fetch repository info (stars, forks)
-      const repoResponse = await fetch(
-        `https://api.github.com/repos/${GITHUB_REPO}`,
-        { headers }
-      );
+      // Fetch stars, forks, and commits across all repos via GraphQL
+      const today = new Date();
+      const oneYearAgo = new Date();
+      oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+      const statsQuery = `
+        query {
+          user(login: "${GITHUB_USERNAME}") {
+            contributionsCollection(from: "${oneYearAgo.toISOString()}", to: "${today.toISOString()}") {
+              totalCommitContributions
+            }
+            repositories(first: 100, ownerAffiliations: OWNER, privacy: PUBLIC) {
+              nodes {
+                stargazerCount
+                forkCount
+              }
+            }
+          }
+        }
+      `;
+
+      const statsResponse = await fetch("https://api.github.com/graphql", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: statsQuery }),
+      });
 
       let stars = 0;
       let forks = 0;
-
-      if (repoResponse.ok) {
-        const repoData = await repoResponse.json();
-        stars = repoData.stargazers_count || 0;
-        forks = repoData.forks_count || 0;
-      }
-
-      // Fetch commit count via pagination headers
-      const commitsResponse = await fetch(
-        `https://api.github.com/repos/${GITHUB_REPO}/commits?per_page=1`,
-        { headers }
-      );
-
       let commits = 0;
 
-      if (commitsResponse.ok) {
-        // Parse Link header for total count
-        const linkHeader = commitsResponse.headers.get("Link");
-        if (linkHeader) {
-          const match = linkHeader.match(/page=(\d+)>; rel="last"/);
-          if (match) {
-            commits = parseInt(match[1], 10);
-          }
-        } else {
-          // If no pagination, there's only one page
-          const data = await commitsResponse.json();
-          commits = Array.isArray(data) ? data.length : 0;
+      if (statsResponse.ok) {
+        const statsData = await statsResponse.json();
+        const user = statsData?.data?.user;
+        if (user) {
+          const repos: { stargazerCount: number; forkCount: number }[] =
+            user.repositories.nodes;
+          stars = repos.reduce((sum, r) => sum + r.stargazerCount, 0);
+          forks = repos.reduce((sum, r) => sum + r.forkCount, 0);
+          commits =
+            user.contributionsCollection.totalCommitContributions || 0;
         }
       }
 

@@ -8,43 +8,14 @@ interface FooterLink {
   isExternal?: boolean;
 }
 
-interface FooterSection {
-  title: string;
-  links: FooterLink[];
-}
 
-const footerSections: FooterSection[] = [
-  {
-    title: "General",
-    links: [
-      { href: "/", label: "Home" },
-      { href: "/about", label: "About" },
-      { href: "/projects", label: "Projects" },
-      { href: "/blog", label: "Blog" },
-    ],
-  },
-  {
-    title: "Specifics",
-    links: [
-      { href: "/toolbox", label: "Toolbox" },
-      { href: "/speaking", label: "Speaking" },
-      {
-        href: "https://braydoncoyer.lemonsqueezy.com/",
-        label: "Products",
-        isExternal: true,
-      },
-      { href: "/community-wall", label: "Community Wall" },
-    ],
-  },
-  {
-    title: "Extra",
-    links: [
-      { href: "/changelog", label: "Changelog" },
-      { href: "/connections", label: "Connections" },
-      { href: "/links", label: "Links" },
-      { href: "/stats", label: "Stats" },
-    ],
-  },
+const footerLinks: FooterLink[] = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/toolbox", label: "Toolbox" },
+  // { href: "/blog", label: "Blog" },
+  // { href: "/speaking", label: "Speaking" },
 ];
 
 export function Footer(): JSX.Element {
@@ -67,43 +38,28 @@ export function Footer(): JSX.Element {
             <div className="flex w-full py-6 text-sm">
               <div>
                 <div className="flex-grow space-y-6">
-                  <Link className="inline-block" href="/">
-                    <img
-                      className="h-10 w-10"
-                      src="/bcoyerlogo_dark.svg"
-                      alt="Braydon's Logo"
-                    />
+                  <Link className="inline-block text-sm font-semibold tracking-tight text-text-primary" href="/">
+                    hardeep.cv
                   </Link>
                   <p className="w-60 leading-5 text-gray-500">
-                    I&apos;m Braydon - a senior front-end developer, blogger and
-                    public speaker. Thanks for checking out my site!
+                    I&apos;m Hardeep — building AI products that turn messy
+                    real-world data into usable systems.
                   </p>
                 </div>
                 <p className="mt-6 text-gray-500">
-                  © {new Date().getFullYear()} Braydon Coyer
+                  © {new Date().getFullYear()} Hardeep Singh
                 </p>
               </div>
-              <div className="flex w-full items-end justify-end pr-16">
-                <SocialPill />
-              </div>
             </div>
-            <div className="flex w-full flex-col items-end py-6 text-xs lg:pl-16">
-              <div className="ld:space-x-0 flex w-full justify-between md:justify-start md:space-x-36 lg:justify-between">
-                {footerSections.map((section) => (
-                  <div key={section.title}>
-                    <span className="mb-4 inline-block text-base font-medium text-text-primary">
-                      {section.title}
-                    </span>
-                    <ul className="space-y-2 text-sm text-gray-500">
-                      {section.links.map((link) => (
-                        <li className="hover:text-text-primary" key={link.href}>
-                          {renderFooterLink(link)}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+            <div className="flex w-full flex-col items-end justify-between py-6 text-xs lg:pl-16">
+              <ul className="flex flex-col space-y-2 text-sm text-gray-500 lg:items-end">
+                {footerLinks.map((link) => (
+                  <li className="hover:text-text-primary" key={link.href}>
+                    {renderFooterLink(link)}
+                  </li>
                 ))}
-              </div>
+              </ul>
+              <SocialPill />
             </div>
           </div>
         </GridWrapper>

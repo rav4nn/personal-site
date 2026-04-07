@@ -1,25 +1,14 @@
-import { BgGradient } from "./components/BgGradient";
-import { NewsletterSignUp } from "./components/NewsletterSignUp";
-import { ChangelogBento } from "./components/ChangelogBento";
-import { fetchAndSortBlogPosts } from "./lib/utils";
-import { SpeakingBento } from "./components/SpeakingBento";
-import { CommunityWallBento } from "./components/CommunityWallBento";
 import { CalendarBento } from "./components/CalendarBento";
-import { FeaturedBlogCard } from "./components/FeaturedBlogCard";
 import { ToolboxBento } from "./components/ToolboxBento";
-import { ConnectionsBento } from "./components/ConnectionsBento";
+import { GithubActivityBento } from "./components/GithubActivityBento";
 import { AnimatedProfilePicture } from "./components/AnimatedProfilePicture";
 import { AnimatedText } from "./components/AnimatedText";
 import { PhotoGallery } from "./components/PhotoGallery";
 import { AboutMeBento } from "./components/AboutMeBento";
 import { AnimatedMobilePhotos } from "./components/AnimatedMobilePhotos";
 import { GridWrapper } from "./components/GridWrapper";
-import clsx from "clsx";
 
 export default async function Home() {
-  const allPublishedBlogPosts = await fetchAndSortBlogPosts();
-  const featuredArticles = allPublishedBlogPosts.slice(0, 4);
-
   const PROFILE_DELAY = 0;
   const HEADING_DELAY = PROFILE_DELAY + 0.2;
   const PARAGRAPH_DELAY = HEADING_DELAY + 0.1;
@@ -37,7 +26,7 @@ export default async function Home() {
                 delay={HEADING_DELAY}
                 className="mx-auto max-w-2xl text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]"
               >
-                Hey, I&apos;m Braydon! <br /> Welcome to my corner of the
+                Hey, I&apos;m Hardeep! <br /> Welcome to my corner of the
                 internet!
               </AnimatedText>
             </GridWrapper>
@@ -48,10 +37,8 @@ export default async function Home() {
                   delay={PARAGRAPH_DELAY}
                   className="leading-8 text-text-secondary"
                 >
-                  I&apos;m a front-end developer with a love for design and a
-                  knack for tinkering. This site is intentionally
-                  over-engineered and serves as my playground for experimenting
-                  with new ideas and seeing what sticks!
+                  Chemical Engineer @ IIT Delhi &rarr; building AI products
+                  that turn messy real-world data into usable systems.
                 </AnimatedText>
               </div>
             </GridWrapper>
@@ -78,7 +65,7 @@ export default async function Home() {
             </GridWrapper>
             <GridWrapper>
               <h2 className="mx-auto max-w-lg text-balance text-center text-3xl font-medium leading-10 tracking-tight text-text-primary md:text-4xl">
-                Here&apos;s what sets me apart and makes me unique
+                Builder, engineer, and obsessive problem-solver
               </h2>
             </GridWrapper>
           </div>
@@ -90,7 +77,7 @@ export default async function Home() {
               </div>
 
               <div className="md:col-span-12 lg:col-span-7 lg:row-span-8">
-                <ConnectionsBento linkTo="/connections" />
+                <GithubActivityBento linkTo="https://github.com/rav4nn" />
               </div>
 
               <div className="md:col-span-7 md:row-start-1 lg:col-span-5 lg:row-span-7">
@@ -104,55 +91,8 @@ export default async function Home() {
           </GridWrapper>
         </section>
 
-        {/* Blog Section */}
-        <section className="relative space-y-10 md:space-y-16">
-          {/* <BlogPattern /> */}
-          <div className="relative space-y-4 text-balance">
-            <span className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2">
-              <BgGradient />
-            </span>
-            <GridWrapper>
-              <div className="text-center text-sm font-medium text-indigo-600">
-                <span>Blog</span>
-              </div>
-            </GridWrapper>
-            <GridWrapper>
-              <h2 className="mx-auto max-w-lg text-center text-3xl font-medium leading-10 tracking-tighter text-text-primary md:text-4xl">
-                I like sharing my experiments && knowledge with others
-              </h2>
-            </GridWrapper>
-          </div>
-
-          <div className="z-10">
-            <GridWrapper>
-              <ul className="z-50 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
-                {featuredArticles.length > 0 ? (
-                  <>
-                    {featuredArticles.slice(0, 4).map((post, index) => (
-                      <FeaturedBlogCard
-                        key={post.slug}
-                        slug={post.slug}
-                        imageName={post.imageName}
-                        title={post.title}
-                        summary={post.summary}
-                        className={clsx(
-                          // Hide the fourth article on mobile and desktop
-                          index === 3 && "hidden md:block lg:hidden",
-                        )}
-                      />
-                    ))}
-                  </>
-                ) : (
-                  <p>Nothing to see here yet...</p>
-                )}
-              </ul>
-            </GridWrapper>
-          </div>
-        </section>
-
-        {/* My Site Section */}
-        <section className="relative space-y-10 md:space-y-16">
-          {/* <MySitePattern /> */}
+        {/* My Site Section - hidden for now */}
+        {/* <section className="relative space-y-10 md:space-y-16">
           <div className="space-y-4 text-balance">
             <GridWrapper>
               <div className="text-center text-sm font-medium text-indigo-600">
@@ -165,7 +105,6 @@ export default async function Home() {
               </h2>
             </GridWrapper>
           </div>
-
           <GridWrapper>
             <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
               <span className="col-span-1 h-[276px] sm:block md:hidden lg:block">
@@ -175,12 +114,12 @@ export default async function Home() {
               <CommunityWallBento />
             </div>
           </GridWrapper>
-        </section>
+        </section> */}
 
-        {/* Newsletter Section */}
-        <section>
+        {/* Newsletter Section - hidden for now */}
+        {/* <section>
           <NewsletterSignUp />
-        </section>
+        </section> */}
       </div>
     </section>
   );

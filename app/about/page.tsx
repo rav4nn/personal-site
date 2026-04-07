@@ -1,24 +1,17 @@
-import { NewsletterSignUp } from "@/app/components/NewsletterSignUp";
 import { HorizontalLine } from "@/app/components/HorizontalLine";
 import { getTimeOfDayGreeting } from "app/lib/utils";
 import React from "react";
-import { CurrentlyPlayingBento } from "@/app/components/CurrentlyPlayingBento";
-import { ConnectionsBento } from "@/app/components/ConnectionsBento";
-import { ScrapbookBento } from "@/app/components/ScrapbookBento";
 import { ShadowBox } from "@/app/components/ShadowBox";
-import { Resume } from "app/components/Resume";
-import { StatsBento } from "@/app/components/StatsBento";
-import { CurrentlyReadingBento } from "@/app/components/CurrentlyReadingBento";
 import { GridWrapper } from "@/app/components/GridWrapper";
-import { AboutTrackPattern } from "@/app/components/AboutTrackPattern";
 import { Photo } from "@/app/components/Photo";
+import { AboutTrackPattern } from "@/app/components/AboutTrackPattern";
 
 export default function AboutPage() {
   const timeOfDayGreeting = getTimeOfDayGreeting();
 
   return (
     <div className="relative mt-14">
-      <title>About | Braydon Coyer</title>
+      <title>About | Hardeep Singh</title>
       <div className="relative space-y-10 md:space-y-16">
         {/* Title */}
         <GridWrapper className="space-y-12">
@@ -28,7 +21,7 @@ export default function AboutPage() {
                 <span>{timeOfDayGreeting}</span>
               </div>
               <h1 className="mx-auto max-w-2xl text-balance text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-5xl lg:text-left lg:text-6xl lg:leading-[64px]">
-                I&apos;m Braydon, a creative frontend engineer.
+                I&apos;m Hardeep, a builder and former chemical engineer.
               </h1>
             </div>
             <div className="order-1 my-12 flex-shrink-0 lg:order-2 lg:my-0">
@@ -38,8 +31,8 @@ export default function AboutPage() {
                     <Photo
                       width={140}
                       height={140}
-                      src="/braydon_speaking_photo.jpeg"
-                      alt="Braydon Coyer"
+                      src="/chess.jpg"
+                      alt="Hardeep playing chess"
                       direction="left"
                     />
                   </div>
@@ -47,8 +40,8 @@ export default function AboutPage() {
                     <Photo
                       width={140}
                       height={140}
-                      src="/braydon_headshot_1.jpeg"
-                      alt="Braydon Coyer"
+                      src="/hero.jpg"
+                      alt="Hardeep Singh"
                       direction="right"
                     />
                   </div>
@@ -56,8 +49,8 @@ export default function AboutPage() {
                     <Photo
                       width={140}
                       height={140}
-                      src="/braydon_headshot_3.jpg"
-                      alt="Braydon Coyer"
+                      src="/mountains-dog.jpg"
+                      alt="Hardeep with a mountain dog"
                       direction="left"
                     />
                   </div>
@@ -98,21 +91,26 @@ export default function AboutPage() {
                     <ShadowBox width={188} height={278}></ShadowBox>
                     <img
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
-                      src="/knights_kwest.jpeg"
-                      alt="A headshot"
+                      src="/hero.jpg"
+                      alt="Hardeep Singh"
                     />
                   </div>
                 </div>
                 <h2 className="mb-6 w-full text-balance text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
-                  My programming origins
+                  From the lab to the internet
                 </h2>
                 <p className="mb-6 text-base leading-8 text-text-secondary">
-                  When Apple unveiled the first iPad with its beautiful 1024x768
-                  display, I knew I had to create for it. I taught myself mobile
-                  development while freelancing, and soon I was shipping iOS and
-                  Android apps. One of my games even climbed above Angry Birds
-                  in the charts for a while—which still makes me smile when I
-                  think about it.
+                  I studied Chemical Engineering at IIT Delhi — a degree that
+                  taught me to think in systems and optimise under constraints.
+                  What I didn&apos;t expect was that the most interesting
+                  problems I&apos;d encounter were messy, unstructured, and
+                  sitting inside data. That&apos;s what pulled me toward
+                  software.
+                </p>
+                <p className="mb-6 text-base leading-8 text-text-secondary">
+                  Now I build AI products that take that mess and make it
+                  usable — pipelines, tooling, apps. The engineering mindset
+                  didn&apos;t go anywhere; it just found a better outlet.
                 </p>
               </div>
               <div className="hidden lg:order-1 lg:block">
@@ -120,8 +118,8 @@ export default function AboutPage() {
                   <ShadowBox width={188} height={278}></ShadowBox>
                   <img
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
-                    src="/knights_kwest.jpeg"
-                    alt="A headshot"
+                    src="/hero.jpg"
+                    alt="Hardeep Singh"
                   />
                 </div>
               </div>
@@ -135,21 +133,26 @@ export default function AboutPage() {
                     <ShadowBox width={188} height={278}></ShadowBox>
                     <img
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
-                      src="/c3_speaker_head.png"
-                      alt="Speaking at C3 Conf!"
+                      src="/mountains-dog.jpg"
+                      alt="Hardeep with a mountain dog"
                     />
                   </div>
                 </div>
                 <h2 className="mb-6 w-full text-balance text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
-                  Finding My Way to Web
+                  Building things I actually want to exist
                 </h2>
                 <p className="mb-6 text-base leading-8 text-text-secondary">
-                  Despite my love for mobile development, the web kept calling
-                  my name. With my eye for design, frontend felt like the
-                  perfect playground. I dove into HTML, CSS, and JavaScript—with
-                  React in 2016 becoming my game-changer. A few months later and
-                  I had landed my first full-time web dev role and never looked
-                  back.
+                  I like building things that solve problems I actually have,
+                  and seeing them become products other people use. CoffeeCoach
+                  got 64 users in a week without a single paid promotion.
+                  youtube-rag-scraper hit 55 GitHub stars because apparently
+                  a lot of people had the same frustration with video content
+                  being impossible to query.
+                </p>
+                <p className="mb-6 text-base leading-8 text-text-secondary">
+                  The pattern is the same every time: a personal itch, a quick
+                  build, a real audience. That feedback loop is what keeps me
+                  going.
                 </p>
               </div>
               <div className="hidden lg:block">
@@ -157,8 +160,8 @@ export default function AboutPage() {
                   <ShadowBox width={188} height={278}></ShadowBox>
                   <img
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
-                    src="/braydon_headshot_3.jpg"
-                    alt="Speaking at C3 Conf!"
+                    src="/mountains-dog.jpg"
+                    alt="Hardeep with a mountain dog"
                   />
                 </div>
               </div>
@@ -172,26 +175,20 @@ export default function AboutPage() {
                     <ShadowBox width={188} height={278}></ShadowBox>
                     <img
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
-                      src="/braydon_and_pj.jpeg"
-                      alt="A headshot"
+                      src="/surgery.jpg"
+                      alt="ACL recovery"
                     />
                   </div>
                 </div>
                 <h2 className="mb-6 w-full text-balance text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
-                  Life Beyond Code
+                  Life beyond the screen
                 </h2>
                 <p className="mb-6 text-base leading-8 text-text-secondary">
-                  When I met PeggyJean, I knew pretty quickly she was the one.
-                  After proposing, we had grand wedding plans – until COVID
-                  happened. We pivoted (developer joke!) and had a small,
-                  intimate ceremony in 2020 that turned out more perfect than we
-                  could have imagined.
-                </p>
-                <p className="mb-6 text-base leading-8 text-text-secondary">
-                  Family has always been my center, and seeing ours grow has
-                  been life&apos;s greatest joy. Our daughter ElizaJane arrived
-                  in 2021, bringing endless wonder to our days, and little Renny
-                  joined our crew in 2023, completing our circle.
+                  I play chess obsessively. I played football every week until
+                  I tore my ACL last year — still in recovery, still bitter
+                  about it. I befriend every mountain dog I meet. And I&apos;m
+                  on an ongoing, probably never-ending hunt for the best chhole
+                  bhature in Delhi.
                 </p>
               </div>
               <div className="hidden lg:block">
@@ -199,50 +196,8 @@ export default function AboutPage() {
                   <ShadowBox width={188} height={278}></ShadowBox>
                   <img
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
-                    src="/braydon_and_pj.jpeg"
-                    alt="A headshot"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Section 4 */}
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center lg:justify-between lg:py-32 lg:pl-12 xl:py-24">
-              <div className="flex flex-col items-center text-left lg:items-start">
-                <div className="mb-8 lg:hidden">
-                  <div className="relative mx-auto w-fit">
-                    <ShadowBox width={188} height={278}></ShadowBox>
-                    <img
-                      className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
-                      src="/braydon_speaking_photo.jpeg"
-                      alt="A headshot"
-                    />
-                  </div>
-                </div>
-                <h2 className="mb-6 w-full text-balance text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
-                  These Days
-                </h2>
-                <p className="mb-6 text-base leading-8 text-text-secondary">
-                  Currently, I&apos;m leading teams at LogicGate as a Senior
-                  Frontend Engineer where we&apos;re building some pretty
-                  awesome stuff. Speaking at tech conferences has become a
-                  regular part of my year.
-                </p>
-                <p className="mb-6 text-base leading-8 text-text-secondary">
-                  When I&apos;m not working, you&apos;ll find me on creative
-                  coding side projects, writing for my blog, failing
-                  spectacularly at games with friends, or—best of all—hanging
-                  out with my family, usually with coffee nearby and dad jokes
-                  at the ready.
-                </p>
-              </div>
-              <div className="hidden lg:block">
-                <div className="relative mx-auto w-fit">
-                  <ShadowBox width={188} height={278}></ShadowBox>
-                  <img
-                    className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
-                    src="/braydon_speaking_photo.jpeg"
-                    alt="A headshot"
+                    src="/surgery.jpg"
+                    alt="ACL recovery"
                   />
                 </div>
               </div>
@@ -250,70 +205,6 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* About */}
-        <div className="relative space-y-8 text-center">
-          <div className="space-y-4">
-            <GridWrapper>
-              <div className="text-center text-sm font-medium text-indigo-600">
-                <span>Experience</span>
-              </div>
-            </GridWrapper>
-            <GridWrapper>
-              <h2 className="mx-auto max-w-lg text-balance text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
-                My work history and achievements timeline.
-              </h2>
-            </GridWrapper>
-          </div>
-        </div>
-        <div className="space-y-16">
-          <GridWrapper>
-            <Resume />
-          </GridWrapper>
-          {/* <div className="flex justify-center">
-            <Button variant="secondary">Download Resume</Button>
-          </div> */}
-        </div>
-
-        <section className="relative space-y-16">
-          <div className="space-y-4">
-            <GridWrapper>
-              <div className="text-center text-sm font-medium text-indigo-600">
-                <span>More</span>
-              </div>
-            </GridWrapper>
-
-            <GridWrapper>
-              <h2 className="mx-auto max-w-lg text-balance text-center text-3xl font-medium leading-10 tracking-tight text-text-primary">
-                Here&apos;s what sets me apart and makes me unique
-              </h2>
-            </GridWrapper>
-          </div>
-
-          {/* About Grid */}
-          <GridWrapper>
-            <div className="grid grid-cols-1 gap-2 lg:grid-cols-12">
-              <div className="lg:col-span-3 lg:row-span-6">
-                <CurrentlyPlayingBento />
-              </div>
-              <div className="hidden lg:col-span-7 lg:row-span-5 lg:block">
-                <ScrapbookBento />
-              </div>
-              <div className="hidden lg:col-span-2 lg:col-start-11 lg:row-span-10 lg:block lg:min-h-[50px]">
-                <CurrentlyReadingBento />
-              </div>
-              <div className="lg:col-span-7 lg:row-span-8">
-                <ConnectionsBento linkTo="/connections" />
-              </div>
-
-              <div className="lg:col-span-3 lg:row-span-4">
-                <StatsBento />
-              </div>
-            </div>
-          </GridWrapper>
-        </section>
-
-        {/* Newsletter */}
-        <NewsletterSignUp />
       </div>
     </div>
   );
