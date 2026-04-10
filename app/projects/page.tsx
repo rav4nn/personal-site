@@ -1,43 +1,71 @@
+import Image from "next/image";
 import { GridWrapper } from "@/app/components/GridWrapper";
 import { GithubSection } from "@/app/components/GithubSection";
+import { getRepoStats } from "@/app/lib/stats/github-stats";
+import { parseHighlights } from "@/app/components/Highlight";
+import { GetInTouch } from "@/app/components/GetInTouch";
 
 interface Project {
   title: string;
   description: string;
   url: string;
-  tag?: string;
+  logo: string;
+  stats: string[];
 }
 
-const projects: Project[] = [
-  {
-    title: "coffeecoach.app",
-    description:
-      "A full-stack app that helps people improve their coffee brewing through structured feedback and data-driven suggestions. I built it because I was personally trying to get better at brewing and realised most advice online is scattered and inconsistent — so I collected high-quality data and built a decision tree to guide brewers through it.",
-    url: "https://coffeecoach.app",
-    tag: "64 users within a week, zero paid promotion",
-  },
-  {
-    title: "buildinpublic-x",
-    description:
-      "GitHub commits over the day → Twitter/Bluesky posts every night. Developers can build in public without the friction of manually writing updates — no server, no backend, no SaaS. The tool lives entirely inside your GitHub as an Action. LLM provider is swappable to your choice.",
-    url: "https://github.com/rav4nn/buildinpublic-x",
-  },
-  {
-    title: "youtube-rag-scraper",
-    description:
-      "A pipeline that extracts, processes, and structures knowledge from YouTube channels for use in RAG systems. Built after realising YouTube has some of the best domain-specific content, but it's impossible to query or reuse effectively. Turns unstructured video transcripts into something searchable for downstream AI applications.",
-    url: "https://github.com/rav4nn/youtube-rag-scraper",
-    tag: "55 GitHub stars",
-  },
-  {
-    title: "splitwala",
-    description:
-      "A WhatsApp chatbot that splits bills in group chats. Built out of personal need, focused on keeping the UX minimal — commands like /split, /paid, /balances. Solving a real everyday problem without overbuilding it.",
-    url: "https://github.com/rav4nn/splitwala-webjs",
-  },
-];
-
 export default async function ProjectPage() {
+  const [ytStats, bipStats, fluxStats] = await Promise.all([
+    getRepoStats("rav4nn", "youtube-rag-scraper"),
+    getRepoStats("rav4nn", "buildinpublic-x"),
+    getRepoStats("rav4nn", "flux-rag"),
+  ]);
+
+  const projects: Project[] = [
+    {
+      title: "coffeecoach.app",
+      description:
+        "Most coffee brewing advice online is scattered and contradictory. I ingested high-quality brewing data, made a {{RAG pipeline}} on top of it, and built an {{agentic coaching system}} based on that data — {{LLM orchestration}} with {{feedback loops}} that adapt recommendations based on user input.\n\nWrapped it all in a {{full-stack}} AI coaching app.",
+      url: "https://coffeecoach.app",
+      logo: "/projects/coffee-coach.webp",
+      stats: ["65 daily active users", "zero paid promotion"],
+    },
+    {
+      title: "youtube-rag-scraper",
+      description:
+        "YouTube has some of the best domain-specific knowledge on the internet, but it's locked in video format, impossible to query or reuse. This pipeline bulk-scrapes transcripts, processes them, and structures them into a searchable {{knowledge base}} for RAG systems. Handles {{chunking}}, {{embedding}}, and {{retrieval quality}} out of the box.",
+      url: "https://github.com/rav4nn/youtube-rag-scraper",
+      logo: "/projects/youtube-rag-scraper.webp",
+      stats: [
+        `${ytStats.stars} GitHub stars`,
+        `${ytStats.forks} forks`,
+      ],
+    },
+    {
+      title: "buildinpublic-x",
+      description:
+        "Most developers don't build in public because {{posting updates is friction}}. This simple GitHub Action reads your commit history over a few days, generates a thread via LLM, and posts to X and Bluesky automatically — no server, no backend, no SaaS. Lives entirely inside your repo.",
+      url: "https://github.com/rav4nn/buildinpublic-x",
+      logo: "/projects/buildinpublic.webp",
+      stats: ["$0.01/post on X", "zero friction", "one time setup"],
+    },
+    {
+      title: "flux-rag",
+      description:
+        "Most RAG systems ship without evaluation causing hallucinations to go undetected and retrieval quality degrading silently. FluxRAG inverts that: {{evaluation harness}} first, optimisation second. Drop in any file type across 10 formats, run a parameter sweep across {{chunking strategies}} and {{embedding models}}, and get a {{ranked benchmark report}} before you touch production.\n\nTracks {{latency}}, cost per query, and hallucination rate across every config because retrieval quality and {{cost tradeoffs}} shouldn't be assumptions.",
+      url: "https://github.com/rav4nn/flux-rag",
+      logo: "/projects/flux-rag.webp",
+      stats: ["hybrid search + reranking", "async FastAPI server", "8 embedding models"],
+    },
+    {
+      title: "splitwala",
+      description:
+        "Can't get your friends to install the bill splitting app? This WhatsApp chatbot makes it a single command — /split, /paid, /balances. {{Lives inside your WhatsApp group}}. No app to download, no account to create. Built on the principle that the best UX is the one that gets out of the way.",
+      url: "https://github.com/rav4nn/splitwala-webjs",
+      logo: "/projects/splitwala-removebg-preview.webp",
+      stats: ["live in 117 groups", "2000+ active users"],
+    },
+  ];
+
   return (
     <div className="relative space-y-16">
       <title>Projects | Hardeep Singh</title>
@@ -47,38 +75,66 @@ export default async function ProjectPage() {
         </h1>
       </GridWrapper>
 
-      <GridWrapper className="py-6">
+
+      <GridWrapper className="space-y-4 py-6">
+        {projects.map((project, index) => {
+          const isReversed = index % 2 === 1;
+          return (
+            <a
+              key={project.title}
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block rounded-2xl border border-border-primary bg-bg-primary p-6 transition-all duration-200 hover:border-indigo-400 md:p-8"
+            >
+              <div
+                className={`flex flex-col gap-6 md:flex-row md:items-center ${isReversed ? "md:flex-row-reverse" : ""}`}
+              >
+                <div className="flex-1 space-y-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h2 className="text-xl font-semibold tracking-tight text-text-primary group-hover:text-indigo-600">
+                      {project.title}
+                    </h2>
+                    {project.stats.map((stat) => (
+                      <span
+                        key={stat}
+                        className="inline-block rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600"
+                      >
+                        {stat}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="space-y-2">
+                    {project.description.split("\n\n").map((para, i) => (
+                      <p
+                        key={i}
+                        className="text-base leading-7 text-text-secondary"
+                      >
+                        {parseHighlights(para, "bold")}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex shrink-0 items-center justify-center md:w-36">
+                  <Image
+                    src={project.logo}
+                    alt={`${project.title} logo`}
+                    width={120}
+                    height={120}
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </GridWrapper>
+
+      <GridWrapper className="pt-6">
         <GithubSection />
       </GridWrapper>
 
-      <GridWrapper className="space-y-6 px-4 md:px-10">
-        {projects.map((project) => (
-          <a
-            key={project.title}
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block rounded-2xl border border-border-primary bg-bg-primary p-6 transition-all duration-200 hover:border-indigo-400 md:p-8"
-          >
-            <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-              <div className="max-w-2xl space-y-3">
-                <h2 className="text-xl font-semibold tracking-tight text-text-primary group-hover:text-indigo-600">
-                  {project.title}
-                </h2>
-                <p className="text-base leading-7 text-text-secondary">
-                  {project.description}
-                </p>
-              </div>
-              {project.tag && (
-                <span className="inline-block shrink-0 rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600 md:mt-1">
-                  {project.tag}
-                </span>
-              )}
-            </div>
-          </a>
-        ))}
-      </GridWrapper>
-
+      <GetInTouch />
     </div>
   );
 }

@@ -8,9 +8,9 @@ const resumeData: ResumeData = {
       period: "2024 - Present",
       positions: [
         {
-          title: "Builder / Indie Developer",
+          title: "Chemical engineer @ IIT Delhi → AI builder",
           description: [
-            "Building AI products that turn messy real-world data into usable systems.",
+            "I work with LLMs, RAG, ML & AI agents while shipping full-stack AI products that people use daily.",
             "Shipped coffeecoach.app (64 users in first week, zero paid promotion), youtube-rag-scraper (55 GitHub stars), buildinpublic-x, and splitwala — each solving a problem I personally had.",
           ],
         },

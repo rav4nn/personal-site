@@ -6,10 +6,10 @@ import type { GitHubStats, ContributionData } from "./types";
 const GITHUB_USERNAME = "rav4nn";
 
 async function fetchContributions(token: string): Promise<ContributionData | null> {
-  // Calculate rolling 365-day window ending today
+  // Calculate rolling 6-month window ending today
   const today = new Date();
   const oneYearAgo = new Date();
-  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+  oneYearAgo.setMonth(oneYearAgo.getMonth() - 6);
 
   const query = `
     query {
@@ -61,6 +61,37 @@ async function fetchContributions(token: string): Promise<ContributionData | nul
     return null;
   }
 }
+
+export interface RepoStats {
+  stars: number;
+  forks: number;
+}
+
+export const getRepoStats = unstable_cache(
+  async (owner: string, repo: string): Promise<RepoStats> => {
+    const token = process.env.GITHUB_TOKEN;
+    if (!token) return { stars: 0, forks: 0 };
+
+    try {
+      const response = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/vnd.github+json",
+          },
+        }
+      );
+      if (!response.ok) return { stars: 0, forks: 0 };
+      const data = await response.json();
+      return { stars: data.stargazers_count ?? 0, forks: data.forks_count ?? 0 };
+    } catch {
+      return { stars: 0, forks: 0 };
+    }
+  },
+  ["repo-stats"],
+  { revalidate: 86400 }
+);
 
 export const getGitHubStats = unstable_cache(
   async (): Promise<GitHubStats> => {

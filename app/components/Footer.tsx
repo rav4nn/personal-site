@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SocialPill } from "./SocialPill";
+
 import { GridWrapper } from "./GridWrapper";
 
 interface FooterLink {
@@ -42,7 +42,7 @@ export function Footer(): JSX.Element {
                     hardeep.cv
                   </Link>
                   <p className="w-60 leading-5 text-gray-500">
-                    I&apos;m Hardeep — building AI products that turn messy
+                    I&apos;m Hardeep - an AI engineer that turns messy
                     real-world data into usable systems.
                   </p>
                 </div>
@@ -59,7 +59,6 @@ export function Footer(): JSX.Element {
                   </li>
                 ))}
               </ul>
-              <SocialPill />
             </div>
           </div>
         </GridWrapper>

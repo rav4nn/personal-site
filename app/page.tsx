@@ -7,6 +7,7 @@ import { PhotoGallery } from "./components/PhotoGallery";
 import { AboutMeBento } from "./components/AboutMeBento";
 import { AnimatedMobilePhotos } from "./components/AnimatedMobilePhotos";
 import { GridWrapper } from "./components/GridWrapper";
+import { GetInTouch } from "./components/GetInTouch";
 
 export default async function Home() {
   const PROFILE_DELAY = 0;
@@ -26,8 +27,7 @@ export default async function Home() {
                 delay={HEADING_DELAY}
                 className="mx-auto max-w-2xl text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]"
               >
-                Hey, I&apos;m Hardeep! <br /> Welcome to my corner of the
-                internet!
+                Hey, I&apos;m Hardeep! <br />
               </AnimatedText>
             </GridWrapper>
             <GridWrapper>
@@ -37,8 +37,9 @@ export default async function Home() {
                   delay={PARAGRAPH_DELAY}
                   className="leading-8 text-text-secondary"
                 >
-                  Chemical Engineer @ IIT Delhi &rarr; building AI products
-                  that turn messy real-world data into usable systems.
+                  Chemical engineer @ IIT Delhi → AI builder <br /> I work
+                  with LLMs, RAG, ML & AI agents while shipping full-stack AI
+                  products that people use daily.
                 </AnimatedText>
               </div>
             </GridWrapper>
@@ -54,22 +55,8 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* About Section */}
-        <section className="relative space-y-10 md:space-y-16">
-          {/* <AboutPattern /> */}
-          <div className="space-y-4">
-            <GridWrapper>
-              <div className="text-center text-sm font-medium text-indigo-600">
-                <span>About</span>
-              </div>
-            </GridWrapper>
-            <GridWrapper>
-              <h2 className="mx-auto max-w-lg text-balance text-center text-3xl font-medium leading-10 tracking-tight text-text-primary md:text-4xl">
-                Builder, engineer, and obsessive problem-solver
-              </h2>
-            </GridWrapper>
-          </div>
-
+        {/* Grid Section */}
+        <section className="relative space-y-10 pb-20 md:space-y-16 md:pb-24">
           <GridWrapper>
             <div className="grid grid-cols-1 gap-2 md:grid-cols-12 lg:grid-rows-[14]">
               <div className="col-span-1 md:col-span-5 lg:col-span-5 lg:row-span-6">
@@ -116,10 +103,10 @@ export default async function Home() {
           </GridWrapper>
         </section> */}
 
-        {/* Newsletter Section - hidden for now */}
-        {/* <section>
-          <NewsletterSignUp />
-        </section> */}
+        {/* Get In Touch */}
+        <section>
+          <GetInTouch />
+        </section>
       </div>
     </section>
   );
