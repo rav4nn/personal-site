@@ -1,5 +1,5 @@
 {
-  "generated": "2025-12-31T22:05:04.812Z",
+  "generated": "2026-04-11T07:46:51.316Z",
   "version": "1.0",
   "previews": {
     "00006c2edbb4": {
@@ -985,6 +985,30 @@
       "width": 1200,
       "height": 630,
       "generatedAt": "2025-12-31T21:35:57.261Z",
+      "status": "success"
+    },
+    "00004cb52dd2": {
+      "url": "https://coffeecoach.app",
+      "screenshotPath": "/previews/00004cb52dd2.jpeg",
+      "width": 1200,
+      "height": 630,
+      "generatedAt": "2026-04-11T07:46:40.536Z",
+      "status": "success"
+    },
+    "000036328587": {
+      "url": "https://github.com/rav4nn/youtube-rag-scraper",
+      "screenshotPath": "/previews/000036328587.jpeg",
+      "width": 1200,
+      "height": 630,
+      "generatedAt": "2026-04-11T07:46:47.132Z",
+      "status": "success"
+    },
+    "00005ecb3274": {
+      "url": "https://github.com/rav4nn/flux-rag",
+      "screenshotPath": "/previews/00005ecb3274.jpeg",
+      "width": 1200,
+      "height": 630,
+      "generatedAt": "2026-04-11T07:46:51.214Z",
       "status": "success"
     }
   }

@@ -20,6 +20,13 @@ const config: LinkPreviewConfig & { contentHashPath: string } = {
   imageQuality: 80,
 };
 
+// Extra URLs to always include (e.g. about page links not in MDX content)
+const EXTRA_URLS = [
+  "https://coffeecoach.app",
+  "https://github.com/rav4nn/youtube-rag-scraper",
+  "https://github.com/rav4nn/flux-rag",
+];
+
 // Domains to skip
 const EXCLUDED_DOMAINS = [
   "twitter.com",
@@ -311,6 +318,8 @@ async function main() {
     const urls = extractUrlsFromCode(post.code);
     urls.forEach((url) => allUrls.add(url));
   }
+  // Always include extra URLs (about page links, etc.)
+  EXTRA_URLS.forEach((url) => allUrls.add(url));
 
   console.log(`Found ${allUrls.size} unique external URLs\n`);
 

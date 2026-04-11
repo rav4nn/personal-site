@@ -4,16 +4,16 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function ProfilePicture() {
-  const [imageSrc, setImageSrc] = useState("/hero.jpg");
+  const [imageSrc, setImageSrc] = useState("/hero.webp");
   const [isChanging, setIsChanging] = useState(false);
 
   const changeImage = () => {
     setIsChanging(true);
     const images = [
-      "/hero.jpg",
-      "/mountains-dog.jpg",
-      "/chess.jpg",
-      "/football.jpg",
+      "/hero.webp",
+      "/mountains-dog.webp",
+      "/chess.webp",
+      "/football.webp",
     ];
     const availableImages = images.filter((img) => img !== imageSrc);
     const randomIndex = Math.floor(Math.random() * availableImages.length);

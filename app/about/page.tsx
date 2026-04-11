@@ -7,9 +7,12 @@ import { Photo } from "@/app/components/Photo";
 import { AboutTrackPattern } from "@/app/components/AboutTrackPattern";
 import { Resume } from "@/app/components/Resume";
 import { GetInTouch } from "@/app/components/GetInTouch";
+import { AboutLink } from "@/app/components/AboutLink";
+import { getRepoStats } from "@/app/lib/stats/github-stats";
 
-export default function AboutPage() {
+export default async function AboutPage() {
   const timeOfDayGreeting = getTimeOfDayGreeting();
+  const ytStats = await getRepoStats("rav4nn", "youtube-rag-scraper");
 
   return (
     <div className="relative mt-14">
@@ -33,7 +36,7 @@ export default function AboutPage() {
                     <Photo
                       width={140}
                       height={140}
-                      src="/chess.jpg"
+                      src="/chess.webp"
                       alt="Hardeep playing chess"
                       direction="left"
                     />
@@ -42,7 +45,7 @@ export default function AboutPage() {
                     <Photo
                       width={140}
                       height={140}
-                      src="/hero.jpg"
+                      src="/hero.webp"
                       alt="Hardeep Singh"
                       direction="right"
                     />
@@ -51,7 +54,7 @@ export default function AboutPage() {
                     <Photo
                       width={140}
                       height={140}
-                      src="/mountains-dog.jpg"
+                      src="/mountains-dog.webp"
                       alt="Hardeep with a mountain dog"
                       direction="left"
                     />
@@ -93,7 +96,7 @@ export default function AboutPage() {
                     <ShadowBox width={188} height={278}></ShadowBox>
                     <img
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
-                      src="/hero.jpg"
+                      src="/hero.webp"
                       alt="Hardeep Singh"
                     />
                   </div>
@@ -118,7 +121,7 @@ export default function AboutPage() {
                   <ShadowBox width={188} height={278}></ShadowBox>
                   <img
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
-                    src="/hero.jpg"
+                    src="/hero.webp"
                     alt="Hardeep Singh"
                   />
                 </div>
@@ -133,7 +136,7 @@ export default function AboutPage() {
                     <ShadowBox width={188} height={278}></ShadowBox>
                     <img
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
-                      src="/mountains-dog.jpg"
+                      src="/mountains-dog.webp"
                       alt="Hardeep with a mountain dog"
                     />
                   </div>
@@ -144,37 +147,31 @@ export default function AboutPage() {
                 <p className="mb-6 text-base leading-8 text-text-secondary">
                   I like building things that solve problems for me, and seeing
                   them become products that other people use.{" "}
-                  <a
+                  <AboutLink
                     href="https://coffeecoach.app"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="inline-flex items-baseline gap-1 font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 transition-colors hover:text-indigo-500 hover:decoration-indigo-400"
                   >
                     CoffeeCoach
                     <svg className="inline h-3 w-3 shrink-0 self-center" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3.5 3H9v5.5M9 3L3 9" /></svg>
-                  </a>{" "}
-                  blew up on Reddit without a single paid promotion.{" "}
-                  <a
+                  </AboutLink>{" "}
+                  took off on Reddit without a single paid promotion.{" "}
+                  <AboutLink
                     href="https://github.com/rav4nn/youtube-rag-scraper"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="inline-flex items-baseline gap-1 font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 transition-colors hover:text-indigo-500 hover:decoration-indigo-400"
                   >
                     youtube-rag-scraper
                     <svg className="inline h-3 w-3 shrink-0 self-center" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3.5 3H9v5.5M9 3L3 9" /></svg>
-                  </a>{" "}
-                  hit 62 GitHub stars because apparently a lot of people had
+                  </AboutLink>{" "}
+                  hit {ytStats.stars} GitHub stars because apparently a lot of people had
                   the same frustration with video content being impossible to
                   query.{" "}
-                  <a
+                  <AboutLink
                     href="https://github.com/rav4nn/flux-rag"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="inline-flex items-baseline gap-1 font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 transition-colors hover:text-indigo-500 hover:decoration-indigo-400"
                   >
                     FluxRAG
                     <svg className="inline h-3 w-3 shrink-0 self-center" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3.5 3H9v5.5M9 3L3 9" /></svg>
-                  </a>{" "}
+                  </AboutLink>{" "}
                   helped me understand RAG pipelines, eval and benchmarking
                   which is enhancing my current AI Agent centric projects.
                 </p>
@@ -184,7 +181,7 @@ export default function AboutPage() {
                   <ShadowBox width={188} height={278}></ShadowBox>
                   <img
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
-                    src="/mountains-dog.jpg"
+                    src="/mountains-dog.webp"
                     alt="Hardeep with a mountain dog"
                   />
                 </div>
@@ -199,7 +196,7 @@ export default function AboutPage() {
                     <ShadowBox width={188} height={278}></ShadowBox>
                     <img
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
-                      src="/surgery.jpg"
+                      src="/surgery.webp"
                       alt="ACL recovery"
                     />
                   </div>
@@ -209,7 +206,7 @@ export default function AboutPage() {
                 </h2>
                 <p className="mb-6 text-base leading-8 text-text-secondary">
                   I play chess obsessively. I played football every week until
-                  I tore my ACL last year — still in recovery, still bitter
+                  I tore my ACL last year. Still in recovery, still bitter
                   about it. I befriend every mountain dog I meet. And I&apos;m
                   on an ongoing, probably never-ending hunt for the best chhole
                   bhature in Delhi.
@@ -220,7 +217,7 @@ export default function AboutPage() {
                   <ShadowBox width={188} height={278}></ShadowBox>
                   <img
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
-                    src="/surgery.jpg"
+                    src="/surgery.webp"
                     alt="ACL recovery"
                   />
                 </div>
@@ -235,7 +232,7 @@ export default function AboutPage() {
                     <ShadowBox width={188} height={278}></ShadowBox>
                     <img
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
-                      src="/football.jpg"
+                      src="/football.webp"
                       alt="Hardeep playing football"
                     />
                   </div>
@@ -244,23 +241,21 @@ export default function AboutPage() {
                   Shipping is the habit
                 </h2>
                 <p className="mb-6 text-base leading-8 text-text-secondary">
-                  Since IIT Delhi I&apos;ve been figuring things out
-                  independently — building a SaaS for a UK based client,
-                  helping build a COVID-19 crisis platform, and eventually
-                  teaching myself to build software by building software.
+                  Since IIT Delhi I&apos;ve been building independently — a
+                  COVID-19 crisis platform, contract SaaS work for a UK-based
+                  client, and eventually full-stack AI products that people
+                  actually use.
                 </p>
                 <p className="mb-6 text-base leading-8 text-text-secondary">
                   I care about the things that matter in production — latency,
                   evaluation, hallucination rates, cost per query.{" "}
-                  <a
+                  <AboutLink
                     href="https://github.com/rav4nn/flux-rag"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="inline-flex items-baseline gap-1 font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 transition-colors hover:text-indigo-500 hover:decoration-indigo-400"
                   >
                     FluxRAG
                     <svg className="inline h-3 w-3 shrink-0 self-center" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3.5 3H9v5.5M9 3L3 9" /></svg>
-                  </a>{" "}
+                  </AboutLink>{" "}
                   exists because I wanted to benchmark those tradeoffs properly
                   before shipping anything.
                 </p>
@@ -270,7 +265,7 @@ export default function AboutPage() {
                   <ShadowBox width={188} height={278}></ShadowBox>
                   <img
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
-                    src="/football.jpg"
+                    src="/football.webp"
                     alt="Hardeep playing football"
                   />
                 </div>
@@ -289,14 +284,16 @@ export default function AboutPage() {
             </GridWrapper>
             <GridWrapper>
               <h2 className="mx-auto max-w-xl text-balance text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
-                My work history and achievements timeline.
+                My work history and education timeline.
               </h2>
             </GridWrapper>
           </div>
           <GridWrapper>
-            <Resume />
+            <Resume ytStars={ytStats.stars} />
           </GridWrapper>
         </div>
+
+        <HorizontalLine />
 
         {/* Get In Touch */}
         <GetInTouch />

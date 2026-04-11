@@ -25,7 +25,7 @@ export function AnimatedMobilePhotos({ delay }: AnimatedMobilePhotosProps) {
             <ShadowBox width={170} height={252}></ShadowBox>
             <img
               className="absolute left-0 top-2 h-[245px] w-[163px] rotate-[-5deg] rounded-lg object-cover"
-              src="/mountains-dog.jpg"
+              src="/mountains-dog.webp"
               alt="A headshot"
             />
           </motion.div>
@@ -42,7 +42,7 @@ export function AnimatedMobilePhotos({ delay }: AnimatedMobilePhotosProps) {
             <ShadowBox width={188} height={278}></ShadowBox>
             <img
               className="absolute left-0 top-0 h-[280px] w-[190px] rotate-[-8deg] rounded-lg object-cover shadow-lg shadow-black/20"
-              src="/hero.jpg"
+              src="/hero.webp"
               alt="A headshot"
             />
           </motion.div>
@@ -59,7 +59,7 @@ export function AnimatedMobilePhotos({ delay }: AnimatedMobilePhotosProps) {
             <ShadowBox width={170} height={252}></ShadowBox>
             <img
               className="absolute left-0 top-0 h-[245px] w-[163px] rotate-[10deg] rounded-lg object-cover shadow-lg shadow-black/20"
-              src="/surgery.jpg"
+              src="/surgery.webp"
               alt="A headshot"
             />
           </motion.div>
