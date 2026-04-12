@@ -14,19 +14,18 @@ export default async function LinksPage() {
 
   return (
     <div className="relative">
-      <title>Links | Braydon Coyer</title>
+      <title>Links | Hardeep Singh</title>
       <div className="space-y-12">
         <ProfilePicture />
         <GridWrapper>
           <h1 className="mx-auto max-w-2xl text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]">
-            Hey, I&apos;m Braydon!
+            Hey, I&apos;m Hardeep!
           </h1>
         </GridWrapper>
         <GridWrapper>
           <div className="mx-auto max-w-xl text-center md:mt-8">
             <p className="leading-8 text-text-secondary">
-              I&apos;m a front-end developer, team lead, blogger and
-              international public speaker.
+              Chemical engineer @ IIT Delhi → AI builder. I work with LLMs, RAG &amp; AI agents while shipping full-stack AI products that people use daily.
             </p>
           </div>
         </GridWrapper>
@@ -35,7 +34,7 @@ export default async function LinksPage() {
             <Button href="/" variant="primary">
               View my full website
             </Button>
-            <Button href="mailto:braydon@coyer.net" variant="secondary">
+            <Button href="mailto:hardeepsindia@gmail.com" variant="secondary">
               Email me
             </Button>
           </div>

@@ -283,14 +283,14 @@ export default async function AboutPage() {
               </div>
             </GridWrapper>
             <GridWrapper>
-              <h2 className="mx-auto max-w-xl text-balance text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
+              <h2 className="mx-auto max-w-lg text-balance text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
                 My work history and education timeline.
               </h2>
             </GridWrapper>
           </div>
-          <GridWrapper>
-            <Resume ytStars={ytStats.stars} />
-          </GridWrapper>
+        </div>
+        <div className="space-y-16">
+          <Resume ytStars={ytStats.stars} />
         </div>
 
         <HorizontalLine />

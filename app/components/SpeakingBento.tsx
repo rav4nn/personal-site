@@ -33,7 +33,7 @@ export function SpeakingBento() {
               stiffness: 150,
             }}
           >
-            <SecondaryPhoto imgSrc="/c3_speaker_head.png" />
+            <SecondaryPhoto imgSrc="/hero_icon.webp" />
           </motion.span>
 
           <motion.span
@@ -62,7 +62,7 @@ export function SpeakingBento() {
               stiffness: 150,
             }}
           >
-            <SecondaryPhoto imgSrc="/braydon_speaking_head_3.jpeg" />
+            <SecondaryPhoto imgSrc="/chess.webp" />
           </motion.span>
         </div>
         {/* Gradient overlay */}
@@ -311,7 +311,7 @@ function PrimaryPhoto() {
 
       <img
         className="absolute left-1/2 top-1/2 h-[100px] w-[100px] -translate-x-1/2 -translate-y-1/2 transform rounded-full object-cover"
-        src="/braydon_speaking_photo.jpeg"
+        src="/hero.webp"
         alt=""
       />
     </span>

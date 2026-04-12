@@ -83,7 +83,7 @@ const talksAndPresentations: Talk[] = [
 export default function SpeakingPage() {
   return (
     <div className="relative">
-      <title>Speaking | Braydon Coyer</title>
+      <title>Speaking | Hardeep Singh</title>
       <div className="relative space-y-16">
         <GridWrapper>
           <h1 className="max-w-3/5 mx-auto mt-16 text-balance text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]">
@@ -124,8 +124,8 @@ export default function SpeakingPage() {
                 <Photo
                   width={404}
                   height={270}
-                  src="/braydon_commit_your_code.jpeg"
-                  alt="DoorDash hitting it's millionth total order back in 2015."
+                  src="/hero.webp"
+                  alt="Hardeep Singh"
                   direction="left"
                 />
               </span>
@@ -137,8 +137,8 @@ export default function SpeakingPage() {
                 <Photo
                   width={180}
                   height={270}
-                  src="/braydon_stir_trek.jpeg"
-                  alt="DoorDash hitting it's millionth total order back in 2015."
+                  src="/mountains-dog.webp"
+                  alt="Hardeep Singh"
                   direction="right"
                 />
               </span>
@@ -215,24 +215,12 @@ export default function SpeakingPage() {
                     <TabPanels className="mt-8">
                       <TabPanel id="first-person">
                         <p className="text-base leading-7 text-text-secondary">
-                          I am Braydon Coyer, a Senior Frontend Engineer at
-                          LogicGate, where I play a key role in developing an
-                          automated Governance, Risk, and Compliance (GRC)
-                          platform. As a creative developer, blogger, and
-                          designer, I enjoy tinkering and sharing my projects
-                          with the public. I live in Texas with my wife and two
-                          daughters.
+                          I am Hardeep Singh, an AI engineer who studied Chemical Engineering at IIT Delhi. I build AI products using LLMs, RAG, and agentic workflows — shipping full-stack tools that people use daily. I enjoy sharing what I learn publicly and talking about the intersection of engineering and AI.
                         </p>
                       </TabPanel>
                       <TabPanel id="third-person">
                         <p className="text-base leading-7 text-text-secondary">
-                          Braydon Coyer is a Senior Frontend Engineer at
-                          LogicGate, where he plays a key role in developing an
-                          automated Governance, Risk, and Compliance (GRC)
-                          platform. As a creative developer, blogger, and
-                          designer, he enjoys tinkering and sharing his projects
-                          with the public. Braydon lives in Texas with his wife
-                          and two daughters.
+                          Hardeep Singh is an AI engineer who studied Chemical Engineering at IIT Delhi. He builds AI products using LLMs, RAG, and agentic workflows — shipping full-stack tools that people use daily. He enjoys sharing what he learns publicly and talking about the intersection of engineering and AI.
                         </p>
                       </TabPanel>
                     </TabPanels>
@@ -252,7 +240,7 @@ export default function SpeakingPage() {
                       <ShadowBox width={200} height={200}></ShadowBox>
                       <img
                         className="absolute left-1 top-2 h-[186px] w-[186px] rotate-[9deg] rounded-lg object-cover shadow"
-                        src="/braydon_headshot_3.jpg"
+                        src="/hero.webp"
                         alt=""
                       />
                     </div>
@@ -261,7 +249,7 @@ export default function SpeakingPage() {
                       <ShadowBox width={200} height={200}></ShadowBox>
                       <img
                         className="absolute left-1 top-2 h-[186px] w-[186px] rotate-[-8deg] rounded-lg object-cover shadow"
-                        src="/braydon_speaking_photo_square.jpg"
+                        src="/chess.webp"
                         alt=""
                       />
                     </div>

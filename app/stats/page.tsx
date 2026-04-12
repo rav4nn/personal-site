@@ -22,9 +22,9 @@ import { GridWrapper } from "@/app/components/GridWrapper";
 import { StatsPageWrapper } from "@/app/components/stats/StatsPageWrapper";
 
 export const metadata: Metadata = {
-  title: "Stats | Braydon Coyer",
+  title: "Stats | Hardeep Singh",
   description:
-    "Numbers, metrics, and fun facts about braydoncoyer.dev - total articles, views, reactions, and more.",
+    "Numbers, metrics, and fun facts about hardeep.cv - GitHub activity, Lighthouse scores, and more.",
 };
 
 // Revamp date: March 31, 2025
