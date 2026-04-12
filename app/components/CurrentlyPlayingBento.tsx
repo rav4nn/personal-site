@@ -2,11 +2,10 @@
 
 import useSWR from "swr";
 
-import { type CurrentlyPlaying } from "app/db/spotify";
+import { type CurrentlyPlaying, getCurrentlyPlaying } from "app/db/spotify";
 import Link from "next/link";
 import { BentoCard } from "./BentoCard";
 import { CirclePattern } from "./SpeakingBento";
-import { getCurrentlyPlaying } from "@/app/db/actions";
 
 const favorite: CurrentlyPlaying = {
   artist: "Bear McCreary",

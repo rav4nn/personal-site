@@ -3,7 +3,6 @@
 import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { GridWrapper } from "./GridWrapper";
-import { createContact } from "@/app/db/actions";
 
 interface NewsletterSignUpProps {
   title?: string;
@@ -50,33 +49,14 @@ export function NewsletterSignUp({
       return;
     }
 
-    try {
-      const result = await createContact(formState.email, formState.website);
-
-      if (result.success) {
-        setFormState((prev) => ({
-          ...prev,
-          message: "You're signed up!",
-          isSuccess: true,
-          email: "",
-        }));
-      } else {
-        setFormState((prev) => ({
-          ...prev,
-          message: "Something went wrong. :(",
-          isSuccess: false,
-        }));
-      }
-    } catch (error) {
-      setFormState((prev) => ({
-        ...prev,
-        message: "Something went wrong. :(",
-        isSuccess: false,
-      }));
-      console.error(error);
-    } finally {
-      setFormState((prev) => ({ ...prev, isLoading: false }));
-    }
+    // Newsletter backend not yet configured
+    setFormState((prev) => ({
+      ...prev,
+      message: "Newsletter coming soon!",
+      isSuccess: true,
+      email: "",
+      isLoading: false,
+    }));
   };
 
   return (
