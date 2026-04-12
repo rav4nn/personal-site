@@ -91,18 +91,31 @@ export default async function ProjectPage() {
                 className={`flex flex-col gap-6 md:flex-row md:items-center ${isReversed ? "md:flex-row-reverse" : ""}`}
               >
                 <div className="flex-1 space-y-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h2 className="text-xl font-semibold tracking-tight text-text-primary group-hover:text-indigo-600">
-                      {project.title}
-                    </h2>
-                    {project.stats.map((stat) => (
-                      <span
-                        key={stat}
-                        className="inline-block rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600"
-                      >
-                        {stat}
-                      </span>
-                    ))}
+                  <div className="flex items-center gap-3">
+                    <div className="shrink-0 md:hidden">
+                      <Image
+                        src={project.logo}
+                        alt={`${project.title} logo`}
+                        width={40}
+                        height={40}
+                        className="object-contain"
+                      />
+                    </div>
+                    <div>
+                      <h2 className="text-xl font-semibold tracking-tight text-text-primary group-hover:text-indigo-600">
+                        {project.title}
+                      </h2>
+                      <div className="mt-1 flex flex-wrap gap-1.5">
+                        {project.stats.map((stat) => (
+                          <span
+                            key={stat}
+                            className="inline-block rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600"
+                          >
+                            {stat}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                   <div className="space-y-2">
                     {project.description.split("\n\n").map((para, i) => (
@@ -115,7 +128,7 @@ export default async function ProjectPage() {
                     ))}
                   </div>
                 </div>
-                <div className="flex shrink-0 items-center justify-center md:w-36">
+                <div className="hidden shrink-0 items-center justify-center md:flex md:w-36">
                   <Image
                     src={project.logo}
                     alt={`${project.title} logo`}
