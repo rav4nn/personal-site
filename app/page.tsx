@@ -78,30 +78,6 @@ export default async function Home() {
           </GridWrapper>
         </section>
 
-        {/* My Site Section - hidden for now */}
-        {/* <section className="relative space-y-10 md:space-y-16">
-          <div className="space-y-4 text-balance">
-            <GridWrapper>
-              <div className="text-center text-sm font-medium text-indigo-600">
-                <span>My Site</span>
-              </div>
-            </GridWrapper>
-            <GridWrapper>
-              <h2 className="text-center text-3xl font-medium leading-10 tracking-tighter text-text-primary md:mx-auto md:max-w-lg md:text-4xl">
-                My site is a playful sandbox. Explore, experiment, && say hello
-              </h2>
-            </GridWrapper>
-          </div>
-          <GridWrapper>
-            <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
-              <span className="col-span-1 h-[276px] sm:block md:hidden lg:block">
-                <ChangelogBento />
-              </span>
-              <SpeakingBento />
-              <CommunityWallBento />
-            </div>
-          </GridWrapper>
-        </section> */}
 
         {/* Get In Touch */}
         <section>

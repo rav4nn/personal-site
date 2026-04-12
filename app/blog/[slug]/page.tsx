@@ -10,8 +10,6 @@ import { FeaturedBlogCard } from "@/app/components/FeaturedBlogCard";
 import { BgGradient } from "@/app/components/BgGradient";
 import readingDuration from "reading-duration";
 import clsx from "clsx";
-import { ViewCounter } from "@/app/components/ViewCounter";
-import ArticleReactionWrapper from "@/app/components/ArticleReactionsWrapper";
 import { Suspense } from "react";
 import { Metadata, ResolvingMetadata } from "next";
 import { AudioPlayer } from "@/app/components/AudioPlayer";
@@ -228,9 +226,6 @@ export default async function BlogPage({ params }: BlogPageProps) {
                     strokeWidth="1.5"
                   ></circle>
                 </svg>
-                <Suspense fallback={<span>...</span>}>
-                  <ViewCounter slug={post.slug} increment={true} />
-                </Suspense>
               </div>
             </div>
           </div>
@@ -255,9 +250,6 @@ export default async function BlogPage({ params }: BlogPageProps) {
       {/* Similar Posts */}
       <section className="space-y-16">
         <div className="mx-auto w-fit">
-          <Suspense fallback={<div>Loading reactions...</div>}>
-            <ArticleReactionWrapper slug={post.slug} />
-          </Suspense>
         </div>
         <div className="relative space-y-4">
           <span className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2">
