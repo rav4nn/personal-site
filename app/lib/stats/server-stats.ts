@@ -14,7 +14,21 @@ const VALID_REACTIONS: ReactionType[] = [
 
 export const getServerStats = unstable_cache(
   async (): Promise<ServerStats> => {
-    const supabase = await createSupabaseAdminClient();
+    const emptyStats: ServerStats = {
+      totalViews: 0,
+      totalReactions: 0,
+      reactionsByType: { like: 0, heart: 0, celebrate: 0, insightful: 0 },
+      topViewedArticles: [],
+      topReactedArticles: [],
+      communityWallMessages: 0,
+    };
+
+    let supabase;
+    try {
+      supabase = await createSupabaseAdminClient();
+    } catch {
+      return emptyStats;
+    }
 
     // Total views across all articles
     const { data: viewsData } = await supabase

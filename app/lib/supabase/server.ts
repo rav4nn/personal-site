@@ -28,8 +28,10 @@ export default async function createSupabaseServerClient() {
 
 /// Admin client with service role key (for operations that need to bypass RLS)
 export async function createSupabaseAdminClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
+    throw new Error("Supabase environment variables are not configured.");
+  }
+  return createClient(url, key);
 }
