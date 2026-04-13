@@ -1,6 +1,6 @@
 "use client";
 
-import { useScroll, motion } from "framer-motion";
+import { useScroll, useTransform, motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
 
 export function AboutTrackPattern() {
@@ -15,6 +15,15 @@ export function AboutTrackPattern() {
 
   const [pathLength, setPathLength] = useState(0);
   const [position, setPosition] = useState({ x: 145, y: 0 });
+
+  // Mobile timeline: 0%–100% within the inset container (so ball sits exactly at line endpoints)
+  const mobileProgress = useTransform(scrollYProgress, (v) => `${v * 100}%`);
+  // Color transitions from light indigo (indigo-200) to full indigo (indigo-600)
+  const mobileColor = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["rgb(199, 210, 254)", "rgb(79, 70, 229)"]
+  );
 
   useEffect(() => {
     if (!pathRef.current && !verticalPathRef.current) return;
@@ -43,7 +52,38 @@ export function AboutTrackPattern() {
   }, [pathLength, scrollYProgress]);
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className="h-full">
+      {/* Mobile vertical timeline */}
+      <div className="pointer-events-none relative block h-full lg:hidden">
+        {/*
+          Inset by 8px (half ball height) top and bottom.
+          Ball travels 0%–100% inside this box, so its center sits exactly
+          at the top endpoint and bottom endpoint of the gray line.
+        */}
+        <div className="absolute inset-x-0 bottom-2 top-2">
+          {/* Base gray line — full height of inset area */}
+          <div className="absolute right-4 top-0 h-full w-[2px] rounded-full bg-[#D6DADE]/[0.24]" />
+
+          {/* Active colored line — grows with the ball */}
+          <motion.div
+            className="absolute right-4 top-0 w-[2px] rounded-full"
+            style={{ height: mobileProgress, backgroundColor: mobileColor }}
+          />
+
+          {/* Ball — solid, light → full indigo as you scroll */}
+          <motion.div
+            className="absolute right-2 z-10 -translate-y-1/2"
+            style={{ top: mobileProgress }}
+          >
+            <motion.div
+              className="h-4 w-4 rounded-full"
+              style={{ backgroundColor: mobileColor }}
+            />
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Desktop curved SVG path */}
       <svg
         className="user-select-none pointer-events-none hidden lg:block"
         width="380"

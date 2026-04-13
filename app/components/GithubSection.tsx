@@ -22,7 +22,7 @@ export async function GithubSection() {
         </div>
 
         {/* Stat cards */}
-        <div className="flex shrink-0 flex-row gap-4 lg:w-52 lg:flex-col">
+        <div className="flex shrink-0 flex-row justify-center gap-4 lg:w-52 lg:flex-col lg:justify-start">
           <GitHubStatsCard
             type="stars"
             label="GitHub Stars"

@@ -8,18 +8,12 @@ export function Footer(): JSX.Element {
       <div className="relative max-w-7xl border-border-primary/50">
         <GridWrapper>
           <div className="flex max-w-6xl px-4 lg:mx-auto lg:px-4 xl:px-0">
-            <div className="flex w-full items-start justify-between py-6 text-sm">
-              <div>
-                <Link className="inline-block text-sm font-semibold tracking-tight text-text-primary" href="/">
-                  hardeep.cv
-                </Link>
-                <p className="mt-6 text-gray-500">
-                  © {new Date().getFullYear()} Hardeep Singh
-                </p>
-              </div>
-              <p className="w-60 leading-5 text-gray-500 text-right">
-                I&apos;m Hardeep - an AI engineer that turns messy
-                real-world data into usable systems.
+            <div className="flex w-full items-center justify-between py-6 text-sm">
+              <Link className="inline-block text-sm font-semibold tracking-tight text-text-primary" href="/">
+                hardeep.cv
+              </Link>
+              <p className="text-gray-500">
+                © {new Date().getFullYear()} Hardeep Singh
               </p>
             </div>
           </div>

@@ -98,8 +98,10 @@ export function Resume({ ytStars = 62 }: ResumeProps) {
                       className="space-y-4"
                     >
                       <h4 className="text-lg font-semibold">
+                        <span className="md:hidden">{experience.company} – </span>
                         {position.title}
                       </h4>
+                      <p className="text-sm text-gray-600 md:hidden">{experience.period}</p>
                       <div className="space-y-3">
                         {position.description.map((desc, i) => (
                           <p key={i} className="text-gray-600">

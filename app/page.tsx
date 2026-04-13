@@ -139,7 +139,7 @@ export default async function Home() {
               </GridWrapper>
             </div>
             <div className="relative h-fit w-full overflow-hidden">
-              <div className="absolute left-0 top-0 w-full md:left-4 lg:left-[355px] xl:left-[455px]">
+              <div className="absolute right-0 top-0 bottom-0 w-full lg:right-auto lg:bottom-auto lg:left-[355px] xl:left-[455px]">
                 <AboutTrackPattern />
               </div>
 
@@ -184,9 +184,9 @@ export default async function Home() {
               </div>
 
               {/* Section 2 */}
-              <div className="grid grid-cols-1 gap-8 py-24 lg:grid-cols-2 lg:items-center lg:justify-between lg:pl-12">
+              <div className="grid grid-cols-1 gap-8 py-6 pr-10 lg:grid-cols-2 lg:items-center lg:justify-between lg:py-24 lg:pl-12 lg:pr-0">
                 <div className="flex flex-col items-center text-left lg:items-start">
-                  <div className="mb-8 lg:hidden">
+                  <div className="mb-3 lg:hidden">
                     <div className="relative mx-auto w-fit">
                       <ShadowBox width={188} height={278}></ShadowBox>
                       <img
@@ -244,9 +244,9 @@ export default async function Home() {
               </div>
 
               {/* Section 3 */}
-              <div className="grid grid-cols-1 gap-8 pr-12 lg:grid-cols-2 lg:items-center lg:justify-between xl:py-24">
+              <div className="grid grid-cols-1 gap-8 py-6 pr-12 lg:grid-cols-2 lg:items-center lg:justify-between xl:py-24">
                 <div className="flex flex-col items-center text-left lg:order-2 lg:items-start">
-                  <div className="mb-8 lg:hidden">
+                  <div className="mb-3 lg:hidden">
                     <div className="relative mx-auto w-fit">
                       <ShadowBox width={188} height={278}></ShadowBox>
                       <img
@@ -280,7 +280,7 @@ export default async function Home() {
               </div>
 
               {/* Section 4 */}
-              <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center lg:justify-between lg:py-32 lg:pl-12 xl:py-24">
+              <div className="grid grid-cols-1 gap-8 pr-10 lg:grid-cols-2 lg:items-center lg:justify-between lg:py-32 lg:pl-12 lg:pr-0 xl:py-24">
                 <div className="flex flex-col items-center text-left lg:items-start">
                   <div className="mb-8 lg:hidden">
                     <div className="relative mx-auto w-fit">
@@ -330,7 +330,7 @@ export default async function Home() {
           </div>
 
           {/* Experience */}
-          <div className="relative space-y-8 text-center">
+          <div className="relative space-y-8 pt-16 text-center">
             <div className="space-y-4">
               <GridWrapper>
                 <div className="text-center text-sm font-medium text-indigo-600">
@@ -358,7 +358,7 @@ export default async function Home() {
               </div>
             </GridWrapper>
             <GridWrapper>
-              <h2 className="mx-auto max-w-xl text-balance text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
+              <h2 className="mx-auto max-w-xl text-balance text-center text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
                 Things I&apos;ve built that people actually use.
               </h2>
             </GridWrapper>
@@ -379,21 +379,22 @@ export default async function Home() {
                     className={`flex flex-col gap-6 md:flex-row md:items-center ${isReversed ? "md:flex-row-reverse" : ""}`}
                   >
                     <div className="flex-1 space-y-3">
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-4">
                         <div className="shrink-0 md:hidden">
                           <Image
                             src={project.logo}
                             alt={`${project.title} logo`}
-                            width={40}
-                            height={40}
+                            width={64}
+                            height={64}
                             className="object-contain"
                           />
                         </div>
-                        <div>
+                        <div className="md:pl-0 pl-1">
                           <h3 className="text-xl font-semibold tracking-tight text-text-primary group-hover:text-indigo-600">
                             {project.title}
                           </h3>
-                          <div className="mt-1 flex flex-wrap gap-1.5">
+                          {/* Pills: desktop only in the header */}
+                          <div className="mt-1 hidden flex-wrap gap-1.5 md:flex">
                             {project.stats.map((stat) => (
                               <span
                                 key={stat}
@@ -413,6 +414,17 @@ export default async function Home() {
                           >
                             {parseHighlights(para, "bold")}
                           </p>
+                        ))}
+                      </div>
+                      {/* Pills: mobile only, after description */}
+                      <div className="flex flex-wrap gap-1.5 md:hidden">
+                        {project.stats.map((stat) => (
+                          <span
+                            key={stat}
+                            className="inline-block rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600"
+                          >
+                            {stat}
+                          </span>
                         ))}
                       </div>
                     </div>
