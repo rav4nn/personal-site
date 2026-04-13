@@ -112,7 +112,7 @@ export function ContributionGraphCard({
   };
 
   const monthLabels = getMonthLabels();
-  const cardClassName = "group relative flex h-full min-h-[220px] flex-col overflow-hidden rounded-2xl border border-border-primary bg-bg-primary p-6 transition-all duration-300 hover:border-indigo-400 hover:bg-white";
+  const cardClassName = "group relative flex h-full min-h-[160px] flex-col overflow-hidden rounded-2xl border border-border-primary bg-bg-primary p-6 transition-all duration-300 hover:border-indigo-400 hover:bg-white";
 
   // Mobile: Plain div (zero animation overhead)
   if (shouldReduceAnimations) {
@@ -134,8 +134,7 @@ export function ContributionGraphCard({
             </svg>
           </div>
           <div>
-            <h2 className="font-medium text-text-primary">Contributions</h2>
-            <p className="text-sm text-text-secondary">This year</p>
+            <h2 className="font-medium text-text-primary">GitHub contributions</h2>
           </div>
         </div>
         <div className="text-right">
@@ -353,8 +352,7 @@ export function ContributionGraphCard({
             </svg>
           </motion.div>
           <div>
-            <h2 className="font-medium text-text-primary">Contributions</h2>
-            <p className="text-sm text-text-secondary">This year</p>
+            <h2 className="font-medium text-text-primary">GitHub contributions</h2>
           </div>
         </div>
         <motion.div

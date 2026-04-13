@@ -7,14 +7,7 @@ export async function GithubSection() {
 
   return (
     <section className="space-y-4">
-      <div>
-        <h2 className="text-xl font-semibold text-text-primary">GitHub</h2>
-        <p className="text-sm text-text-secondary">
-          Open source contributions and repository stats
-        </p>
-      </div>
-
-      <div className="flex flex-col gap-4 lg:flex-row">
+      <div className="flex flex-col gap-4 lg:flex-row lg:max-h-[280px]">
         {/* Contribution graph — stretches to fill available width */}
         <div className="min-w-0 flex-1">
           {contributions ? (

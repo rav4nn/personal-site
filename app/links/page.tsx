@@ -25,7 +25,7 @@ export default async function LinksPage() {
         <GridWrapper>
           <div className="mx-auto max-w-xl text-center md:mt-8">
             <p className="leading-8 text-text-secondary">
-              Chemical engineer @ IIT Delhi → AI builder. I work with LLMs, RAG &amp; AI agents while shipping full-stack AI products that people use daily.
+              IIT Delhi → AI Engineer. I work with LLMs, RAG &amp; AI agents while building full-stack AI products that people use daily.
             </p>
           </div>
         </GridWrapper>

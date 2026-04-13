@@ -3,7 +3,7 @@ export const siteMetadata = {
   author: "Hardeep Singh",
   headerTitle: "Hardeep's Portfolio",
   description:
-    "Chemical Engineer @ IIT Delhi → building AI products that turn messy real-world data into usable systems.",
+    "Building AI products that turn messy real-world data into usable systems.",
   language: "en-us",
   siteUrl: "https://hardeep.cv",
   siteRepo: "https://github.com/rav4nn",
