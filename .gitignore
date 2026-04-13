@@ -15,6 +15,7 @@
 
 # assets
 /assets
+copy.md
 
 # production
 /build

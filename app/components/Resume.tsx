@@ -53,7 +53,7 @@ export function Resume({ ytStars = 62 }: ResumeProps) {
           {
             title: "Freelance",
             description: [
-              `Independent client work across digital marketing and growth. Transitioned out to pursue software and AI engineering full time.`,
+              `Independent client work across digital marketing and process engineering. Transitioned out to pursue software and AI engineering full time.`,
             ],
           },
         ],
