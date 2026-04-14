@@ -17,9 +17,24 @@ const softwareData: SoftwareDataItem[] = [
     link: "https://code.visualstudio.com/",
   },
   {
+    title: "FastAPI",
+    imgSrc: "/fastapi_logo.svg",
+    link: "https://fastapi.tiangolo.com/",
+  },
+  {
+    title: "Cloudflare",
+    imgSrc: "/cloudflare_logo.svg",
+    link: "https://www.cloudflare.com/",
+  },
+  {
     title: "Claude Code",
     imgSrc: "/icon_claude.png",
     link: "https://claude.ai/code",
+  },
+  {
+    title: "Docker",
+    imgSrc: "/docker_logo.svg",
+    link: "https://www.docker.com/",
   },
   {
     title: "ChatGPT",
@@ -57,24 +72,9 @@ const softwareData: SoftwareDataItem[] = [
     link: "https://github.com/rav4nn",
   },
   {
-    title: "Docker",
-    imgSrc: "/docker_logo.svg",
-    link: "https://www.docker.com/",
-  },
-  {
-    title: "FastAPI",
-    imgSrc: "/fastapi_logo.svg",
-    link: "https://fastapi.tiangolo.com/",
-  },
-  {
     title: "Porkbun",
     imgSrc: "/porkbun_logo.svg",
     link: "https://porkbun.com/",
-  },
-  {
-    title: "Cloudflare",
-    imgSrc: "/cloudflare_logo.svg",
-    link: "https://www.cloudflare.com/",
   },
   {
     title: "Hetzner",

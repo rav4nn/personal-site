@@ -7,9 +7,14 @@ export async function GithubSection() {
 
   return (
     <section className="space-y-4">
-      <div className="flex flex-col gap-4 lg:flex-row lg:max-h-[280px]">
+      <div className="flex flex-col gap-4 lg:flex-row">
         {/* Contribution graph — stretches to fill available width */}
-        <div className="min-w-0 flex-1">
+        <a
+          href="https://github.com/rav4nn"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block min-w-0 flex-1"
+        >
           {contributions ? (
             <ContributionGraphCard contributions={contributions} delay={0.1} />
           ) : (
@@ -19,7 +24,7 @@ export async function GithubSection() {
               </p>
             </div>
           )}
-        </div>
+        </a>
 
         {/* Stat cards */}
         <div className="flex shrink-0 flex-row justify-center gap-4 lg:w-52 lg:flex-col lg:justify-start">

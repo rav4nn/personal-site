@@ -24,6 +24,7 @@ export const Photo = ({
   direction,
   width,
   height,
+  href,
   ...props
 }: {
   src: string;
@@ -32,6 +33,7 @@ export const Photo = ({
   direction?: Direction;
   width: number;
   height: number;
+  href?: string;
 }) => {
   const [rotation, setRotation] = useState<number>(0);
   const x = useMotionValue(200);
@@ -85,6 +87,7 @@ export const Photo = ({
         className,
         "relative mx-auto shrink-0 cursor-grab active:cursor-grabbing",
       )}
+      onClick={() => { if (href) window.open(href, "_blank", "noopener,noreferrer"); }}
       onMouseMove={handleMouse}
       onMouseLeave={resetMouse}
       draggable={false}

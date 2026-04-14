@@ -79,7 +79,9 @@ export const PhotoGallery = ({
       y: "15px",
       zIndex: 50,
       direction: "left" as Direction,
-      src: "/mountains-dog.webp",
+      src: "/cb.webp",
+      alt: "Hardeep in a candid photo",
+      href: "https://x.com/rav4nn/status/1754776821370142754?s=20",
     },
     {
       id: 2,
@@ -88,7 +90,8 @@ export const PhotoGallery = ({
       y: "32px",
       zIndex: 40,
       direction: "left" as Direction,
-      src: "/chess.webp",
+      src: "/football.webp",
+      alt: "Hardeep playing football",
     },
     {
       id: 3,
@@ -97,7 +100,8 @@ export const PhotoGallery = ({
       y: "8px",
       zIndex: 30,
       direction: "right" as Direction,
-      src: "/hero.webp",
+      src: "/hero_2.webp",
+      alt: "Hardeep at a café in a pink polo, holding coffee with a bookshelf behind",
     },
     {
       id: 4,
@@ -106,7 +110,9 @@ export const PhotoGallery = ({
       y: "22px",
       zIndex: 20,
       direction: "right" as Direction,
-      src: "/football.webp",
+      src: "/chess.webp",
+      alt: "Hardeep playing chess",
+      href: "https://lichess.org/@/rav4nn",
     },
     {
       id: 5,
@@ -115,7 +121,8 @@ export const PhotoGallery = ({
       y: "44px",
       zIndex: 10,
       direction: "left" as Direction,
-      src: "/cb.webp",
+      src: "/mountains-dog.webp",
+      alt: "Hardeep petting a mountain dog on a trek",
     },
   ];
 
@@ -151,8 +158,9 @@ export const PhotoGallery = ({
                   width={220}
                   height={220}
                   src={photo.src}
-                  alt="Family photo"
+                  alt={photo.alt}
                   direction={photo.direction}
+                  href={photo.href}
                 />
               </motion.div>
             ))}

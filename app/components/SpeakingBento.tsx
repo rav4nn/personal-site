@@ -33,7 +33,7 @@ export function SpeakingBento() {
               stiffness: 150,
             }}
           >
-            <SecondaryPhoto imgSrc="/hero_icon.webp" />
+            <SecondaryPhoto imgSrc="/hero2_icon.webp" />
           </motion.span>
 
           <motion.span

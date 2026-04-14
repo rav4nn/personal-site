@@ -45,8 +45,8 @@ export default async function AboutPage() {
                     <Photo
                       width={140}
                       height={140}
-                      src="/hero.webp"
-                      alt="Hardeep Singh"
+                      src="/hero_2.webp"
+                      alt="Hardeep at a café in a pink polo, holding coffee with a bookshelf behind"
                       direction="right"
                     />
                   </div>
@@ -55,7 +55,7 @@ export default async function AboutPage() {
                       width={140}
                       height={140}
                       src="/mountains-dog.webp"
-                      alt="Hardeep with a mountain dog"
+                      alt="Hardeep petting a mountain dog on a trek"
                       direction="left"
                     />
                   </div>
@@ -97,7 +97,7 @@ export default async function AboutPage() {
                     <img
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
                       src="/hero.webp"
-                      alt="Hardeep Singh"
+                      alt="Hardeep in a cap and puffer jacket, outdoor selfie"
                     />
                   </div>
                 </div>
@@ -136,8 +136,8 @@ export default async function AboutPage() {
                     <ShadowBox width={188} height={278}></ShadowBox>
                     <img
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
-                      src="/mountains-dog.webp"
-                      alt="Hardeep with a mountain dog"
+                      src="/looking-over-mountains.webp"
+                      alt="Hardeep standing on a mountaintop overlooking a valley"
                     />
                   </div>
                 </div>
@@ -181,8 +181,8 @@ export default async function AboutPage() {
                   <ShadowBox width={188} height={278}></ShadowBox>
                   <img
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
-                    src="/mountains-dog.webp"
-                    alt="Hardeep with a mountain dog"
+                    src="/looking-over-mountains.webp"
+                    alt="Hardeep standing on a mountaintop overlooking a valley"
                   />
                 </div>
               </div>
@@ -197,7 +197,7 @@ export default async function AboutPage() {
                     <img
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
                       src="/surgery.webp"
-                      alt="ACL recovery"
+                      alt="Hardeep's leg post ACL surgery, in recovery"
                     />
                   </div>
                 </div>
@@ -218,7 +218,7 @@ export default async function AboutPage() {
                   <img
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
                     src="/surgery.webp"
-                    alt="ACL recovery"
+                    alt="Hardeep's leg post ACL surgery, in recovery"
                   />
                 </div>
               </div>
@@ -232,8 +232,8 @@ export default async function AboutPage() {
                     <ShadowBox width={188} height={278}></ShadowBox>
                     <img
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
-                      src="/football.webp"
-                      alt="Hardeep playing football"
+                      src="/hero_2.webp"
+                      alt="Hardeep at a café in a pink polo, holding coffee with a bookshelf behind"
                     />
                   </div>
                 </div>
@@ -265,8 +265,8 @@ export default async function AboutPage() {
                   <ShadowBox width={188} height={278}></ShadowBox>
                   <img
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
-                    src="/football.webp"
-                    alt="Hardeep playing football"
+                    src="/hero_2.webp"
+                    alt="Hardeep at a café in a pink polo, holding coffee with a bookshelf behind"
                   />
                 </div>
               </div>

@@ -112,7 +112,7 @@ export function ContributionGraphCard({
   };
 
   const monthLabels = getMonthLabels();
-  const cardClassName = "group relative flex h-full min-h-[160px] flex-col overflow-hidden rounded-2xl border border-border-primary bg-bg-primary p-6 transition-all duration-300 hover:border-indigo-400 hover:bg-white";
+  const cardClassName = "group relative flex h-full min-h-[160px] flex-col rounded-2xl border border-border-primary bg-bg-primary p-4 transition-all duration-300 hover:border-indigo-400 hover:bg-white";
 
   // Mobile: Plain div (zero animation overhead)
   if (shouldReduceAnimations) {

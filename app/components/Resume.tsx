@@ -63,7 +63,7 @@ export function Resume({ ytStars = 62 }: ResumeProps) {
         period: "2013 – 2018",
         positions: [
           {
-            title: "B.Tech, Chemical Engineering",
+            title: "Chemical Engineering",
             description: [
               `Chemical Engineering degree providing the {{analytical foundation}} for systems thinking and constraints-based problem solving.`,
             ],
