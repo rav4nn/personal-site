@@ -2,34 +2,42 @@ import { ResumeData } from "../lib/resume/types";
 import { parseHighlights } from "./Highlight";
 import { Timeline } from "./Timeline";
 
-interface ResumeProps {
-  ytStars?: number;
-}
-
-export function Resume({ ytStars = 62 }: ResumeProps) {
+export function Resume() {
   const resumeData: ResumeData = {
     experiences: [
       {
-        company: "Stealth SaaS",
+        company: "4142 Ltd / Squidgy AI",
         period: "2026 – Present",
         positions: [
           {
-            title: "Freelance",
+            title: "AI Software Engineer",
             description: [
-              `Sole engineer with {{end-to-end ownership}} — architecture, build, and production deployment of a {{full-stack SaaS}} product for a UK-based client. Scope includes AI-powered features and agentic workflows.`,
+              `{{Full-time contract}} at Squidgy AI, a multi-agent AI product by 4142 Ltd (UK). Working within the engineering team on AI-powered features and {{agentic systems}}, full-time remote mapped to UK working hours.`,
             ],
           },
         ],
       },
       {
-        company: "Independent",
+        company: "Stealth SaaS",
+        period: "2026 – Present",
+        positions: [
+          {
+            title: "Sole Engineer (Freelance)",
+            description: [
+              `{{End-to-end ownership}} of a {{full-stack SaaS}} product for a UK-based client — architecture, build, and production deployment. Scope includes AI-powered features and agentic workflows. Client and product details under NDA.`,
+            ],
+          },
+        ],
+      },
+      {
+        company: "Coffee Coach",
         period: "2025 – Present",
         positions: [
           {
-            title: "AI Engineer",
+            title: "Founding Engineer",
             description: [
-              `AI engineering, self-directed. Built and shipped {{0→1}} AI products with {{organic growth}} and real user traction — coffeecoach.app (65 daily active users), youtube-rag-scraper (${ytStars} GitHub stars), FluxRAG, buildinpublic-x, and Splitwala (2,000+ users across 117 groups).`,
-              `Spent 2023–24 learning the stack — Python, FastAPI, LLM APIs — before shipping the first product in early 2026.`,
+              `Built {{Coffee Coach 0 to 1}} — a full-stack AI coaching app for specialty coffee brewers with personalised feedback via {{RAG pipelines}} and {{agentic feedback loops}}. {{65 daily active users}} acquired organically via Twitter/X and Reddit with zero paid promotion.`,
+              `Now {{co-founding and productizing}} with a product partner, building towards commercial launch. Stack: Next.js on Vercel, FastAPI on Hetzner VPS with Docker, Nginx, Certbot, PostgreSQL.`,
             ],
           },
         ],
@@ -41,7 +49,8 @@ export function Resume({ ytStars = 62 }: ResumeProps) {
           {
             title: "Operations Lead",
             description: [
-              `Operations Lead on a COVID-19 crisis volunteer platform. Coordinated cross-functional operations in a high-pressure environment at scale.`,
+              `Co-built a COVID-19 resource platform from zero to full operations in {{48 hours}} during India's second wave — {{15 states}}, 50 cities, {{10,000 verified life-saving resources}}.`,
+              `Led volunteer coordination across 8 states, managing {{4,000 volunteers}} from partner organisations. Built a 15-minute automated data sync pipeline using Google Sheets API with deduplication and multi-source aggregation.`,
             ],
           },
         ],
@@ -53,7 +62,7 @@ export function Resume({ ytStars = 62 }: ResumeProps) {
           {
             title: "Freelance",
             description: [
-              `Independent client work across digital marketing and process engineering. Transitioned out to pursue software and AI engineering full time.`,
+              `Independent client work across digital marketing — SEO, content, and campaign management. Later years included lightweight {{process automation}}, leading to a full pivot into software and AI engineering in 2025.`,
             ],
           },
         ],
@@ -65,7 +74,7 @@ export function Resume({ ytStars = 62 }: ResumeProps) {
           {
             title: "Chemical Engineering",
             description: [
-              `Chemical Engineering degree providing the {{analytical foundation}} for systems thinking and constraints-based problem solving.`,
+              `Chemical Engineering at IIT Delhi providing the {{analytical foundation}} for systems thinking and constraints-based problem solving.`,
             ],
           },
         ],

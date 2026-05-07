@@ -30,6 +30,14 @@ export default async function ProjectPage() {
       stats: ["65 daily active users", "zero paid promotion"],
     },
     {
+      title: "splitwala",
+      description:
+        "Can't get your friends to install the bill splitting app? This Telegram bot makes it a single command — /split, /paid, /balances. {{Lives inside your Telegram group}}. No app to download, no account to create. Built on the principle that the best UX is the one that gets out of the way.",
+      url: "https://splitwala.hardeep.cv/",
+      logo: "/projects/splitwala-removebg-preview.webp",
+      stats: ["live in 117 groups", "2000+ active users"],
+    },
+    {
       title: "youtube-rag-scraper",
       description:
         "YouTube has some of the best domain-specific knowledge on the internet, but it's locked in video format, impossible to query or reuse. This pipeline bulk-scrapes transcripts, processes them, and structures them into a searchable {{knowledge base}} for RAG systems. Handles {{chunking}}, {{embedding}}, and {{retrieval quality}} out of the box.",
@@ -55,14 +63,6 @@ export default async function ProjectPage() {
       url: "https://github.com/rav4nn/flux-rag",
       logo: "/projects/flux-rag.webp",
       stats: ["hybrid search + reranking", "async FastAPI server", "8 embedding models"],
-    },
-    {
-      title: "splitwala",
-      description:
-        "Can't get your friends to install the bill splitting app? This WhatsApp chatbot makes it a single command — /split, /paid, /balances. {{Lives inside your WhatsApp group}}. No app to download, no account to create. Built on the principle that the best UX is the one that gets out of the way.",
-      url: "https://github.com/rav4nn/splitwala-webjs",
-      logo: "/projects/splitwala-removebg-preview.webp",
-      stats: ["live in 117 groups", "2000+ active users"],
     },
   ];
 

@@ -242,9 +242,9 @@ export default async function AboutPage() {
                 </h2>
                 <p className="mb-6 text-base leading-8 text-text-secondary">
                   Since IIT Delhi I&apos;ve been building independently — a
-                  COVID-19 crisis platform, contract SaaS work for a UK-based
-                  client, and eventually full-stack AI products that people
-                  actually use.
+                  COVID-19 crisis platform, two ongoing contracts (Squidgy AI
+                  and an NDA SaaS for a UK-based client), and full-stack AI
+                  products like Coffee Coach that people actually use.
                 </p>
                 <p className="mb-6 text-base leading-8 text-text-secondary">
                   I care about the things that matter in production — latency,
@@ -290,7 +290,7 @@ export default async function AboutPage() {
           </div>
         </div>
         <div className="space-y-16">
-          <Resume ytStars={ytStats.stars} />
+          <Resume />
         </div>
 
         <HorizontalLine />

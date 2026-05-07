@@ -45,6 +45,14 @@ export default async function Home() {
       stats: ["65 daily active users", "zero paid promotion"],
     },
     {
+      title: "splitwala",
+      description:
+        "Can't get your friends to install the bill splitting app? This Telegram bot makes it a single command — /split, /paid, /balances. {{Lives inside your Telegram group}}. No app to download, no account to create. Built on the principle that the best UX is the one that gets out of the way.",
+      url: "https://splitwala.hardeep.cv/",
+      logo: "/projects/splitwala-removebg-preview.webp",
+      stats: ["live in 117 groups", "2000+ active users"],
+    },
+    {
       title: "youtube-rag-scraper",
       description:
         "YouTube has some of the best domain-specific knowledge on the internet, but it's locked in video format, impossible to query or reuse. This pipeline bulk-scrapes transcripts, processes them, and structures them into a searchable {{knowledge base}} for RAG systems. Handles {{chunking}}, {{embedding}}, and {{retrieval quality}} out of the box.",
@@ -71,14 +79,6 @@ export default async function Home() {
       logo: "/projects/flux-rag.webp",
       stats: ["hybrid search + reranking", "async FastAPI server", "8 embedding models"],
     },
-    {
-      title: "splitwala",
-      description:
-        "Can't get your friends to install the bill splitting app? This WhatsApp chatbot makes it a single command — /split, /paid, /balances. {{Lives inside your WhatsApp group}}. No app to download, no account to create. Built on the principle that the best UX is the one that gets out of the way.",
-      url: "https://github.com/rav4nn/splitwala-webjs",
-      logo: "/projects/splitwala-removebg-preview.webp",
-      stats: ["live in 117 groups", "2000+ active users"],
-    },
   ];
 
   return (
@@ -104,9 +104,9 @@ export default async function Home() {
                   delay={PARAGRAPH_DELAY}
                   className="leading-8 text-text-secondary"
                 >
-                  IIT Delhi → AI Engineer <br /> I work
-                  with LLMs, RAG, ML & AI agents while shipping full-stack AI
-                  products that people use daily.
+                  IIT Delhi → AI Engineer <br /> Currently contracting at Squidgy
+                  AI (UK) and co-founding Coffee Coach. Building full-stack AI
+                  products with LLMs, RAG, and agentic systems.
                 </AnimatedText>
               </div>
             </GridWrapper>
@@ -297,9 +297,9 @@ export default async function Home() {
                   </h2>
                   <p className="mb-6 text-base leading-8 text-text-secondary">
                     Since IIT Delhi I&apos;ve been building independently — a
-                    COVID-19 crisis platform, contract SaaS work for a UK-based
-                    client, and eventually full-stack AI products that people
-                    actually use.
+                    COVID-19 crisis platform, two ongoing contracts (Squidgy AI
+                    and an NDA SaaS for a UK-based client), and full-stack AI
+                    products like Coffee Coach that people actually use.
                   </p>
                   <p className="mb-6 text-base leading-8 text-text-secondary">
                     I care about the things that matter in production — latency,
@@ -345,7 +345,7 @@ export default async function Home() {
             </div>
           </div>
           <div className="space-y-16 pt-8">
-            <Resume ytStars={ytStats.stars} />
+            <Resume />
           </div>
         </section>
 
