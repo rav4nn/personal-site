@@ -36,6 +36,13 @@ export default {
       },
       animation: {
         "spin-slow": "spin 14s linear infinite",
+        "marquee-loop": "marquee-loop 35s linear infinite",
+      },
+      keyframes: {
+        "marquee-loop": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
       },
     },
   },
