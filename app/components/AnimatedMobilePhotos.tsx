@@ -1,8 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ShadowBox } from "./ShadowBox";
+
+const useIsoLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 interface AnimatedMobilePhotosProps {
   delay: number;
@@ -35,40 +38,100 @@ const photos = [
   },
 ];
 
+const REPEAT_COUNT = 5;
+const MIDDLE_COPY = Math.floor(REPEAT_COUNT / 2);
+
 export function AnimatedMobilePhotos({ delay }: AnimatedMobilePhotosProps) {
-  const [paused, setPaused] = useState(false);
-  const sequence = [...photos, ...photos];
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const setRef = useRef<HTMLDivElement>(null);
+  const [setWidth, setSetWidth] = useState(0);
+
+  useIsoLayoutEffect(() => {
+    const measure = () => {
+      const set = setRef.current;
+      const scroller = scrollRef.current;
+      if (!set || !scroller) return;
+      const w = set.offsetWidth;
+      if (!w) return;
+      setSetWidth(w);
+      scroller.scrollLeft = w * MIDDLE_COPY;
+    };
+    measure();
+
+    const ro = new ResizeObserver(measure);
+    if (setRef.current) ro.observe(setRef.current);
+    return () => ro.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const scroller = scrollRef.current;
+    if (!scroller || !setWidth) return;
+
+    const onScroll = () => {
+      const minBoundary = setWidth * 0.5;
+      const maxBoundary = setWidth * (REPEAT_COUNT - 1.5);
+      if (scroller.scrollLeft < minBoundary) {
+        scroller.scrollLeft += setWidth;
+      } else if (scroller.scrollLeft > maxBoundary) {
+        scroller.scrollLeft -= setWidth;
+      }
+    };
+
+    scroller.addEventListener("scroll", onScroll, { passive: true });
+    return () => scroller.removeEventListener("scroll", onScroll);
+  }, [setWidth]);
 
   return (
     <div className="relative -mx-12 lg:hidden">
-      <div className="relative w-full overflow-hidden py-12">
-        <div
-          className={`flex w-fit animate-marquee-loop items-center will-change-transform ${
-            paused ? "[animation-play-state:paused]" : "[animation-play-state:running]"
-          }`}
-          onTouchStart={() => setPaused(true)}
-          onTouchEnd={() => setPaused(false)}
-          onTouchCancel={() => setPaused(false)}
-        >
-          {sequence.map((photo, i) => (
-            <motion.div
-              key={i}
-              className="relative mr-14 w-fit shrink-0"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.4,
-                ease: "easeOut",
-                delay: delay + (i % photos.length) * 0.1,
-              }}
+      <div
+        ref={scrollRef}
+        className="relative w-full overflow-x-auto overflow-y-hidden py-12 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        <div className="flex w-fit items-center">
+          {Array.from({ length: REPEAT_COUNT }).map((_, copyIdx) => (
+            <div
+              key={copyIdx}
+              ref={copyIdx === 0 ? setRef : undefined}
+              className="flex w-fit shrink-0 items-center"
             >
-              <ShadowBox width={photo.boxW} height={photo.boxH}></ShadowBox>
-              <img
-                className={photo.imgClass}
-                src={photo.src}
-                alt={photo.alt}
-              />
-            </motion.div>
+              {photos.map((photo, i) => {
+                const inner = (
+                  <>
+                    <ShadowBox
+                      width={photo.boxW}
+                      height={photo.boxH}
+                    ></ShadowBox>
+                    <img
+                      className={photo.imgClass}
+                      src={photo.src}
+                      alt={photo.alt}
+                    />
+                  </>
+                );
+                return copyIdx === MIDDLE_COPY ? (
+                  <motion.div
+                    key={`${copyIdx}-${i}`}
+                    className="relative mr-14 w-fit shrink-0"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      ease: "easeOut",
+                      delay: delay + i * 0.1,
+                    }}
+                  >
+                    {inner}
+                  </motion.div>
+                ) : (
+                  <div
+                    key={`${copyIdx}-${i}`}
+                    className="relative mr-14 w-fit shrink-0"
+                  >
+                    {inner}
+                  </div>
+                );
+              })}
+            </div>
           ))}
         </div>
       </div>
