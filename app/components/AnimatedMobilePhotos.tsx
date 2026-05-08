@@ -36,6 +36,22 @@ const photos = [
     imgClass:
       "absolute left-0 top-0 h-[245px] w-[163px] rotate-[10deg] rounded-lg object-cover shadow-lg shadow-black/20",
   },
+  {
+    src: "/chess.webp",
+    alt: "Hardeep playing chess",
+    boxW: 170,
+    boxH: 252,
+    imgClass:
+      "absolute left-0 top-0 h-[245px] w-[163px] rotate-[-3deg] rounded-lg object-cover shadow-lg shadow-black/20",
+  },
+  {
+    src: "/football.webp",
+    alt: "Hardeep playing football",
+    boxW: 170,
+    boxH: 252,
+    imgClass:
+      "absolute left-0 top-2 h-[245px] w-[163px] rotate-[7deg] rounded-lg object-cover shadow-lg shadow-black/20",
+  },
 ];
 
 const REPEAT_COUNT = 5;
