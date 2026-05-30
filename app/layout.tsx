@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "app/components/Navbar";
 import { siteMetadata } from "app/data/siteMetadata";
 import { Footer } from "./components/Footer";
+import { VisitorCounter } from "./components/VisitorCounter";
 import { BgGradient } from "./components/BgGradient";
 import { cx } from "./lib/utils";
 import { GeistMono } from "geist/font/mono";
@@ -61,6 +62,7 @@ export default function RootLayout({
             <div className="hidden w-full border-l border-border-primary opacity-75 [background-image:linear-gradient(45deg,theme(colors.border-primary)_12.50%,transparent_12.50%,transparent_50%,theme(colors.border-primary)_50%,theme(colors.border-primary)_62.50%,transparent_62.50%,transparent_100%)] [background-size:5px_5px] lg:block"></div>
           </div>
           <Footer />
+          <VisitorCounter />
         </main>
       </body>
 
