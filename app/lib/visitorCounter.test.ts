@@ -9,8 +9,8 @@ import {
 } from "./visitorCounter";
 
 // In-memory Redis double that honours the subset of commands we use.
-function makeFakeRedis(): RedisLike & { dump: () => Map<string, number> } {
-  const store = new Map<string, number>();
+function makeFakeRedis(): RedisLike & { dump: () => Map<string, number | string> } {
+  const store = new Map<string, number | string>();
   return {
     async set(key, value, opts) {
       if (opts?.nx && store.has(key)) return null;
@@ -18,12 +18,12 @@ function makeFakeRedis(): RedisLike & { dump: () => Map<string, number> } {
       return "OK";
     },
     async incr(key) {
-      const next = (store.get(key) ?? 0) + 1;
+      const next = Number(store.get(key) ?? 0) + 1;
       store.set(key, next);
       return next;
     },
     async get(key) {
-      return store.has(key) ? (store.get(key) as number) : null;
+      return store.has(key) ? (store.get(key) as number | string) : null;
     },
     dump: () => store,
   };
@@ -71,4 +71,11 @@ test("lookupVisitor returns null for an unknown id", async () => {
   const redis = makeFakeRedis();
   const found = await lookupVisitor(redis, "missing");
   assert.equal(found, null);
+});
+
+test("lookupVisitor coerces a string-encoded number (real Redis behavior)", async () => {
+  const redis = makeFakeRedis();
+  await redis.set("visitor:str", "1300" as unknown as number);
+  const found = await lookupVisitor(redis, "str");
+  assert.deepEqual(found, { id: "str", number: 1300 });
 });

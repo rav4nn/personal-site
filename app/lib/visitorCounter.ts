@@ -21,7 +21,8 @@ export type RedisLike = {
     opts?: { nx?: boolean },
   ): Promise<unknown>;
   incr(key: string): Promise<number>;
-  get(key: string): Promise<number | null>;
+  // Real Redis/Upstash clients may return the stored value as a string; callers coerce.
+  get(key: string): Promise<string | number | null>;
 };
 
 // Register a brand-new visitor: seed the counter once, increment it, and persist
@@ -42,7 +43,9 @@ export async function lookupVisitor(
   redis: RedisLike,
   id: string,
 ): Promise<VisitorRecord | null> {
-  const number = await redis.get(visitorKey(id));
-  if (number === null || number === undefined) return null;
+  const raw = await redis.get(visitorKey(id));
+  if (raw === null || raw === undefined) return null;
+  const number = Number(raw);
+  if (!Number.isFinite(number)) return null;
   return { id, number };
 }
