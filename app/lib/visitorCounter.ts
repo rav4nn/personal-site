@@ -1,51 +1,28 @@
 // app/lib/visitorCounter.ts
-// Pure, Redis-agnostic visitor counting. No Next.js or Upstash imports here so
-// it stays trivially unit-testable with an in-memory fake.
+// Pure, dependency-free visitor-counting helpers. No Next.js or Supabase imports
+// here so it stays trivially unit-testable.
+//
+// The atomic seed/increment logic lives in Postgres (a sequence + the
+// `register_visitor()` RPC), so this module's only real job is to validate and
+// normalize the row the RPC returns. The sequence starts at VISITOR_SEED + 1,
+// so the first registered visitor is #1205.
 
 export const VISITOR_SEED = 1204;
-
-const COUNT_KEY = "visitors:count";
-const visitorKey = (id: string) => `visitor:${id}`;
 
 export type VisitorRecord = {
   id: string;
   number: number;
 };
 
-// The subset of Redis commands this module needs. Both the real Upstash client
-// and the test fake satisfy this shape.
-export type RedisLike = {
-  set(
-    key: string,
-    value: number,
-    opts?: { nx?: boolean },
-  ): Promise<unknown>;
-  incr(key: string): Promise<number>;
-  // Real Redis/Upstash clients may return the stored value as a string; callers coerce.
-  get(key: string): Promise<string | number | null>;
-};
-
-// Register a brand-new visitor: seed the counter once, increment it, and persist
-// the visitor's assigned number so return visits are stable.
-export async function registerNewVisitor(
-  redis: RedisLike,
-  makeId: () => string,
-): Promise<VisitorRecord> {
-  await redis.set(COUNT_KEY, VISITOR_SEED, { nx: true });
-  const number = await redis.incr(COUNT_KEY);
-  const id = makeId();
-  await redis.set(visitorKey(id), number);
-  return { id, number };
-}
-
-// Look up an existing visitor by id. Returns null if we have no record for them.
-export async function lookupVisitor(
-  redis: RedisLike,
-  id: string,
-): Promise<VisitorRecord | null> {
-  const raw = await redis.get(visitorKey(id));
-  if (raw === null || raw === undefined) return null;
-  const number = Number(raw);
-  if (!Number.isFinite(number)) return null;
-  return { id, number };
+// Validate + normalize a single row returned by register_visitor()/lookup_visitor().
+// Postgres `bigint` arrives as a string over the wire, so `number` is coerced.
+// Returns null for any malformed/missing input (callers treat null as "no record").
+export function parseVisitorRow(row: unknown): VisitorRecord | null {
+  if (row === null || typeof row !== "object") return null;
+  const { id, number } = row as { id?: unknown; number?: unknown };
+  if (typeof id !== "string") return null;
+  if (typeof number !== "string" && typeof number !== "number") return null;
+  const n = Number(number);
+  if (!Number.isFinite(n)) return null;
+  return { id, number: n };
 }

@@ -1,30 +1,36 @@
 // app/api/visitors/route.ts
 import { NextResponse } from "next/server";
-import { getRedis } from "app/db/redis";
-import { registerNewVisitor, lookupVisitor } from "app/lib/visitorCounter";
+import { getSupabase } from "app/db/supabase";
+import { parseVisitorRow } from "app/lib/visitorCounter";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 // POST { id?: string }
 //  - known id  -> return the existing record, do NOT increment
-//  - no/unknown id -> register a new visitor
-// Always fails soft: any missing-config or Redis error returns { ok: false } so
-// the page is never broken by the counter.
+//  - no/unknown id -> register a new visitor (atomic in Postgres)
+// Always fails soft: missing config or any Supabase error returns { ok: false }
+// so the page is never broken by the counter.
 export async function POST(request: Request) {
-  const redis = getRedis();
-  if (!redis) return NextResponse.json({ ok: false });
+  const supabase = getSupabase();
+  if (!supabase) return NextResponse.json({ ok: false });
 
   try {
     const body = (await request.json().catch(() => ({}))) as { id?: unknown };
     const id = typeof body.id === "string" ? body.id : null;
 
     if (id) {
-      const existing = await lookupVisitor(redis, id);
-      if (existing) return NextResponse.json({ ok: true, ...existing });
+      const { data, error } = await supabase.rpc("lookup_visitor", { p_id: id });
+      if (!error) {
+        const existing = parseVisitorRow(data?.[0]);
+        if (existing) return NextResponse.json({ ok: true, ...existing });
+      }
     }
 
-    const record = await registerNewVisitor(redis, () => crypto.randomUUID());
+    const { data, error } = await supabase.rpc("register_visitor");
+    if (error) return NextResponse.json({ ok: false });
+    const record = parseVisitorRow(data?.[0]);
+    if (!record) return NextResponse.json({ ok: false });
     return NextResponse.json({ ok: true, ...record });
   } catch {
     return NextResponse.json({ ok: false });

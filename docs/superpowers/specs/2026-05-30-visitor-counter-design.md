@@ -1,8 +1,25 @@
 # Visitor Counter — Design
 
 **Date:** 2026-05-30
-**Status:** Approved
+**Status:** Implemented
 **Site:** hardeep.cv (Next.js 15 App Router, Tailwind, framer-motion, deployed on Vercel)
+
+> **Addendum (2026-05-31): Backend changed from Upstash Redis to Supabase Postgres.**
+> The user opted for Supabase (already familiar, reachable via MCP). The architecture
+> is otherwise unchanged: the browser still talks to our server-side `/api/visitors`
+> route; only the storage layer differs. On Supabase the atomic seed/increment is a
+> Postgres **sequence** (`visitor_number_seq`, starting at 1205) plus a `visitors`
+> table, wrapped in a `SECURITY DEFINER` `register_visitor()` RPC (and `lookup_visitor()`),
+> granted to `service_role` only. RLS is enabled with no policies (deny-all to
+> anon/authenticated); the route uses the server-only `SUPABASE_SERVICE_ROLE_KEY`.
+> Schema captured at `supabase/migrations/20260530000000_visitor_counter.sql`.
+> Where this doc says "Upstash / Redis / INCR" below, read "Supabase / Postgres / RPC".
+>
+> One implementation addition found during live browser testing: framer-motion's
+> rAF-driven entrance and number roll-up pause while a tab is backgrounded, which
+> could leave the pill stuck invisible / showing the seed number. The component now
+> detects `document.hidden` at reveal time and renders directly at the final state
+> (`initial={false}` + `RollingNumber skip`) in that case.
 
 ## Summary
 

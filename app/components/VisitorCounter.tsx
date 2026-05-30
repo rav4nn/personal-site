@@ -32,22 +32,26 @@ function readStored(): Stored | null {
 }
 
 // Animated, comma-formatted number that rolls up to its final value once.
-function RollingNumber({ value }: { value: number }) {
+// `skip` (reduced motion, or tab hidden so rAF is paused) jumps straight to the
+// final value instead of animating — otherwise the count-up would stall at its
+// start value and display the wrong number.
+function RollingNumber({ value, skip }: { value: number; skip?: boolean }) {
   const reduceMotion = useReducedMotion();
-  const start = reduceMotion ? value : Math.max(VISITOR_SEED, value - 60);
+  const noAnim = skip || reduceMotion;
+  const start = noAnim ? value : Math.max(VISITOR_SEED, value - 60);
   const count = useMotionValue(start);
   const text = useTransform(count, (v) =>
     Math.round(v).toLocaleString("en-US"),
   );
 
   useEffect(() => {
-    if (reduceMotion) {
+    if (noAnim) {
       count.set(value);
       return;
     }
     const controls = animate(count, value, { duration: 0.9, ease: "easeOut" });
     return controls.stop;
-  }, [value, reduceMotion, count]);
+  }, [value, noAnim, count]);
 
   return <motion.span>{text}</motion.span>;
 }
@@ -55,6 +59,10 @@ function RollingNumber({ value }: { value: number }) {
 export function VisitorCounter() {
   const [record, setRecord] = useState<Stored | null>(null);
   const [dismissed, setDismissed] = useState(true); // hidden until we decide to show
+  // When the tab is backgrounded at reveal time, framer-motion's rAF-driven
+  // entrance is paused, which would leave the pill stuck invisible until focus.
+  // In that case we skip the animation and render at the final state instead.
+  const [skipEnter, setSkipEnter] = useState(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -65,6 +73,7 @@ export function VisitorCounter() {
       const existing = readStored();
       if (existing) {
         if (!cancelled) {
+          if (document.hidden) setSkipEnter(true);
           setRecord(existing);
           setDismissed(wasDismissed);
         }
@@ -85,6 +94,7 @@ export function VisitorCounter() {
         const next = { id: data.id, number: data.number };
         localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
         if (!cancelled) {
+          if (document.hidden) setSkipEnter(true);
           setRecord(next);
           setDismissed(wasDismissed);
         }
@@ -111,7 +121,12 @@ export function VisitorCounter() {
       {show && (
         <motion.div
           key="visitor-counter"
-          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+          // initial={false} renders straight at the `animate` state with no
+          // entrance tween — used when the tab is hidden (rAF is paused) so the
+          // pill is guaranteed visible the moment the tab is foregrounded.
+          initial={
+            skipEnter ? false : reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }
+          }
           animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
           transition={
@@ -119,7 +134,11 @@ export function VisitorCounter() {
               ? { duration: 0.15 }
               : { type: "spring", stiffness: 260, damping: 24 }
           }
-          className="drama-shadow fixed right-4 z-50 flex items-center gap-2 rounded-full border border-border-primary bg-white px-3.5 py-2 text-[13px] text-text-secondary"
+          /* `!fixed` overrides the `position: relative` from the `.drama-shadow`
+             utility (defined after @tailwind utilities, so it would otherwise win
+             and drop the pill into normal flow at full width). `w-fit` keeps it
+             pill-width regardless of the flow context. */
+          className="drama-shadow !fixed right-4 z-50 flex w-fit items-center gap-2 rounded-full border border-border-primary bg-white px-3.5 py-2 text-[13px] text-text-secondary"
           style={{ bottom: "calc(1rem + env(safe-area-inset-bottom))" }}
         >
           <span
@@ -128,7 +147,7 @@ export function VisitorCounter() {
           />
           <span className="hidden sm:inline">You&apos;re&nbsp;</span>
           <span className="font-mono font-semibold tabular-nums text-purple-primary">
-            #<RollingNumber value={record!.number} />
+            #<RollingNumber value={record!.number} skip={skipEnter} />
           </span>
           <button
             type="button"
