@@ -145,7 +145,7 @@ export function VisitorCounter() {
             aria-hidden
             className="h-[7px] w-[7px] flex-none rounded-full bg-purple-primary shadow-[0_0_0_3px_rgba(108,71,255,0.15),0_0_10px_rgba(108,71,255,0.25)]"
           />
-          <span className="hidden sm:inline">You&apos;re&nbsp;</span>
+          <span className="hidden sm:inline">You&apos;re visitor&nbsp;</span>
           <span className="font-mono font-semibold tabular-nums text-purple-primary">
             #<RollingNumber value={record!.number} skip={skipEnter} />
           </span>
