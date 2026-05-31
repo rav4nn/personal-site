@@ -28,11 +28,17 @@ export async function POST(request: Request) {
     }
 
     const { data, error } = await supabase.rpc("register_visitor");
-    if (error) return NextResponse.json({ ok: false });
+    if (error) {
+      // Surfaces a misconfigured deploy (bad key / missing RPC) in Vercel logs;
+      // the response still fails soft so the page is never broken.
+      console.error("[visitors] register_visitor failed:", error.message);
+      return NextResponse.json({ ok: false });
+    }
     const record = parseVisitorRow(data?.[0]);
     if (!record) return NextResponse.json({ ok: false });
     return NextResponse.json({ ok: true, ...record });
-  } catch {
+  } catch (err) {
+    console.error("[visitors] unexpected error:", err);
     return NextResponse.json({ ok: false });
   }
 }
