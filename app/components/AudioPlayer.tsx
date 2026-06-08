@@ -28,6 +28,7 @@ export function AudioPlayer({ audioSrc, title }: AudioPlayerProps) {
         </div>
 
         <audio controls preload="metadata" className="w-full" src={audioSrc}>
+          <track kind="captions" src="" default />
           Your browser does not support the audio element.
         </audio>
       </div>

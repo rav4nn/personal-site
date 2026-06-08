@@ -25,6 +25,35 @@ const CalendarDay: React.FC<{ day: number | string; isHeader?: boolean }> = ({
   );
 };
 
+function CalendarDays({
+  firstDayOfWeek,
+  daysInMonth,
+}: {
+  firstDayOfWeek: number;
+  daysInMonth: number;
+}) {
+  return (
+    <>
+      {dayNames.map((day) => (
+        <CalendarDay key={`header-${day}`} day={day} isHeader />
+      ))}
+      {Array(firstDayOfWeek)
+        .fill(null)
+        .map((_, i) => (
+          <div
+            key={`empty-start-${i}`}
+            className="col-span-1 row-span-1 h-8 w-8"
+          />
+        ))}
+      {Array(daysInMonth)
+        .fill(null)
+        .map((_, i) => (
+          <CalendarDay key={`date-${i + 1}`} day={i + 1} />
+        ))}
+    </>
+  );
+}
+
 export function CalendarBento() {
   const currentDate = new Date();
   const currentMonth = currentDate.toLocaleString("default", { month: "long" });
@@ -42,25 +71,6 @@ export function CalendarBento() {
   )
     .toString()
     .padStart(2, "0")}`;
-
-  const renderCalendarDays = () => {
-    let days: React.ReactNode[] = [
-      ...dayNames.map((day, i) => (
-        <CalendarDay key={`header-${day}`} day={day} isHeader />
-      )),
-      ...Array(firstDayOfWeek).map((_, i) => (
-        <div
-          key={`empty-start-${i}`}
-          className="col-span-1 row-span-1 h-8 w-8"
-        />
-      )),
-      ...Array(daysInMonth)
-        .fill(null)
-        .map((_, i) => <CalendarDay key={`date-${i + 1}`} day={i + 1} />),
-    ];
-
-    return days;
-  };
 
   return (
     <BentoCard height="h-[180px] md:h-[260px]" linkTo={bookingLink}>
@@ -90,7 +100,10 @@ export function CalendarBento() {
                   <p className="text-xs text-text-tertiary">30 min call</p>
                 </div>
                 <div className="mt-4 grid grid-cols-7 grid-rows-5 gap-2 px-4">
-                  {renderCalendarDays()}
+                  <CalendarDays
+                    firstDayOfWeek={firstDayOfWeek}
+                    daysInMonth={daysInMonth}
+                  />
                 </div>
               </div>
             </div>

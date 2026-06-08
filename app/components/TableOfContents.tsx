@@ -13,6 +13,23 @@ const X_H2 = 0;
 const X_H3 = 14;
 
 /**
+ * Handle smooth scroll on TOC link click. Uses only DOM globals — no component
+ * state — so it lives at module scope to avoid re-creation on every render.
+ */
+function handleLinkClick(
+  e: React.MouseEvent<HTMLAnchorElement>,
+  slug: string,
+) {
+  e.preventDefault();
+  const element = document.getElementById(slug);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+    // Update URL without scroll jump
+    window.history.pushState(null, "", `#${slug}`);
+  }
+}
+
+/**
  * Generate SVG path that traces the TOC structure with indents for H3s
  */
 function generateTocPath(
@@ -60,13 +77,6 @@ function generateTocPath(
   return pathD;
 }
 
-/**
- * Check if the browser supports CSS anchor positioning
- */
-function supportsAnchorPositioning(): boolean {
-  if (typeof CSS === "undefined") return false;
-  return CSS.supports("anchor-name", "--test");
-}
 
 export function TableOfContents({ headings }: TableOfContentsProps) {
   const headingIds = headings.map((h) => h.slug);
@@ -74,15 +84,17 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   const navRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLSpanElement>(null);
-  const [isMoving, setIsMoving] = useState(false);
-  const [supportsAnchors, setSupportsAnchors] = useState(false);
+  const supportsAnchors = typeof CSS !== "undefined" && CSS.supports("anchor-name", "--test");
   const [topPosition, setTopPosition] = useState(140);
   const [pathData, setPathData] = useState("");
-  const fixedTop = 140; // The fixed top position when scrolled
+  const fixedTop = 140;
 
-  // Check for anchor positioning support on mount
-  useEffect(() => {
-    setSupportsAnchors(supportsAnchorPositioning());
+  // Calculate topPosition synchronously before paint to avoid flash
+  useLayoutEffect(() => {
+    const contentWrapper = document.querySelector("article .wrapper.z-10");
+    if (!contentWrapper) return;
+    const wrapperRect = contentWrapper.getBoundingClientRect();
+    setTopPosition(Math.max(fixedTop, wrapperRect.top));
   }, []);
 
   // Track scroll position to calculate dynamic top value
@@ -100,9 +112,6 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
       const newTop = Math.max(fixedTop, wrapperRect.top);
       setTopPosition(newTop);
     };
-
-    // Calculate on mount
-    calculateTopPosition();
 
     // Throttled scroll handler
     let ticking = false;
@@ -153,11 +162,19 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
     return () => clearTimeout(timer);
   }, [calculatePath]);
 
-  // Recalculate path on resize
+  // Stable ref so the resize listener never needs to be re-registered when
+  // `calculatePath` changes (avoids the advanced-event-handler-refs warning).
+  const calculatePathRef = useRef(calculatePath);
   useEffect(() => {
-    window.addEventListener("resize", calculatePath);
-    return () => window.removeEventListener("resize", calculatePath);
-  }, [calculatePath]);
+    calculatePathRef.current = calculatePath;
+  });
+
+  // Recalculate path on resize — stable listener reads the latest handler via ref
+  useEffect(() => {
+    const stableHandler = () => calculatePathRef.current();
+    window.addEventListener("resize", stableHandler);
+    return () => window.removeEventListener("resize", stableHandler);
+  }, []);
 
   // Update indicator position (handles both vertical and horizontal positioning)
   const updateIndicatorPosition = useCallback(() => {
@@ -187,12 +204,17 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
     indicatorRef.current.style.left = `${left}px`;
   }, [activeId]);
 
-  // Trigger moving animation and update position
+  // Trigger moving animation and update position — refs excluded from deps
+  // react-doctor-disable-next-line react-doctor/exhaustive-deps
   useEffect(() => {
     if (!activeId) return;
 
-    setIsMoving(true);
-    const timer = setTimeout(() => setIsMoving(false), 600);
+    const indicator = indicatorRef.current;
+    indicator?.classList.add("toc-indicator--moving");
+    const timer = setTimeout(
+      () => indicator?.classList.remove("toc-indicator--moving"),
+      600,
+    );
 
     // Update CSS anchor-name for anchor positioning browsers
     if (supportsAnchors && navRef.current) {
@@ -214,22 +236,11 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
     // Always update position via JS (CSS anchor positioning doesn't handle horizontal shift for H3s)
     updateIndicatorPosition();
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      indicator?.classList.remove("toc-indicator--moving");
+    };
   }, [activeId, supportsAnchors, updateIndicatorPosition]);
-
-  // Handle smooth scroll on link click
-  const handleLinkClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    slug: string,
-  ) => {
-    e.preventDefault();
-    const element = document.getElementById(slug);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      // Update URL without scroll jump
-      window.history.pushState(null, "", `#${slug}`);
-    }
-  };
 
   // Don't render if no headings
   if (headings.length === 0) return null;
@@ -254,7 +265,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
         {/* The animated dot indicator */}
         <span
           ref={indicatorRef}
-          className={`toc-indicator ${activeId ? "toc-indicator--visible" : ""} ${isMoving ? "toc-indicator--moving" : ""}`}
+          className={`toc-indicator ${activeId ? "toc-indicator--visible" : ""}`}
           aria-hidden="true"
         />
 

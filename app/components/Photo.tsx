@@ -1,21 +1,34 @@
 "use client";
 
-import { Ref, forwardRef, useState, useEffect } from "react";
+import { MouseEvent, Ref, forwardRef } from "react";
 import Image, { ImageProps } from "next/image";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { m, useMotionValue } from "framer-motion";
 
 import { cn } from "../lib/utils";
 import { getRandomNumberInRange } from "@/app/lib/getRandomNumberInRange";
 
-const MotionImage = motion(
+const MotionImage = m(
   forwardRef(function MotionImage(
     props: ImageProps,
     ref: Ref<HTMLImageElement>,
   ) {
-    return <Image ref={ref} {...props} />;
+    const { alt, ...imageProps } = props;
+    return <Image ref={ref} alt={alt} {...imageProps} />;
   }),
 );
 type Direction = "left" | "right";
+
+const photoContainerStyle = (width: number, height: number) => ({
+  width,
+  height,
+  perspective: 400,
+  transform: `rotate(0deg) rotateX(0deg) rotateY(0deg)`,
+  zIndex: 1,
+  WebkitTouchCallout: "none" as const,
+  WebkitUserSelect: "none" as const,
+  userSelect: "none" as const,
+  touchAction: "none" as const,
+});
 
 export const Photo = ({
   src,
@@ -35,17 +48,11 @@ export const Photo = ({
   height: number;
   href?: string;
 }) => {
-  const [rotation, setRotation] = useState<number>(0);
+  const rotation = getRandomNumberInRange(1, 4) * (direction === "left" ? -1 : 1);
   const x = useMotionValue(200);
   const y = useMotionValue(200);
 
-  useEffect(() => {
-    const randomRotation =
-      getRandomNumberInRange(1, 4) * (direction === "left" ? -1 : 1);
-    setRotation(randomRotation);
-  }, []);
-
-  function handleMouse(event) {
+  function handleMouse(event: MouseEvent<HTMLDivElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
     x.set(event.clientX - rect.left);
     y.set(event.clientY - rect.top);
@@ -57,7 +64,7 @@ export const Photo = ({
   };
 
   return (
-    <motion.div
+    <m.div
       drag
       dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
       whileTap={{ scale: 1.2, zIndex: 9999 }}
@@ -72,17 +79,7 @@ export const Photo = ({
       }}
       initial={{ rotate: 0 }}
       animate={{ rotate: rotation }}
-      style={{
-        width,
-        height,
-        perspective: 400,
-        transform: `rotate(0deg) rotateX(0deg) rotateY(0deg)`,
-        zIndex: 1,
-        WebkitTouchCallout: "none",
-        WebkitUserSelect: "none",
-        userSelect: "none",
-        touchAction: "none",
-      }}
+      style={photoContainerStyle(width, height)}
       className={cn(
         className,
         "relative mx-auto shrink-0 cursor-grab active:cursor-grabbing",
@@ -97,12 +94,13 @@ export const Photo = ({
         <MotionImage
           className={cn("rounded-lg object-cover")}
           fill
+          sizes={`${width}px`}
           src={src}
           alt={alt}
           {...props}
           draggable={false}
         />
       </div>
-    </motion.div>
+    </m.div>
   );
 };

@@ -3,7 +3,7 @@ import { SocialPill } from "./SocialPill";
 
 const Navbar: React.FC = () => {
   return (
-    <header role="banner">
+    <header>
       <DesktopNav />
       <MobileNav />
     </header>

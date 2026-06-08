@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { LinkPreview } from "./LinkPreview";
+import { LinkPreview } from "./LinkPreview/LinkPreview";
 import type {
   LinkPreviewManifest,
   LinkPreviewData,
@@ -67,10 +67,8 @@ export function AboutLink({ href, children, className }: AboutLinkProps) {
   );
 
   useEffect(() => {
-    if (loadState === "loaded") {
-      setManifest(manifestCache);
-      return;
-    }
+    // If already loaded, manifestCache is already set as initial state — nothing to do.
+    if (loadState === "loaded") return;
 
     const update = () => setManifest(manifestCache);
     listeners.push(update);

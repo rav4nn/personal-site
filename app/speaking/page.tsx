@@ -8,6 +8,13 @@ import { AnimatedMobilePhotos } from "@/app/components/AnimatedMobilePhotos";
 import { PageSection } from "../components/PageSection";
 import { ContentLink } from "../components/ContentLink";
 import { VideoCard } from "../components/VideoCard";
+import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Speaking | Hardeep Singh",
+  description: "Conference talks, podcasts, and other speaking engagements.",
+};
 
 interface Talk {
   title: string;
@@ -238,19 +245,23 @@ export default function SpeakingPage() {
                   <div className="mt-12 flex w-full space-x-4">
                     <div className="relative">
                       <ShadowBox width={200} height={200}></ShadowBox>
-                      <img
+                      <Image
                         className="absolute left-1 top-2 h-[186px] w-[186px] rotate-[9deg] rounded-lg object-cover shadow"
                         src="/hero.webp"
-                        alt=""
+                        alt="Hardeep Singh speaker headshot"
+                        width={186}
+                        height={186}
                       />
                     </div>
 
                     <div className="relative">
                       <ShadowBox width={200} height={200}></ShadowBox>
-                      <img
+                      <Image
                         className="absolute left-1 top-2 h-[186px] w-[186px] rotate-[-8deg] rounded-lg object-cover shadow"
                         src="/chess.webp"
-                        alt=""
+                        alt="Hardeep playing chess"
+                        width={186}
+                        height={186}
                       />
                     </div>
                   </div>

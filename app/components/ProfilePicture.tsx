@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export function ProfilePicture() {
   return (
@@ -85,7 +85,7 @@ export function ProfilePicture() {
           </defs>
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <motion.img
+          <m.img
             className="h-[100px] w-[100px] rounded-full object-cover"
             src="/hero_profile.webp"
             alt="Hardeep Singh"

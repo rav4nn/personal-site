@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { m } from "framer-motion";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { ShadowBox } from "./ShadowBox";
+import Image from "next/image";
 
 const useIsoLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -60,7 +61,7 @@ const MIDDLE_COPY = Math.floor(REPEAT_COUNT / 2);
 export function AnimatedMobilePhotos({ delay }: AnimatedMobilePhotosProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const setRef = useRef<HTMLDivElement>(null);
-  const [setWidth, setSetWidth] = useState(0);
+  const setWidthRef = useRef(0);
 
   useIsoLayoutEffect(() => {
     const measure = () => {
@@ -69,7 +70,7 @@ export function AnimatedMobilePhotos({ delay }: AnimatedMobilePhotosProps) {
       if (!set || !scroller) return;
       const w = set.offsetWidth;
       if (!w) return;
-      setSetWidth(w);
+      setWidthRef.current = w;
       scroller.scrollLeft = w * MIDDLE_COPY;
     };
     measure();
@@ -81,21 +82,23 @@ export function AnimatedMobilePhotos({ delay }: AnimatedMobilePhotosProps) {
 
   useEffect(() => {
     const scroller = scrollRef.current;
-    if (!scroller || !setWidth) return;
+    if (!scroller) return;
 
     const onScroll = () => {
-      const minBoundary = setWidth * 0.5;
-      const maxBoundary = setWidth * (REPEAT_COUNT - 1.5);
+      const w = setWidthRef.current;
+      if (!w) return;
+      const minBoundary = w * 0.5;
+      const maxBoundary = w * (REPEAT_COUNT - 1.5);
       if (scroller.scrollLeft < minBoundary) {
-        scroller.scrollLeft += setWidth;
+        scroller.scrollLeft += w;
       } else if (scroller.scrollLeft > maxBoundary) {
-        scroller.scrollLeft -= setWidth;
+        scroller.scrollLeft -= w;
       }
     };
 
     scroller.addEventListener("scroll", onScroll, { passive: true });
     return () => scroller.removeEventListener("scroll", onScroll);
-  }, [setWidth]);
+  }, []);
 
   return (
     <div className="relative -mx-12 lg:hidden">
@@ -117,16 +120,18 @@ export function AnimatedMobilePhotos({ delay }: AnimatedMobilePhotosProps) {
                       width={photo.boxW}
                       height={photo.boxH}
                     ></ShadowBox>
-                    <img
+                    <Image
                       className={photo.imgClass}
                       src={photo.src}
                       alt={photo.alt}
+                      width={180}
+                      height={270}
                     />
                   </>
                 );
                 return copyIdx === MIDDLE_COPY ? (
-                  <motion.div
-                    key={`${copyIdx}-${i}`}
+                  <m.div
+                    key={`${copyIdx}-${photo.src}`}
                     className="relative mr-14 w-fit shrink-0"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -137,10 +142,10 @@ export function AnimatedMobilePhotos({ delay }: AnimatedMobilePhotosProps) {
                     }}
                   >
                     {inner}
-                  </motion.div>
+                  </m.div>
                 ) : (
                   <div
-                    key={`${copyIdx}-${i}`}
+                    key={`${copyIdx}-${photo.src}`}
                     className="relative mr-14 w-fit shrink-0"
                   >
                     {inner}

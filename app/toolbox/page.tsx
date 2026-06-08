@@ -1,6 +1,13 @@
 import { softwareData } from "app/data/toolbox";
 import { HorizontalLine } from "@/app/components/HorizontalLine";
 import { GridWrapper } from "@/app/components/GridWrapper";
+import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Toolbox | Hardeep Singh",
+  description: "Tools, apps, and gear I use every day.",
+};
 
 export default function ToolboxPage() {
   return (
@@ -46,10 +53,12 @@ export default function ToolboxPage() {
                       className="grid h-full place-items-center rounded-xl border-2 border-[#A5AEB81F]/10 bg-[#EDEEF0]"
                       style={{ boxShadow: "0px 2px 1.5px 0px #A5AEB852 inset" }}
                     >
-                      <img
+                      <Image
                         className="h-10 w-10"
                         alt={item.title}
                         src={item.imgSrc}
+                        width={40}
+                        height={40}
                       />
                     </div>
                   </div>

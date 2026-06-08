@@ -2,6 +2,13 @@ import { MDXContent } from "@/app/components/mdx";
 import { NewsletterSignUp } from "@/app/components/NewsletterSignUp";
 import { fetchAndSortChangelogPosts } from "@/app/lib/utils";
 import { GridWrapper } from "@/app/components/GridWrapper";
+import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Changelog | Hardeep Singh",
+  description: "Updates and changes to this site.",
+};
 
 export default async function ChangelogPage() {
   const allChangelogItems = await fetchAndSortChangelogPosts();
@@ -59,10 +66,12 @@ export default async function ChangelogPage() {
                         {post.title}
                       </h2>
                       {post.imageName ? (
-                        <img
+                        <Image
                           className="drama-shadow mb-12 aspect-video rounded-xl object-cover"
                           src={`/${post.imageName}`}
-                          alt=""
+                          alt={post.title}
+                          width={800}
+                          height={450}
                         />
                       ) : null}
                       <MDXContent code={post.code} />

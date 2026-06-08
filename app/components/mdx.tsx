@@ -1,14 +1,16 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useSyncExternalStore } from "react";
+import Image from "next/image";
 import * as runtime from "react/jsx-runtime";
-import { highlight } from "sugar-high";
+import { tokenize } from "sugar-high";
 import Link from "next/link";
 
 import { BgGradient } from "./BgGradient";
 import { CodePlayground } from "./CodePlayground";
 import { Details, DetailsSummary } from "./Details";
-import { LinkPreview } from "./LinkPreview";
-import type { LinkPreviewData, LinkPreviewManifest } from "@/app/lib/link-previews/types";
+import { LinkPreview } from "./LinkPreview/LinkPreview";
+import type { LinkPreviewData } from "@/app/lib/link-previews/types";
+import type { LinkPreviewManifest } from "@/app/lib/link-previews/types";
 
 interface MDXProps {
   code: string;
@@ -17,13 +19,13 @@ interface MDXProps {
 }
 
 function Table({ data }) {
-  let headers = data.headers.map((header, index) => (
-    <th key={index}>{header}</th>
+  let headers = data.headers.map((header) => (
+    <th key={header}>{header}</th>
   ));
-  let rows = data.rows.map((row, index) => (
-    <tr key={index}>
+  let rows = data.rows.map((row) => (
+    <tr key={row.join("|")}>
       {row.map((cell, cellIndex) => (
-        <td key={cellIndex}>{cell}</td>
+        <td key={`${cellIndex}-${cell}`}>{cell}</td>
       ))}
     </tr>
   ));
@@ -49,51 +51,44 @@ function hashUrl(url: string): string {
   return Math.abs(hash).toString(16).padStart(12, "0").slice(0, 12);
 }
 
-// Cache for manifest data
+// Cache for manifest data — loaded at module scope on first client import
 let manifestCache: LinkPreviewManifest | null = null;
 let manifestLoading = false;
 let manifestLoaded = false;
+const manifestListeners = new Set<() => void>();
+
+function subscribeToManifest(onChange: () => void) {
+  manifestListeners.add(onChange);
+  return () => manifestListeners.delete(onChange);
+}
+
+function getManifestSnapshot() {
+  return manifestCache;
+}
+
+function loadManifest() {
+  if (manifestLoaded || manifestLoading) return;
+  manifestLoading = true;
+  fetch("/previews/manifest.json")
+    .then((res) => (res.ok ? res.json() : null))
+    .then((data) => {
+      manifestCache = data;
+      manifestLoaded = true;
+      manifestLoading = false;
+      manifestListeners.forEach((fn) => fn());
+    })
+    .catch(() => {
+      manifestLoaded = true;
+      manifestLoading = false;
+    });
+}
+
+if (typeof window !== "undefined") {
+  loadManifest();
+}
 
 function useLinkPreviewManifest() {
-  const [manifest, setManifest] = useState<LinkPreviewManifest | null>(manifestCache);
-
-  useEffect(() => {
-    if (manifestLoaded) {
-      setManifest(manifestCache);
-      return;
-    }
-
-    if (manifestLoading) {
-      // Wait for existing load to complete
-      const checkLoaded = setInterval(() => {
-        if (manifestLoaded) {
-          setManifest(manifestCache);
-          clearInterval(checkLoaded);
-        }
-      }, 50);
-      return () => clearInterval(checkLoaded);
-    }
-
-    manifestLoading = true;
-
-    fetch("/previews/manifest.json")
-      .then((res) => {
-        if (res.ok) return res.json();
-        return null;
-      })
-      .then((data) => {
-        manifestCache = data;
-        manifestLoaded = true;
-        manifestLoading = false;
-        setManifest(data);
-      })
-      .catch(() => {
-        manifestLoaded = true;
-        manifestLoading = false;
-      });
-  }, []);
-
-  return manifest;
+  return useSyncExternalStore(subscribeToManifest, getManifestSnapshot, () => null);
 }
 
 function getPreviewFromManifest(
@@ -147,7 +142,7 @@ function CustomLink({ href, children, ...rest }: { href: string; children: React
 
 function RoundedImage(props) {
   return (
-    <img src={props.src} alt={props.alt} className="drama-shadow rounded-xl" />
+    <Image src={props.src} alt={props.alt ?? ""} width={0} height={0} className="h-auto w-full drama-shadow rounded-xl" />
   );
 }
 
@@ -214,6 +209,53 @@ function ConsCard({ title, cons }) {
   );
 }
 
+const SH_TYPES = ['identifier','keyword','string','class','property','entity','jsxliterals','sign','comment','break','space'] as const;
+const T_BREAK = 9;
+
+function CodeTokens({ code }: { code: string }) {
+  const tokens = tokenize(code);
+  const lines: { type: number; value: string; offset: number }[][] = [];
+  let currentLine: { type: number; value: string; offset: number }[] = [];
+  let offset = 0;
+
+  for (const [type, rawValue] of tokens) {
+    if (type === T_BREAK) {
+      lines.push(currentLine);
+      currentLine = [];
+      offset += 1;
+    } else {
+      const parts = rawValue.split("\n");
+      for (let j = 0; j < parts.length; j++) {
+        currentLine.push({ type, value: parts[j], offset });
+        offset += parts[j].length;
+        if (j < parts.length - 1) {
+          lines.push(currentLine);
+          currentLine = [];
+          offset += 1;
+        }
+      }
+    }
+  }
+  if (currentLine.length) lines.push(currentLine);
+
+  return (
+    <>
+      {lines.map((lineTokens) => (
+        <span key={lineTokens[0]?.offset ?? 0} className="sh__line">
+          {lineTokens.map(({ type, value, offset: off }) => {
+            const typeName = SH_TYPES[type] ?? "identifier";
+            return (
+              <span key={off} className={`sh__token--${typeName}`} style={{ color: `var(--sh-${typeName})` }}>
+                {value}
+              </span>
+            );
+          })}
+        </span>
+      ))}
+    </>
+  );
+}
+
 const Pre = ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
   const childrenArray = React.Children.toArray(children);
   const code = childrenArray.find(
@@ -243,7 +285,6 @@ const Pre = ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
 };
 
 function Code({ children, ...props }) {
-  const codeHTML = highlight(children);
   const isMultiLine = children.includes("\n");
   const [isCopied, setIsCopied] = useState(false);
 
@@ -266,7 +307,7 @@ function Code({ children, ...props }) {
   };
 
   if (!isMultiLine) {
-    return <code suppressHydrationWarning dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
+    return <code {...props}><CodeTokens code={children} /></code>;
   }
 
   return (
@@ -280,7 +321,7 @@ function Code({ children, ...props }) {
           </div>
           {filename && <span className="code-frame-filename">{filename}</span>}
         </div>
-        <button onClick={copyToClipboard}>
+        <button type="button" onClick={copyToClipboard}>
           {isCopied ? (
             <svg
               className="h-5 w-5 text-indigo-400"
@@ -289,7 +330,7 @@ function Code({ children, ...props }) {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M10.25 16.25L9.6397 16.6859C9.80873 16.9226 10.0993 17.0402 10.3854 16.9877C10.6714 16.9352 10.9013 16.7221 10.9753 16.4409L10.25 16.25ZM16.7147 8.33866C17.0398 8.082 17.0953 7.61038 16.8387 7.28527C16.582 6.96016 16.1104 6.90467 15.7853 7.16134L16.7147 8.33866ZM8.3603 12.3141C8.11954 11.977 7.65113 11.8989 7.31407 12.1397C6.97701 12.3805 6.89894 12.8489 7.1397 13.1859L8.3603 12.3141ZM10.9753 16.4409C11.5574 14.2291 12.971 12.2079 14.2825 10.7134C14.9328 9.97242 15.5456 9.37472 15.9949 8.96321C16.2192 8.7577 16.4021 8.59926 16.5275 8.49327C16.5902 8.44029 16.6385 8.40046 16.6704 8.37446C16.6863 8.36146 16.6982 8.35192 16.7056 8.34593C16.7094 8.34293 16.712 8.34082 16.7136 8.3396C16.7143 8.339 16.7148 8.33861 16.715 8.33846C16.7151 8.33838 16.7151 8.33835 16.7151 8.33839C16.7151 8.33841 16.715 8.33847 16.715 8.33848C16.7149 8.33857 16.7147 8.33866 16.25 7.75C15.7853 7.16134 15.7851 7.16146 15.7849 7.1616C15.7848 7.16167 15.7847 7.16182 15.7845 7.16195C15.7842 7.16222 15.7838 7.16254 15.7833 7.16292C15.7823 7.16367 15.7811 7.16466 15.7796 7.16587C15.7765 7.1683 15.7723 7.17164 15.767 7.17588C15.7565 7.18436 15.7415 7.19646 15.7223 7.21209C15.684 7.24333 15.629 7.28871 15.5594 7.34755C15.4202 7.46519 15.2222 7.63683 14.9817 7.8571C14.5013 8.29716 13.8485 8.93383 13.155 9.72406C11.779 11.2921 10.1926 13.5209 9.52469 16.0591L10.9753 16.4409ZM7.1397 13.1859L9.6397 16.6859L10.8603 15.8141L8.3603 12.3141L7.1397 13.1859Z"
+                d="M10.25 16.25L9.64 16.69C9.81 16.92 10.1 17.04 10.39 16.99C10.67 16.94 10.9 16.72 10.98 16.44L10.25 16.25ZM16.71 8.34C17.04 8.08 17.1 7.61 16.84 7.29C16.58 6.96 16.11 6.9 15.79 7.16L16.71 8.34ZM8.36 12.31C8.12 11.98 7.65 11.9 7.31 12.14C6.98 12.38 6.9 12.85 7.14 13.19L8.36 12.31ZM10.98 16.44C11.56 14.23 12.97 12.21 14.28 10.71C14.93 9.97 15.55 9.37 15.99 8.96C16.22 8.76 16.4 8.6 16.53 8.49C16.59 8.44 16.64 8.4 16.67 8.37C16.69 8.36 16.7 8.35 16.71 8.35C16.71 8.34 16.71 8.34 16.71 8.34C16.71 8.34 16.71 8.34 16.71 8.34C16.72 8.34 16.72 8.34 16.72 8.34C16.72 8.34 16.71 8.34 16.71 8.34C16.71 8.34 16.71 8.34 16.25 7.75C15.79 7.16 15.79 7.16 15.78 7.16C15.78 7.16 15.78 7.16 15.78 7.16C15.78 7.16 15.78 7.16 15.78 7.16C15.78 7.16 15.78 7.16 15.78 7.17C15.78 7.17 15.77 7.17 15.77 7.18C15.76 7.18 15.74 7.2 15.72 7.21C15.68 7.24 15.63 7.29 15.56 7.35C15.42 7.47 15.22 7.64 14.98 7.86C14.5 8.3 13.85 8.93 13.15 9.72C11.78 11.29 10.19 13.52 9.52 16.06L10.98 16.44ZM7.14 13.19L9.64 16.69L10.86 15.81L8.36 12.31L7.14 13.19Z"
                 fill="currentColor"
               />
             </svg>
@@ -304,7 +345,7 @@ function Code({ children, ...props }) {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="1.5"
-                d="M6.5 15.25V15.25C5.5335 15.25 4.75 14.4665 4.75 13.5V6.75C4.75 5.64543 5.64543 4.75 6.75 4.75H13.5C14.4665 4.75 15.25 5.5335 15.25 6.5V6.5"
+                d="M6.5 15.25V15.25C5.53 15.25 4.75 14.47 4.75 13.5V6.75C4.75 5.65 5.65 4.75 6.75 4.75H13.5C14.47 4.75 15.25 5.53 15.25 6.5V6.5"
               />
               <rect
                 width="10.5"
@@ -322,12 +363,7 @@ function Code({ children, ...props }) {
         </button>
       </div>
       <div className="code-container">
-        <code
-          className="mb-12"
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{ __html: codeHTML }}
-          {...props}
-        />
+        <code className="mb-12" {...props}><CodeTokens code={children} /></code>
       </div>
     </div>
   );
@@ -404,6 +440,33 @@ function ListItem({ children }) {
   );
 }
 
+const badges = {
+  idea: {
+    bg: "bg-yellow-50",
+    text: "text-yellow-800",
+    ring: "ring-yellow-600/20",
+    label: "Idea",
+  },
+  info: {
+    bg: "bg-blue-50",
+    text: "text-blue-700",
+    ring: "ring-blue-700/10",
+    label: "Info",
+  },
+  thought: {
+    bg: "bg-indigo-50",
+    text: "text-indigo-700",
+    ring: "ring-indigo-700/10",
+    label: "Thought",
+  },
+  warning: {
+    bg: "bg-rose-50",
+    text: "text-rose-700",
+    ring: "ring-rose-700/10",
+    label: "Warning",
+  },
+};
+
 function FullWidthCallout({ children, type }) {
   const hasLinks = React.Children.toArray(children).some((child) => {
     if (
@@ -460,33 +523,6 @@ function FullWidthCallout({ children, type }) {
         return child;
       })
     : children;
-
-  const badges = {
-    idea: {
-      bg: "bg-yellow-50",
-      text: "text-yellow-800",
-      ring: "ring-yellow-600/20",
-      label: "Idea",
-    },
-    info: {
-      bg: "bg-blue-50",
-      text: "text-blue-700",
-      ring: "ring-blue-700/10",
-      label: "Info",
-    },
-    thought: {
-      bg: "bg-indigo-50",
-      text: "text-indigo-700",
-      ring: "ring-indigo-700/10",
-      label: "Thought",
-    },
-    warning: {
-      bg: "bg-rose-50",
-      text: "text-rose-700",
-      ring: "ring-rose-700/10",
-      label: "Warning",
-    },
-  };
 
   const badge = badges[type];
 
@@ -554,7 +590,7 @@ const sharedComponents = {
 };
 
 const useMDXComponent = (code: string) => {
-  const fn = new Function(code);
+  const fn = Function(code);
   return fn({ ...runtime }).default;
 };
 

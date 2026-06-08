@@ -29,17 +29,12 @@ export function useActiveSection({
     if (headingIds.length === 0) return;
 
     // Get all heading positions
-    const headingPositions = headingIds
-      .map((id) => {
+    const headingPositions = headingIds.flatMap((id) => {
         const element = document.getElementById(id);
-        if (!element) return null;
+        if (!element) return [];
         const rect = element.getBoundingClientRect();
-        return {
-          id,
-          top: rect.top,
-        };
-      })
-      .filter(Boolean) as { id: string; top: number }[];
+        return [{ id, top: rect.top }];
+      });
 
     if (headingPositions.length === 0) return;
 

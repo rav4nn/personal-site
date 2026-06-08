@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 interface LinkPreviewImageProps {
   src: string;
@@ -38,7 +39,7 @@ export function LinkPreviewImage({
       )}
 
       {/* Image with CSS transition */}
-      <img
+      <Image
         src={src}
         alt={alt}
         width={displayWidth}
@@ -47,6 +48,7 @@ export function LinkPreviewImage({
         style={{ opacity: isLoaded ? 1 : 0 }}
         onLoad={() => setIsLoaded(true)}
         onError={() => setHasError(true)}
+        unoptimized
       />
     </div>
   );

@@ -8,6 +8,12 @@ import { CategorySelect } from "@/app/components/CategorySelect";
 import { FeaturedBlogCard } from "@/app/components/FeaturedBlogCard";
 import { GridWrapper } from "@/app/components/GridWrapper";
 import clsx from "clsx";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog | Hardeep Singh",
+  description: "Articles on software engineering, AI, and building products.",
+};
 
 export default async function BlogPage({
   searchParams,

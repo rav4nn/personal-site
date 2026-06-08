@@ -1,10 +1,78 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Photo } from "./Photo";
 import { useEffect, useState } from "react";
 
 type Direction = "left" | "right";
+
+// Animation variants for the container
+const containerVariants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1, // Reduced from 0.3 to 0.1 since we already have the fade-in delay
+    },
+  },
+};
+
+// Photo positions - horizontal layout with random y offsets
+const photos = [
+  {
+    id: 1,
+    order: 0,
+    x: "-320px",
+    y: "15px",
+    zIndex: 50,
+    direction: "left" as Direction,
+    src: "/cb.webp",
+    alt: "Hardeep in a candid photo",
+    href: "https://x.com/rav4nn/status/1754776821370142754?s=20",
+  },
+  {
+    id: 2,
+    order: 1,
+    x: "-160px",
+    y: "32px",
+    zIndex: 40,
+    direction: "left" as Direction,
+    src: "/football.webp",
+    alt: "Hardeep playing football",
+  },
+  {
+    id: 3,
+    order: 2,
+    x: "0px",
+    y: "8px",
+    zIndex: 30,
+    direction: "right" as Direction,
+    src: "/hero_2.webp",
+    alt: "Hardeep at a café in a pink polo, holding coffee with a bookshelf behind",
+  },
+  {
+    id: 4,
+    order: 3,
+    x: "160px",
+    y: "22px",
+    zIndex: 20,
+    direction: "right" as Direction,
+    src: "/chess.webp",
+    alt: "Hardeep playing chess",
+    href: "https://lichess.org/@/rav4nn",
+  },
+  {
+    id: 5,
+    order: 4,
+    x: "320px",
+    y: "44px",
+    zIndex: 10,
+    direction: "left" as Direction,
+    src: "/mountains-dog.webp",
+    alt: "Hardeep petting a mountain dog on a trek",
+  },
+];
 
 export const PhotoGallery = ({
   animationDelay = 0.5,
@@ -34,18 +102,6 @@ export const PhotoGallery = ({
     };
   }, [animationDelay]);
 
-  // Animation variants for the container
-  const containerVariants = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1, // Reduced from 0.3 to 0.1 since we already have the fade-in delay
-      },
-    },
-  };
-
   // Animation variants for each photo
   const photoVariants = {
     hidden: (custom) => ({
@@ -70,71 +126,15 @@ export const PhotoGallery = ({
     }),
   };
 
-  // Photo positions - horizontal layout with random y offsets
-  const photos = [
-    {
-      id: 1,
-      order: 0,
-      x: "-320px",
-      y: "15px",
-      zIndex: 50,
-      direction: "left" as Direction,
-      src: "/cb.webp",
-      alt: "Hardeep in a candid photo",
-      href: "https://x.com/rav4nn/status/1754776821370142754?s=20",
-    },
-    {
-      id: 2,
-      order: 1,
-      x: "-160px",
-      y: "32px",
-      zIndex: 40,
-      direction: "left" as Direction,
-      src: "/football.webp",
-      alt: "Hardeep playing football",
-    },
-    {
-      id: 3,
-      order: 2,
-      x: "0px",
-      y: "8px",
-      zIndex: 30,
-      direction: "right" as Direction,
-      src: "/hero_2.webp",
-      alt: "Hardeep at a café in a pink polo, holding coffee with a bookshelf behind",
-    },
-    {
-      id: 4,
-      order: 3,
-      x: "160px",
-      y: "22px",
-      zIndex: 20,
-      direction: "right" as Direction,
-      src: "/chess.webp",
-      alt: "Hardeep playing chess",
-      href: "https://lichess.org/@/rav4nn",
-    },
-    {
-      id: 5,
-      order: 4,
-      x: "320px",
-      y: "44px",
-      zIndex: 10,
-      direction: "left" as Direction,
-      src: "/mountains-dog.webp",
-      alt: "Hardeep petting a mountain dog on a trek",
-    },
-  ];
-
   return (
     <div className="relative mb-8 hidden h-[350px] w-full items-center justify-center lg:flex">
-      <motion.div
+      <m.div
         className="relative mx-auto flex w-full max-w-6xl justify-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: isVisible ? 1 : 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
       >
-        <motion.div
+        <m.div
           className="relative flex w-full justify-center"
           variants={containerVariants}
           initial="hidden"
@@ -143,7 +143,7 @@ export const PhotoGallery = ({
           <div className="relative h-[220px] w-[220px]">
             {/* Render photos in reverse order so that higher z-index photos are rendered later in the DOM */}
             {[...photos].reverse().map((photo) => (
-              <motion.div
+              <m.div
                 key={photo.id}
                 className="absolute left-0 top-0"
                 style={{ zIndex: photo.zIndex }} // Apply z-index directly in style
@@ -162,11 +162,11 @@ export const PhotoGallery = ({
                   direction={photo.direction}
                   href={photo.href}
                 />
-              </motion.div>
+              </m.div>
             ))}
           </div>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </div>
   );
 };

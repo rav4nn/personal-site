@@ -1,11 +1,51 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 interface PerformanceMode {
   isMobile: boolean;
   prefersReducedMotion: boolean;
   shouldReduceAnimations: boolean;
+}
+
+function getSnapshot(): PerformanceMode {
+  const isMobile = window.innerWidth < 768;
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+  return {
+    isMobile,
+    prefersReducedMotion,
+    shouldReduceAnimations: isMobile || prefersReducedMotion,
+  };
+}
+
+// Stable server snapshot — safe default for SSR/hydration
+const serverSnapshot: PerformanceMode = {
+  isMobile: false,
+  prefersReducedMotion: false,
+  shouldReduceAnimations: false,
+};
+
+function subscribe(callback: () => void): () => void {
+  window.addEventListener("resize", callback);
+
+  const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (motionQuery.addEventListener) {
+    motionQuery.addEventListener("change", callback);
+  } else {
+    // Fallback for older browsers
+    motionQuery.addListener(callback);
+  }
+
+  return () => {
+    window.removeEventListener("resize", callback);
+    if (motionQuery.removeEventListener) {
+      motionQuery.removeEventListener("change", callback);
+    } else {
+      motionQuery.removeListener(callback);
+    }
+  };
 }
 
 /**
@@ -14,52 +54,5 @@ interface PerformanceMode {
  * This is the production-standard hybrid approach used by apps like Stripe and Notion.
  */
 export function usePerformanceMode(): PerformanceMode {
-  const [mode, setMode] = useState<PerformanceMode>({
-    isMobile: false,
-    prefersReducedMotion: false,
-    shouldReduceAnimations: false,
-  });
-
-  useEffect(() => {
-    const checkPerformanceMode = () => {
-      const isMobile = window.innerWidth < 768;
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
-      setMode({
-        isMobile,
-        prefersReducedMotion,
-        // Reduce animations for EITHER mobile performance OR accessibility
-        shouldReduceAnimations: isMobile || prefersReducedMotion,
-      });
-    };
-
-    checkPerformanceMode();
-
-    // Listen for viewport changes
-    window.addEventListener("resize", checkPerformanceMode);
-
-    // Listen for reduced motion preference changes
-    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    // Modern browsers
-    if (motionQuery.addEventListener) {
-      motionQuery.addEventListener("change", checkPerformanceMode);
-    } else {
-      // Fallback for older browsers
-      motionQuery.addListener(checkPerformanceMode);
-    }
-
-    return () => {
-      window.removeEventListener("resize", checkPerformanceMode);
-      if (motionQuery.removeEventListener) {
-        motionQuery.removeEventListener("change", checkPerformanceMode);
-      } else {
-        motionQuery.removeListener(checkPerformanceMode);
-      }
-    };
-  }, []);
-
-  return mode;
+  return useSyncExternalStore(subscribe, getSnapshot, () => serverSnapshot);
 }

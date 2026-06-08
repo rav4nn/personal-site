@@ -4,30 +4,63 @@
 import {
   AnimatePresence,
   animate,
-  motion,
+  m,
   useMotionValue,
   useReducedMotion,
   useTransform,
 } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { VISITOR_SEED } from "app/lib/visitorCounter";
 
 const STORAGE_KEY = "visitorCounter";
 const DISMISSED_KEY = "visitorCounterDismissed";
 
-type Stored = { id: string; number: number };
+type Stored = { id: string; number: number; skipEnter: boolean };
 
 function readStored(): Stored | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as Stored;
+    const parsed = JSON.parse(raw) as { id: string; number: number };
     if (typeof parsed?.number === "number" && typeof parsed?.id === "string") {
-      return parsed;
+      return { ...parsed, skipEnter: false };
     }
     return null;
   } catch {
     return null;
+  }
+}
+
+// Module-level store — fetch runs once at client module load, never in an effect
+let visitorRecord: Stored | null = null;
+const visitorListeners = new Set<() => void>();
+
+function subscribeToVisitor(cb: () => void) {
+  visitorListeners.add(cb);
+  return () => visitorListeners.delete(cb);
+}
+
+function getVisitorSnapshot() { return visitorRecord; }
+
+if (typeof window !== "undefined") {
+  const existing = readStored();
+  if (existing) {
+    visitorRecord = { ...existing, skipEnter: document.hidden };
+  } else {
+    fetch("/api/visitors", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({}),
+    })
+      .then((res) => res.json())
+      .then((data: { ok: true; id: string; number: number } | { ok: false }) => {
+        if (!data.ok) return;
+        const next = { id: data.id, number: data.number };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+        visitorRecord = { ...next, skipEnter: document.hidden };
+        visitorListeners.forEach((fn) => fn());
+      })
+      .catch(() => {});
   }
 }
 
@@ -53,61 +86,15 @@ function RollingNumber({ value, skip }: { value: number; skip?: boolean }) {
     return controls.stop;
   }, [value, noAnim, count]);
 
-  return <motion.span>{text}</motion.span>;
+  return <m.span>{text}</m.span>;
 }
 
 export function VisitorCounter() {
-  const [record, setRecord] = useState<Stored | null>(null);
-  const [dismissed, setDismissed] = useState(true); // hidden until we decide to show
-  // When the tab is backgrounded at reveal time, framer-motion's rAF-driven
-  // entrance is paused, which would leave the pill stuck invisible until focus.
-  // In that case we skip the animation and render at the final state instead.
-  const [skipEnter, setSkipEnter] = useState(false);
+  const record = useSyncExternalStore(subscribeToVisitor, getVisitorSnapshot, () => null);
+  const [dismissed, setDismissed] = useState(() =>
+    typeof window !== "undefined" ? localStorage.getItem(DISMISSED_KEY) === "1" : true,
+  );
   const reduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    let cancelled = false;
-    const wasDismissed = localStorage.getItem(DISMISSED_KEY) === "1";
-
-    async function ensureRecord() {
-      const existing = readStored();
-      if (existing) {
-        if (!cancelled) {
-          if (document.hidden) setSkipEnter(true);
-          setRecord(existing);
-          setDismissed(wasDismissed);
-        }
-        return;
-      }
-      // New browser: register (counts the visit) even if previously dismissed,
-      // so the global count stays accurate.
-      try {
-        const res = await fetch("/api/visitors", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({}),
-        });
-        const data = (await res.json()) as
-          | { ok: true; id: string; number: number }
-          | { ok: false };
-        if (!data.ok) return; // soft-fail: render nothing
-        const next = { id: data.id, number: data.number };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-        if (!cancelled) {
-          if (document.hidden) setSkipEnter(true);
-          setRecord(next);
-          setDismissed(wasDismissed);
-        }
-      } catch {
-        // network error: render nothing
-      }
-    }
-
-    void ensureRecord();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   function handleDismiss() {
     localStorage.setItem(DISMISSED_KEY, "1");
@@ -119,13 +106,13 @@ export function VisitorCounter() {
   return (
     <AnimatePresence>
       {show && (
-        <motion.div
+        <m.div
           key="visitor-counter"
           // initial={false} renders straight at the `animate` state with no
           // entrance tween — used when the tab is hidden (rAF is paused) so the
           // pill is guaranteed visible the moment the tab is foregrounded.
           initial={
-            skipEnter ? false : reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }
+            record.skipEnter ? false : reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }
           }
           animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
@@ -147,7 +134,7 @@ export function VisitorCounter() {
           />
           <span className="hidden sm:inline">You&apos;re visitor&nbsp;</span>
           <span className="font-mono font-semibold tabular-nums text-purple-primary">
-            #<RollingNumber value={record!.number} skip={skipEnter} />
+            #<RollingNumber value={record.number} skip={record.skipEnter} />
           </span>
           <button
             type="button"
@@ -164,7 +151,7 @@ export function VisitorCounter() {
               />
             </svg>
           </button>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

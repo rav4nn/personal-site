@@ -2,6 +2,7 @@
 
 import { forwardRef } from "react";
 import { LinkPreviewImage } from "./LinkPreviewImage";
+import Image from "next/image";
 
 interface LinkPreviewPopoverProps {
   id: string;
@@ -57,7 +58,6 @@ export const LinkPreviewPopover = forwardRef<
     <div
       ref={ref}
       id={id}
-      // @ts-expect-error - popover is a valid HTML attribute
       popover="manual"
       role="tooltip"
       className={`link-preview-popover${anchorName ? ' anchor-positioned' : ''}`}
@@ -88,13 +88,12 @@ export const LinkPreviewPopover = forwardRef<
           {/* Favicon */}
           <div className="relative flex h-4 w-4 shrink-0 items-center justify-center">
             {faviconUrl && (
-              <img
+              <Image
                 src={faviconUrl}
                 alt=""
                 width={16}
                 height={16}
                 className="h-4 w-4 rounded-sm object-contain"
-                loading="lazy"
               />
             )}
           </div>

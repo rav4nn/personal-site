@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { HorizontalLine } from "@/app/components/HorizontalLine";
+
+export const metadata: Metadata = {
+  title: "About | Hardeep Singh",
+  description: "Learn about Hardeep Singh — software engineer, speaker, and builder of things.",
+};
 import { getTimeOfDayGreeting } from "app/lib/utils";
 import React from "react";
 import { ShadowBox } from "@/app/components/ShadowBox";
@@ -9,7 +15,9 @@ import { Resume } from "@/app/components/Resume";
 import { GetInTouch } from "@/app/components/GetInTouch";
 import { AboutLink } from "@/app/components/AboutLink";
 import { getRepoStats } from "@/app/lib/stats/github-stats";
+import Image from "next/image";
 
+// react-doctor-disable-next-line react-doctor/no-giant-component
 export default async function AboutPage() {
   const timeOfDayGreeting = getTimeOfDayGreeting();
   const ytStats = await getRepoStats("rav4nn", "youtube-rag-scraper");
@@ -94,10 +102,12 @@ export default async function AboutPage() {
                 <div className="mb-8 lg:hidden">
                   <div className="relative mx-auto w-fit">
                     <ShadowBox width={188} height={278}></ShadowBox>
-                    <img
+                    <Image
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
                       src="/hero.webp"
                       alt="Hardeep in a cap and puffer jacket, outdoor selfie"
+                      width={180}
+                      height={270}
                     />
                   </div>
                 </div>
@@ -119,10 +129,12 @@ export default async function AboutPage() {
               <div className="hidden lg:order-1 lg:block">
                 <div className="relative mx-auto w-fit">
                   <ShadowBox width={188} height={278}></ShadowBox>
-                  <img
+                  <Image
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
                     src="/hero.webp"
                     alt="Hardeep Singh"
+                    width={180}
+                    height={270}
                   />
                 </div>
               </div>
@@ -134,10 +146,12 @@ export default async function AboutPage() {
                 <div className="mb-8 lg:hidden">
                   <div className="relative mx-auto w-fit">
                     <ShadowBox width={188} height={278}></ShadowBox>
-                    <img
+                    <Image
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
                       src="/looking-over-mountains.webp"
                       alt="Hardeep standing on a mountaintop overlooking a valley"
+                      width={180}
+                      height={270}
                     />
                   </div>
                 </div>
@@ -179,10 +193,12 @@ export default async function AboutPage() {
               <div className="hidden lg:block">
                 <div className="relative mx-auto w-fit">
                   <ShadowBox width={188} height={278}></ShadowBox>
-                  <img
+                  <Image
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
                     src="/looking-over-mountains.webp"
                     alt="Hardeep standing on a mountaintop overlooking a valley"
+                    width={180}
+                    height={270}
                   />
                 </div>
               </div>
@@ -194,10 +210,12 @@ export default async function AboutPage() {
                 <div className="mb-8 lg:hidden">
                   <div className="relative mx-auto w-fit">
                     <ShadowBox width={188} height={278}></ShadowBox>
-                    <img
+                    <Image
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
                       src="/surgery.webp"
                       alt="Hardeep's leg post ACL surgery, in recovery"
+                      width={180}
+                      height={270}
                     />
                   </div>
                 </div>
@@ -215,10 +233,12 @@ export default async function AboutPage() {
               <div className="hidden lg:block">
                 <div className="relative mx-auto w-fit">
                   <ShadowBox width={188} height={278}></ShadowBox>
-                  <img
+                  <Image
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
                     src="/surgery.webp"
                     alt="Hardeep's leg post ACL surgery, in recovery"
+                    width={180}
+                    height={270}
                   />
                 </div>
               </div>
@@ -230,10 +250,12 @@ export default async function AboutPage() {
                 <div className="mb-8 lg:hidden">
                   <div className="relative mx-auto w-fit">
                     <ShadowBox width={188} height={278}></ShadowBox>
-                    <img
+                    <Image
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
                       src="/hero_2.webp"
                       alt="Hardeep at a café in a pink polo, holding coffee with a bookshelf behind"
+                      width={180}
+                      height={270}
                     />
                   </div>
                 </div>
@@ -263,10 +285,12 @@ export default async function AboutPage() {
               <div className="hidden lg:block">
                 <div className="relative mx-auto w-fit">
                   <ShadowBox width={188} height={278}></ShadowBox>
-                  <img
+                  <Image
                     className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
                     src="/hero_2.webp"
                     alt="Hardeep at a café in a pink polo, holding coffee with a bookshelf behind"
+                    width={180}
+                    height={270}
                   />
                 </div>
               </div>

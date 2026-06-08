@@ -13,7 +13,7 @@ export interface TocHeading {
  * Slugify a string for use as an anchor ID
  * Must match the slugify function in mdx.tsx for consistency
  */
-export function slugify(str: string): string {
+function slugify(str: string): string {
   return str
     .toString()
     .toLowerCase()

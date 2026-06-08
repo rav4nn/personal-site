@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useId, useEffect } from "react";
+import { useReducer, useRef, useCallback, useId, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { LinkPreviewPopover } from "./LinkPreviewPopover";
 import type { LinkPreviewData } from "@/app/lib/link-previews/types";
@@ -31,18 +31,65 @@ function isTouchDevice(): boolean {
   return window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 }
 
+// ── Reducer ──────────────────────────────────────────────────────────────────
+
+interface LinkPreviewState {
+  position: { top: number; left: number } | null;
+  isMounted: boolean;
+  supportsAnchor: boolean;
+  isTouch: boolean;
+}
+
+type LinkPreviewAction =
+  | { type: "MOUNT"; supportsAnchor: boolean; isTouch: boolean }
+  | { type: "SET_POSITION"; position: { top: number; left: number } | null };
+
+function reducer(
+  state: LinkPreviewState,
+  action: LinkPreviewAction
+): LinkPreviewState {
+  switch (action.type) {
+    case "MOUNT":
+      return {
+        ...state,
+        isMounted: true,
+        supportsAnchor: action.supportsAnchor,
+        isTouch: action.isTouch,
+      };
+    case "SET_POSITION":
+      return { ...state, position: action.position };
+    default:
+      return state;
+  }
+}
+
+const initialState: LinkPreviewState = {
+  position: null,
+  isMounted: false,
+  // Lazy-init: safe to call during render on client; will be false on SSR.
+  supportsAnchor:
+    typeof CSS !== "undefined" && CSS.supports("anchor-name", "--test"),
+  isTouch:
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: none) and (pointer: coarse)").matches,
+};
+
+// ── Component ─────────────────────────────────────────────────────────────────
+
 export function LinkPreview({
   href,
   children,
   preview,
   className,
 }: LinkPreviewProps) {
-  const [position, setPosition] = useState<{ top: number; left: number } | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
-  const [supportsAnchor, setSupportsAnchor] = useState(false);
-  const [isTouch, setIsTouch] = useState(false);
-  const [isHoveringLink, setIsHoveringLink] = useState(false);
-  const [isHoveringPopover, setIsHoveringPopover] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { position, isMounted, supportsAnchor, isTouch } = state;
+
+  // Hover tracking refs — don't need to trigger re-renders; show/hide is
+  // driven directly in event handlers via the timeout refs below.
+  const isHoveringLinkRef = useRef(false);
+  const isHoveringPopoverRef = useRef(false);
+
   const showTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const linkRef = useRef<HTMLAnchorElement>(null);
@@ -52,11 +99,15 @@ export function LinkPreview({
   const popoverId = `popover-${uniqueId.replace(/:/g, "")}`;
   const anchorName = `--anchor-${uniqueId.replace(/:/g, "")}`;
 
-  // Mount check for portal, anchor support, and touch device detection
+  // Mount check for portal — isMounted starts false to avoid SSR mismatch.
+  // supportsAnchor and isTouch are pre-initialized from module-scope checks
+  // but re-confirmed here to handle hydration edge cases.
   useEffect(() => {
-    setIsMounted(true);
-    setIsTouch(isTouchDevice());
-    setSupportsAnchor(supportsAnchorPositioning());
+    dispatch({
+      type: "MOUNT",
+      supportsAnchor: supportsAnchorPositioning(),
+      isTouch: isTouchDevice(),
+    });
   }, []);
 
   const calculatePosition = useCallback(() => {
@@ -90,56 +141,56 @@ export function LinkPreview({
     return { top, left };
   }, []);
 
-  // Show/hide logic based on hover state of both link and popover
-  useEffect(() => {
-    const shouldShow = isHoveringLink || isHoveringPopover;
+  // ── Show / hide helpers called directly from event handlers ───────────────
 
-    if (shouldShow) {
-      // Clear any pending hide
-      if (hideTimeoutRef.current) {
-        clearTimeout(hideTimeoutRef.current);
-        hideTimeoutRef.current = null;
-      }
+  const scheduleShow = useCallback(() => {
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current);
+      hideTimeoutRef.current = null;
+    }
 
-      // Delay before showing
-      if (!popoverRef.current?.matches(":popover-open")) {
-        showTimeoutRef.current = setTimeout(() => {
-          // Only calculate JS position if browser doesn't support anchor positioning
-          if (!supportsAnchor) {
-            const pos = calculatePosition();
-            if (!pos) return;
-            setPosition(pos);
-          }
+    if (!popoverRef.current?.matches(":popover-open")) {
+      showTimeoutRef.current = setTimeout(() => {
+        if (!supportsAnchor) {
+          const pos = calculatePosition();
+          if (!pos) return;
+          dispatch({ type: "SET_POSITION", position: pos });
+        }
+        try {
+          popoverRef.current?.showPopover();
+        } catch (e) {
+          // Ignore
+        }
+      }, 200);
+    }
+  }, [supportsAnchor, calculatePosition]);
 
-          try {
-            popoverRef.current?.showPopover();
-          } catch (e) {
-            // Ignore
-          }
-        }, 200);
-      }
-    } else {
-      // Clear any pending show
-      if (showTimeoutRef.current) {
-        clearTimeout(showTimeoutRef.current);
-        showTimeoutRef.current = null;
-      }
+  const scheduleHide = useCallback(() => {
+    if (showTimeoutRef.current) {
+      clearTimeout(showTimeoutRef.current);
+      showTimeoutRef.current = null;
+    }
 
-      // Small delay before hiding (allows moving between link and popover)
-      hideTimeoutRef.current = setTimeout(() => {
+    hideTimeoutRef.current = setTimeout(() => {
+      // Only hide if neither link nor popover is still hovered
+      if (!isHoveringLinkRef.current && !isHoveringPopoverRef.current) {
         try {
           popoverRef.current?.hidePopover();
         } catch (e) {
           // Ignore
         }
-      }, 100);
-    }
+      }
+    }, 100);
+  }, []);
 
+  // Cleanup on unmount — refs excluded from deps by convention
+  // react-doctor-disable-next-line react-doctor/exhaustive-deps
+  useEffect(() => {
     return () => {
       if (showTimeoutRef.current) clearTimeout(showTimeoutRef.current);
       if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
     };
-  }, [isHoveringLink, isHoveringPopover, calculatePosition, supportsAnchor]);
+  }, []);
 
   // If no preview available or touch device, render simple link
   if (!preview || isTouch) {
@@ -163,10 +214,22 @@ export function LinkPreview({
         className={className}
         target="_blank"
         rel="noopener noreferrer"
-        onMouseEnter={() => setIsHoveringLink(true)}
-        onMouseLeave={() => setIsHoveringLink(false)}
-        onFocus={() => setIsHoveringLink(true)}
-        onBlur={() => setIsHoveringLink(false)}
+        onMouseEnter={() => {
+          isHoveringLinkRef.current = true;
+          scheduleShow();
+        }}
+        onMouseLeave={() => {
+          isHoveringLinkRef.current = false;
+          scheduleHide();
+        }}
+        onFocus={() => {
+          isHoveringLinkRef.current = true;
+          scheduleShow();
+        }}
+        onBlur={() => {
+          isHoveringLinkRef.current = false;
+          scheduleHide();
+        }}
         aria-describedby={popoverId}
         style={supportsAnchor ? { anchorName: anchorName } as React.CSSProperties : undefined}
       >
@@ -184,8 +247,14 @@ export function LinkPreview({
             height={preview.height}
             position={supportsAnchor ? null : position}
             anchorName={supportsAnchor ? anchorName : undefined}
-            onMouseEnter={() => setIsHoveringPopover(true)}
-            onMouseLeave={() => setIsHoveringPopover(false)}
+            onMouseEnter={() => {
+              isHoveringPopoverRef.current = true;
+              scheduleShow();
+            }}
+            onMouseLeave={() => {
+              isHoveringPopoverRef.current = false;
+              scheduleHide();
+            }}
           />,
           document.body
         )}

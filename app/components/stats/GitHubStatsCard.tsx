@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { m } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { usePerformanceMode } from "@/app/hooks/usePerformanceMode";
 
 type GitHubStatType = "stars" | "forks" | "commits";
@@ -111,15 +111,15 @@ export function GitHubStatsCard({
 }: GitHubStatsCardProps) {
   const { shouldReduceAnimations } = usePerformanceMode();
   const [isHovered, setIsHovered] = useState(false);
-  const [displayValue, setDisplayValue] = useState(0);
+  // animatedValue drives the count-up animation; when animations are reduced we
+  // render `value` directly so this state is only alive in the animated path.
+  const [animatedValue, setAnimatedValue] = useState(0);
+  const rafRef = useRef<number | null>(null);
 
   const theme = themeConfig[type];
 
   useEffect(() => {
-    if (shouldReduceAnimations) {
-      setDisplayValue(value);
-      return;
-    }
+    if (shouldReduceAnimations) return;
 
     const duration = 1500;
     const startTime = performance.now();
@@ -129,21 +129,27 @@ export function GitHubStatsCard({
       const elapsed = currentTime - startTime - startDelay;
 
       if (elapsed < 0) {
-        requestAnimationFrame(animateCount);
+        rafRef.current = requestAnimationFrame(animateCount);
         return;
       }
 
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplayValue(Math.floor(eased * value));
+      setAnimatedValue(Math.floor(eased * value));
 
       if (progress < 1) {
-        requestAnimationFrame(animateCount);
+        rafRef.current = requestAnimationFrame(animateCount);
       }
     };
 
-    requestAnimationFrame(animateCount);
+    rafRef.current = requestAnimationFrame(animateCount);
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
   }, [value, delay, shouldReduceAnimations]);
+
+  // When animations are reduced, display the real value directly (no derived state).
+  const displayValue = shouldReduceAnimations ? value : animatedValue;
 
   const cardClassName = "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border-primary bg-bg-primary p-4 transition-all duration-300 hover:border-indigo-400 hover:bg-white";
 
@@ -157,9 +163,9 @@ export function GitHubStatsCard({
         {/* Floating decorations based on type */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           {type === "stars" &&
-            starDecorations.map((star, i) => (
+            starDecorations.map((star) => (
               <div
-                key={i}
+                key={`${star.x}-${star.y}`}
                 className={`absolute ${theme.decorColor}`}
                 style={{
                   left: star.x,
@@ -173,9 +179,9 @@ export function GitHubStatsCard({
             ))}
 
           {type === "forks" &&
-            forkDecorations.map((fork, i) => (
+            forkDecorations.map((fork) => (
               <div
-                key={i}
+                key={`${fork.x}-${fork.y}`}
                 className={`absolute ${theme.decorColor}`}
                 style={{
                   left: fork.x,
@@ -189,9 +195,9 @@ export function GitHubStatsCard({
             ))}
 
           {type === "commits" &&
-            commitDecorations.map((commit, i) => (
+            commitDecorations.map((commit) => (
               <div
-                key={i}
+                key={`${commit.x}-${commit.y}`}
                 className={`absolute ${theme.decorColor}`}
                 style={{
                   left: commit.x,
@@ -218,7 +224,7 @@ export function GitHubStatsCard({
 
   // Desktop: Full Framer Motion animations
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
@@ -232,10 +238,10 @@ export function GitHubStatsCard({
       {/* Floating decorations based on type */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         {type === "stars" &&
-          starDecorations.map((star, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0, rotate: star.rotate - 30 }}
+          starDecorations.map((star) => (
+            <m.div
+              key={`${star.x}-${star.y}`}
+              initial={{ opacity: 0, scale: 0.01, rotate: star.rotate - 30 }}
               animate={{
                 opacity: isHovered ? 0.55 : 0.3,
                 scale: isHovered ? 1.4 : 1,
@@ -252,14 +258,14 @@ export function GitHubStatsCard({
               style={{ left: star.x, top: star.y }}
             >
               <StarShape size={star.size} />
-            </motion.div>
+            </m.div>
           ))}
 
         {type === "forks" &&
-          forkDecorations.map((fork, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0, rotate: fork.rotate }}
+          forkDecorations.map((fork) => (
+            <m.div
+              key={`${fork.x}-${fork.y}`}
+              initial={{ opacity: 0, scale: 0.01, rotate: fork.rotate }}
               animate={{
                 opacity: isHovered ? 0.5 : 0.28,
                 scale: isHovered ? 1.3 : 1,
@@ -276,14 +282,14 @@ export function GitHubStatsCard({
               style={{ left: fork.x, top: fork.y }}
             >
               <BranchShape />
-            </motion.div>
+            </m.div>
           ))}
 
         {type === "commits" &&
-          commitDecorations.map((commit, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0 }}
+          commitDecorations.map((commit) => (
+            <m.div
+              key={`${commit.x}-${commit.y}`}
+              initial={{ opacity: 0, scale: 0.01 }}
               animate={{
                 opacity: isHovered ? 0.55 : 0.32,
                 scale: isHovered ? 1.5 : 1,
@@ -298,7 +304,7 @@ export function GitHubStatsCard({
               style={{ left: commit.x, top: commit.y }}
             >
               <CommitDot />
-            </motion.div>
+            </m.div>
           ))}
       </div>
 
@@ -306,14 +312,14 @@ export function GitHubStatsCard({
       <div className="relative z-20 flex h-full flex-col">
         <h2 className="mb-1 text-sm font-medium text-text-primary">{label}</h2>
 
-        <motion.p
+        <m.p
           animate={{ scale: isHovered ? 1.02 : 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
           className="mt-auto text-2xl font-semibold tracking-tight text-purple-primary"
         >
           {displayValue.toLocaleString()}
-        </motion.p>
+        </m.p>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

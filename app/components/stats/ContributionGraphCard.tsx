@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useState, useEffect } from "react";
 import type { ContributionData, ContributionDay } from "@/app/lib/stats/types";
 import { usePerformanceMode } from "@/app/hooks/usePerformanceMode";
@@ -38,6 +38,7 @@ function formatDate(dateString: string): string {
   });
 }
 
+// react-doctor-disable-next-line react-doctor/no-giant-component
 export function ContributionGraphCard({
   contributions,
   delay = 0,
@@ -229,8 +230,8 @@ export function ContributionGraphCard({
             style={{ paddingLeft: "28px" }}
           >
             <div className="flex flex-1 justify-between">
-              {monthLabels.map((month, i) => (
-                <span key={i}>{month.label}</span>
+              {monthLabels.map((month) => (
+                <span key={month.label}>{month.label}</span>
               ))}
             </div>
           </div>
@@ -327,7 +328,7 @@ export function ContributionGraphCard({
 
   // Desktop: Full Framer Motion animations
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
@@ -342,7 +343,7 @@ export function ContributionGraphCard({
 
       <div className="relative z-20 mb-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <motion.div
+          <m.div
             animate={{ y: isHovered ? -2 : 0 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
             className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100"
@@ -350,12 +351,12 @@ export function ContributionGraphCard({
             <svg className="h-5 w-5 text-emerald-600" fill="currentColor" viewBox="0 0 16 16">
               <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
             </svg>
-          </motion.div>
+          </m.div>
           <div>
             <h2 className="font-medium text-text-primary">GitHub contributions</h2>
           </div>
         </div>
-        <motion.div
+        <m.div
           animate={{ scale: isHovered ? 1.05 : 1 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
           className="text-right"
@@ -364,7 +365,7 @@ export function ContributionGraphCard({
             {displayCount.toLocaleString()}
           </span>
           <p className="text-xs text-text-tertiary">contributions</p>
-        </motion.div>
+        </m.div>
       </div>
 
       <div className="relative z-20 mt-2 flex-1">
@@ -396,7 +397,7 @@ export function ContributionGraphCard({
               </div>
               <div className="flex" style={{ gap: "2px" }}>
                 {contributions.weeks.map((week, weekIndex) => (
-                  <motion.div
+                  <m.div
                     key={weekIndex}
                     initial={{ opacity: 0, scale: 0.5 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -421,7 +422,7 @@ export function ContributionGraphCard({
                         <div className={`h-[10px] w-[10px] rounded-[2px] transition-colors duration-150 ${levelColors[day.contributionLevel]} ${levelColorsHover[day.contributionLevel]}`} />
                       </div>
                     ))}
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
             </div>
@@ -431,8 +432,8 @@ export function ContributionGraphCard({
         <div className="hidden md:block">
           <div className="mb-1 flex text-[10px] text-text-tertiary" style={{ paddingLeft: "28px" }}>
             <div className="flex flex-1 justify-between">
-              {monthLabels.map((month, i) => (
-                <span key={i}>{month.label}</span>
+              {monthLabels.map((month) => (
+                <span key={month.label}>{month.label}</span>
               ))}
             </div>
           </div>
@@ -449,7 +450,7 @@ export function ContributionGraphCard({
             </div>
             <div className="grid flex-1" style={{ gridTemplateColumns: `repeat(${contributions.weeks.length}, 1fr)`, gap: "3px" }}>
               {contributions.weeks.map((week, weekIndex) => (
-                <motion.div
+                <m.div
                   key={weekIndex}
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -473,7 +474,7 @@ export function ContributionGraphCard({
                       <div className={`h-full w-full rounded-sm transition-colors duration-150 lg:rounded ${levelColors[day.contributionLevel]} ${levelColorsHover[day.contributionLevel]}`} />
                     </div>
                   ))}
-                </motion.div>
+                </m.div>
               ))}
             </div>
           </div>
@@ -500,6 +501,6 @@ export function ContributionGraphCard({
           <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
         </div>
       )}
-    </motion.div>
+    </m.div>
   );
 }

@@ -5,6 +5,12 @@ import {
 import { NewsletterSignUp } from "@/app/components/NewsletterSignUp";
 import { BlogPostList } from "@/app/components/BlogPostList";
 import { CategorySelect } from "@/app/components/CategorySelect";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blog | Hardeep Singh",
+  description: "Articles by category.",
+};
 
 export default async function CategoryPage({
   params,

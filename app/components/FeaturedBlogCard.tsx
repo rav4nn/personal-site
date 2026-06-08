@@ -1,5 +1,6 @@
 import Link from "next/link";
 import clsx from "clsx";
+import Image from "next/image";
 
 type FeaturedBlogCardProps = {
   slug: string;
@@ -28,12 +29,11 @@ export function FeaturedBlogCard({
         href={`/blog/${slug}`}
         prefetch={true}
       >
-        <img
-          src={
-            `/blog/${imageName}` ||
-            "https://image.isu.pub/190918160849-8822f46c79620853d26cb2aad7175839/jpg/page_1_thumb_large.jpg"
-          }
-          alt=""
+        <Image
+          src={`/blog/${imageName}`}
+          alt={title}
+          width={800}
+          height={280}
           className="h-[280px] rounded-2xl object-cover md:h-[225px]"
         />
         <div className="my-4 flex w-full flex-grow flex-col space-y-4 text-balance px-4">

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { CalendarBento } from "./components/CalendarBento";
 import { ToolboxBento } from "./components/ToolboxBento";
 import { AnimatedProfilePicture } from "./components/AnimatedProfilePicture";
@@ -12,7 +13,7 @@ import { Resume } from "./components/Resume";
 import { AboutLink } from "./components/AboutLink";
 import { GithubSection } from "./components/GithubSection";
 import { getRepoStats } from "./lib/stats/github-stats";
-import { parseHighlights } from "./components/Highlight";
+import { parseHighlights } from "./components/parseHighlights";
 import Image from "next/image";
 
 interface Project {
@@ -23,6 +24,12 @@ interface Project {
   stats: string[];
 }
 
+export const metadata: Metadata = {
+  title: "Hardeep Singh — Software Engineer",
+  description: "Software engineer, open-source contributor, and speaker. Building products at the intersection of AI and developer tooling.",
+};
+
+// react-doctor-disable-next-line react-doctor/no-giant-component
 export default async function Home() {
   const PROFILE_DELAY = 0;
   const HEADING_DELAY = PROFILE_DELAY + 0.2;
@@ -149,10 +156,12 @@ export default async function Home() {
                   <div className="mb-8 lg:hidden">
                     <div className="relative mx-auto w-fit">
                       <ShadowBox width={188} height={278}></ShadowBox>
-                      <img
+                      <Image
                         className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
                         src="/hero.webp"
                         alt="Hardeep in a cap and puffer jacket, outdoor selfie"
+                        width={180}
+                        height={270}
                       />
                     </div>
                   </div>
@@ -174,10 +183,12 @@ export default async function Home() {
                 <div className="hidden lg:order-1 lg:block">
                   <div className="relative mx-auto w-fit">
                     <ShadowBox width={188} height={278}></ShadowBox>
-                    <img
+                    <Image
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
                       src="/hero.webp"
                       alt="Hardeep Singh"
+                      width={180}
+                      height={270}
                     />
                   </div>
                 </div>
@@ -189,10 +200,12 @@ export default async function Home() {
                   <div className="mb-3 lg:hidden">
                     <div className="relative mx-auto w-fit">
                       <ShadowBox width={188} height={278}></ShadowBox>
-                      <img
+                      <Image
                         className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
                         src="/looking-over-mountains.webp"
                         alt="Hardeep standing on a mountaintop overlooking a valley"
+                        width={180}
+                        height={270}
                       />
                     </div>
                   </div>
@@ -234,10 +247,12 @@ export default async function Home() {
                 <div className="hidden lg:block">
                   <div className="relative mx-auto w-fit">
                     <ShadowBox width={188} height={278}></ShadowBox>
-                    <img
+                    <Image
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
                       src="/looking-over-mountains.webp"
                       alt="Hardeep standing on a mountaintop overlooking a valley"
+                      width={180}
+                      height={270}
                     />
                   </div>
                 </div>
@@ -249,10 +264,12 @@ export default async function Home() {
                   <div className="mb-3 lg:hidden">
                     <div className="relative mx-auto w-fit">
                       <ShadowBox width={188} height={278}></ShadowBox>
-                      <img
+                      <Image
                         className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
                         src="/surgery.webp"
                         alt="Hardeep's leg post ACL surgery, in recovery"
+                        width={180}
+                        height={270}
                       />
                     </div>
                   </div>
@@ -270,10 +287,12 @@ export default async function Home() {
                 <div className="hidden lg:block">
                   <div className="relative mx-auto w-fit">
                     <ShadowBox width={188} height={278}></ShadowBox>
-                    <img
+                    <Image
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[-8deg] rounded-lg object-cover shadow"
                       src="/surgery.webp"
                       alt="ACL recovery"
+                      width={180}
+                      height={270}
                     />
                   </div>
                 </div>
@@ -285,10 +304,12 @@ export default async function Home() {
                   <div className="mb-8 lg:hidden">
                     <div className="relative mx-auto w-fit">
                       <ShadowBox width={188} height={278}></ShadowBox>
-                      <img
+                      <Image
                         className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
                         src="/hero_2.webp"
                         alt="Hardeep at a café in a pink polo, holding coffee with a bookshelf behind"
+                        width={180}
+                        height={270}
                       />
                     </div>
                   </div>
@@ -318,10 +339,12 @@ export default async function Home() {
                 <div className="hidden lg:block">
                   <div className="relative mx-auto w-fit">
                     <ShadowBox width={188} height={278}></ShadowBox>
-                    <img
+                    <Image
                       className="absolute left-0 top-0 h-[270px] w-[180px] rotate-[8deg] rounded-lg object-cover shadow"
                       src="/hero_2.webp"
                       alt="Hardeep at a café in a pink polo, holding coffee with a bookshelf behind"
+                      width={180}
+                      height={270}
                     />
                   </div>
                 </div>
@@ -407,9 +430,9 @@ export default async function Home() {
                         </div>
                       </div>
                       <div className="space-y-2">
-                        {project.description.split("\n\n").map((para, i) => (
+                        {project.description.split("\n\n").map((para) => (
                           <p
-                            key={i}
+                            key={para}
                             className="text-base leading-7 text-text-secondary"
                           >
                             {parseHighlights(para, "bold")}

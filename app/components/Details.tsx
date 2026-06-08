@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useLayoutEffect } from "react";
 
 interface DetailsProps {
   summary?: React.ReactNode;
@@ -39,11 +39,14 @@ export function Details({
   // Use either the summary prop or the DetailsSummary child
   const summaryContent = summaryChild ? summaryChild.props.children : summary;
 
-  useEffect(() => {
-    if (contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight);
-    }
-  }, [children, isOpen]);
+  useLayoutEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setContentHeight(el.scrollHeight));
+    ro.observe(el);
+    setContentHeight(el.scrollHeight);
+    return () => ro.disconnect();
+  }, []);
 
   return (
     <details
@@ -95,14 +98,13 @@ export function Details({
         </span>
       </summary>
 
-      <div
+      <section
         ref={contentRef}
         className="relative overflow-hidden transition-all duration-300 ease-out"
         style={{
           maxHeight: isOpen ? contentHeight : 0,
           opacity: isOpen ? 1 : 0,
         }}
-        role="region"
         aria-label="Expandable content"
       >
         {/* Subtle top border */}
@@ -114,7 +116,7 @@ export function Details({
         <div className="px-5 pb-5 pt-4 text-base leading-7 text-text-secondary [&>pre:last-child]:mb-0 [&>*:last-child>pre:last-child]:mb-0">
           {contentChildren}
         </div>
-      </div>
+      </section>
     </details>
   );
 }

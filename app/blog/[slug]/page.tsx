@@ -112,9 +112,9 @@ export default async function BlogPage({ params }: BlogPageProps) {
         >
           <div className="mt-auto">
             <div className="mb-4 hidden gap-2 md:flex md:flex-wrap">
-              {post.categories.slice(0, 3).map((category, index) => (
+              {post.categories.slice(0, 3).map((category) => (
                 <div
-                  key={index}
+                  key={category}
                   className="inline-flex rounded-full border border-white px-2 py-px text-center text-xs uppercase text-white"
                 >
                   <span>#{category}</span>
@@ -143,7 +143,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="1.5"
-                    d="M4.75 8.75C4.75 7.64543 5.64543 6.75 6.75 6.75H17.25C18.3546 6.75 19.25 7.64543 19.25 8.75V17.25C19.25 18.3546 18.3546 19.25 17.25 19.25H6.75C5.64543 19.25 4.75 18.3546 4.75 17.25V8.75Z"
+                    d="M4.75 8.75C4.75 7.65 5.65 6.75 6.75 6.75H17.25C18.35 6.75 19.25 7.65 19.25 8.75V17.25C19.25 18.35 18.35 19.25 17.25 19.25H6.75C5.65 19.25 4.75 18.35 4.75 17.25V8.75Z"
                   ></path>
                   <path
                     stroke="currentColor"
@@ -179,7 +179,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M5.75 4.75H18.25M6.75 4.75H17.25V6C17.25 8.89949 14.8995 11.25 12 11.25C9.10051 11.25 6.75 8.8995 6.75 6V4.75Z"
+                    d="M5.75 4.75H18.25M6.75 4.75H17.25V6C17.25 8.9 14.9 11.25 12 11.25C9.1 11.25 6.75 8.9 6.75 6V4.75Z"
                     stroke="currentColor"
                     strokeWidth="1.5"
                     strokeLinecap="round"
@@ -193,7 +193,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
                     strokeLinejoin="round"
                   ></path>
                   <path
-                    d="M5.75 19.25H18.25M6.75 19.25H17.25V17.5C17.25 14.6005 14.8995 12.25 12 12.25C9.10051 12.25 6.75 14.6005 6.75 17.5V19.25Z"
+                    d="M5.75 19.25H18.25M6.75 19.25H17.25V17.5C17.25 14.6 14.9 12.25 12 12.25C9.1 12.25 6.75 14.6 6.75 17.5V19.25Z"
                     stroke="currentColor"
                     strokeWidth="1.5"
                     strokeLinecap="round"

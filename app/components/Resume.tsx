@@ -1,9 +1,8 @@
 import { ResumeData } from "../lib/resume/types";
-import { parseHighlights } from "./Highlight";
+import { parseHighlights } from "./parseHighlights";
 import { Timeline } from "./Timeline";
 
-export function Resume() {
-  const resumeData: ResumeData = {
+const resumeData: ResumeData = {
     experiences: [
       {
         company: "4142 Ltd / Squidgy AI",
@@ -81,8 +80,9 @@ export function Resume() {
       },
     ],
     avatarUrl: "/hero_icon.webp",
-  };
+};
 
+export function Resume() {
   return (
     <div>
       <div className="mx-auto max-w-6xl px-4">
@@ -101,9 +101,9 @@ export function Resume() {
                 <div />
 
                 <div className="space-y-6">
-                  {experience.positions.map((position, index) => (
+                  {experience.positions.map((position) => (
                     <div
-                      key={`${experience.company}-${index}`}
+                      key={position.title}
                       className="space-y-4"
                     >
                       <h4 className="text-lg font-semibold">
@@ -112,8 +112,8 @@ export function Resume() {
                       </h4>
                       <p className="text-sm text-gray-600 md:hidden">{experience.period}</p>
                       <div className="space-y-3">
-                        {position.description.map((desc, i) => (
-                          <p key={i} className="text-gray-600">
+                        {position.description.map((desc) => (
+                          <p key={desc} className="text-gray-600">
                             {parseHighlights(desc, "bold")}
                           </p>
                         ))}

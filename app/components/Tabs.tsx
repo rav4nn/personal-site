@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, useMemo, ReactNode } from "react";
 
 type TabsContextType = {
   activeTab: string;
@@ -24,8 +24,10 @@ type TabProps = {
 export function Tabs({ children, defaultTab, className = "" }: TabsProps) {
   const [activeTab, setActiveTab] = useState(defaultTab || "");
 
+  const value = useMemo(() => ({ activeTab, setActiveTab }), [activeTab]);
+
   return (
-    <TabsContext.Provider value={{ activeTab, setActiveTab }}>
+    <TabsContext.Provider value={value}>
       <div className={className}>{children}</div>
     </TabsContext.Provider>
   );
@@ -94,6 +96,7 @@ export function Tab({ id, label, className = "" }: Omit<TabProps, "children">) {
 
   return (
     <button
+      type="button"
       onClick={() => setActiveTab(id)}
       aria-current={isActive ? "page" : undefined}
       className={`whitespace-nowrap border-b-2 px-1 py-2.5 text-sm transition-colors ${

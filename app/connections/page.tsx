@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HorizontalLine } from "@/app/components/HorizontalLine";
 import { GridWrapper } from "@/app/components/GridWrapper";
+import Image from "next/image";
 
 type Connection = {
   name: string;
@@ -585,7 +586,7 @@ const connections: Connection[] = [
 ];
 
 export default function ConnectionsPage() {
-  const sortedConnections = [...connections].sort((a, b) => {
+  const sortedConnections = connections.toSorted((a, b) => {
     if (a.isConnected === b.isConnected) {
       return a.name.localeCompare(b.name);
     }
@@ -636,12 +637,14 @@ export default function ConnectionsPage() {
                     className="grid h-full place-items-center rounded-xl border-2 border-[#A5AEB81F]/10 bg-[#EDEEF0]"
                     style={{ boxShadow: "0px 2px 1.5px 0px #A5AEB852 inset" }}
                   >
-                    <img
+                    <Image
                       className={`h-14 w-14 rounded transition-all duration-300 ${
                         !person.isConnected ? "grayscale" : ""
                       }`}
                       alt={person.name}
                       src={person.profile_picture}
+                      width={56}
+                      height={56}
                     />
                   </div>
                 </div>

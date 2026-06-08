@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { type ReactNode } from "react";
 
 import { GridWrapper } from "./GridWrapper";
 
-export function Footer(): JSX.Element {
+export function Footer(): ReactNode {
   return (
     <>
       <div className="relative max-w-7xl border-border-primary/50">
@@ -12,7 +13,7 @@ export function Footer(): JSX.Element {
               <Link className="inline-block text-sm font-semibold tracking-tight text-text-primary" href="/">
                 hardeep.cv
               </Link>
-              <p className="text-gray-500">
+              <p className="text-gray-500" suppressHydrationWarning>
                 © {new Date().getFullYear()} Hardeep Singh
               </p>
             </div>

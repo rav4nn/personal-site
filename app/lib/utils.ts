@@ -1,9 +1,10 @@
 import { Blog, Changelog, changelogItems, posts } from "#site/content";
 import { unstable_noStore as noStore } from "next/cache";
 import { notFound } from "next/navigation";
+import { unstable_rethrow } from "next/navigation";
 import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-export const formatDate = (date: string) => {
+const formatDate = (date: string) => {
   noStore();
   let currentDate = new Date();
   if (!date.includes("T")) {
@@ -55,32 +56,22 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function fetchAndSortChangelogEntrees(): Changelog[] {
-  try {
-    const allChangelogItems = changelogItems;
-    return allChangelogItems
-      .filter((item) => !item.draft)
-      .sort(
-        (a, b) =>
-          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-      );
-  } catch (error) {
-    notFound();
-  }
+function fetchAndSortChangelogEntrees(): Changelog[] {
+  return changelogItems
+    .filter((item) => !item.draft)
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+    );
 }
 
 export function fetchAndSortBlogPosts(): Blog[] {
-  try {
-    const allPosts = posts; // Assuming 'posts' is a promise or async call
-    return allPosts
-      .filter((post) => !post.draft)
-      .sort(
-        (a, b) =>
-          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-      );
-  } catch (error) {
-    notFound();
-  }
+  return posts
+    .filter((post) => !post.draft)
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+    );
 }
 
 export function getRelatedBlogPosts(
@@ -129,8 +120,9 @@ export async function fetchAndSortChangelogPosts(): Promise<Changelog[]> {
           new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
       );
   } catch (error) {
-    notFound();
+    unstable_rethrow(error);
   }
+  notFound();
 }
 
 export function extractUniqueBlogCategories(posts: Blog[]): Set<string> {

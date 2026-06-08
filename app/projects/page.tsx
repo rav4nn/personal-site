@@ -2,8 +2,14 @@ import Image from "next/image";
 import { GridWrapper } from "@/app/components/GridWrapper";
 import { GithubSection } from "@/app/components/GithubSection";
 import { getRepoStats } from "@/app/lib/stats/github-stats";
-import { parseHighlights } from "@/app/components/Highlight";
+import { parseHighlights } from "@/app/components/parseHighlights";
 import { GetInTouch } from "@/app/components/GetInTouch";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects | Hardeep Singh",
+  description: "Open-source projects and experiments by Hardeep Singh.",
+};
 
 interface Project {
   title: string;
@@ -118,9 +124,9 @@ export default async function ProjectPage() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    {project.description.split("\n\n").map((para, i) => (
+                    {project.description.split("\n\n").map((para) => (
                       <p
-                        key={i}
+                        key={para}
                         className="text-base leading-7 text-text-secondary"
                       >
                         {parseHighlights(para, "bold")}

@@ -118,6 +118,24 @@ function GitHubIcon({ className }: { className?: string }) {
   );
 }
 
+const socials = [
+  {
+    icon: LinkedInIcon,
+    label: "LinkedIn",
+    href: siteMetadata.linkedin,
+  },
+  {
+    icon: XIcon,
+    label: "X / Twitter",
+    href: siteMetadata.twitter,
+  },
+  {
+    icon: GitHubIcon,
+    label: "GitHub",
+    href: siteMetadata.github,
+  },
+];
+
 export function GetInTouch() {
   const [copied, setCopied] = useState(false);
   const email = "hardeepsindia@gmail.com";
@@ -128,24 +146,6 @@ export function GetInTouch() {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-
-  const socials = [
-    {
-      icon: LinkedInIcon,
-      label: "LinkedIn",
-      href: siteMetadata.linkedin,
-    },
-    {
-      icon: XIcon,
-      label: "X / Twitter",
-      href: siteMetadata.twitter,
-    },
-    {
-      icon: GitHubIcon,
-      label: "GitHub",
-      href: siteMetadata.github,
-    },
-  ];
 
   return (
     <div className="relative pb-16">

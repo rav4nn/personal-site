@@ -57,6 +57,7 @@ export function VideoCard({
             playsInline
             autoPlay
             preload="auto"
+            aria-label={title}
             className="hidden aspect-video w-full rounded-lg bg-gray-950 object-cover group-hover:block dark:bg-gray-900"
           />
           <div className="absolute bottom-3 right-3 rounded-sm bg-gray-950/50 p-1 text-xs/3 font-semibold text-white">

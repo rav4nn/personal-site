@@ -8,6 +8,14 @@ interface CategorySelectProps {
   currentCategory: string;
 }
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+function isActiveTab(tabName: string, activeCategory: string) {
+  return tabName === activeCategory;
+}
+
 export function CategorySelect({
   categories,
   currentCategory,
@@ -20,14 +28,6 @@ export function CategorySelect({
     } else {
       router.push(`/blog?category=${encodeURIComponent(slug.toLowerCase())}`);
     }
-  }
-
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
-
-  function isActiveTab(tabName, activeCategory) {
-    return tabName === activeCategory;
   }
 
   return (

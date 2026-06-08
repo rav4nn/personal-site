@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ReactNode } from "react";
 
 type AnimatedTextProps = {
@@ -18,7 +18,7 @@ export function AnimatedText({
   className = "",
   as = "div",
 }: AnimatedTextProps) {
-  const Component = motion[as];
+  const Component = m[as];
 
   return (
     <Component

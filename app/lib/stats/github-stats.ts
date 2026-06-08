@@ -98,13 +98,7 @@ export const getGitHubStats = unstable_cache(
     const token = process.env.GITHUB_TOKEN;
 
     if (!token) {
-      console.warn("GITHUB_TOKEN not set, returning default values");
-      return {
-        stars: 0,
-        forks: 0,
-        commits: 0,
-        contributions: null,
-      };
+      return { stars: 0, forks: 0, commits: 0, contributions: null };
     }
 
     try {
