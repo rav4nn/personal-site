@@ -8,16 +8,22 @@ interface PerformanceMode {
   shouldReduceAnimations: boolean;
 }
 
+let cachedSnapshot: PerformanceMode | null = null;
+
 function getSnapshot(): PerformanceMode {
   const isMobile = window.innerWidth < 768;
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
-  return {
-    isMobile,
-    prefersReducedMotion,
-    shouldReduceAnimations: isMobile || prefersReducedMotion,
-  };
+  if (
+    cachedSnapshot &&
+    cachedSnapshot.isMobile === isMobile &&
+    cachedSnapshot.prefersReducedMotion === prefersReducedMotion
+  ) {
+    return cachedSnapshot;
+  }
+  cachedSnapshot = { isMobile, prefersReducedMotion, shouldReduceAnimations: isMobile || prefersReducedMotion };
+  return cachedSnapshot;
 }
 
 // Stable server snapshot — safe default for SSR/hydration
