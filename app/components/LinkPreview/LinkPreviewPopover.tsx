@@ -58,7 +58,8 @@ export const LinkPreviewPopover = forwardRef<
     <div
       ref={ref}
       id={id}
-      popover="manual"
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      {...({ popover: "manual" } as any)}
       role="tooltip"
       className={`link-preview-popover${anchorName ? ' anchor-positioned' : ''}`}
       style={popoverStyle}
