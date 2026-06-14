@@ -47,3 +47,9 @@ public/previews/.content-hash
 
 # superpowers brainstorm/dashboard scratch
 .superpowers/
+
+# playwright MCP + local debug screenshots (scratch, not product assets)
+.playwright-mcp/
+/about-scroll-fix.png
+/experience-no-scrollbar.png
+/no-scrollbar.png
