@@ -41,6 +41,25 @@ function CheckIcon({ className }: { className?: string }) {
   );
 }
 
+function ArrowIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="5" y1="12" x2="19" y2="12" />
+      <polyline points="12 5 19 12 12 19" />
+    </svg>
+  );
+}
+
 function MailIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -56,6 +75,27 @@ function MailIcon({ className }: { className?: string }) {
     >
       <rect x="2" y="4" width="20" height="16" rx="2" />
       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+    </svg>
+  );
+}
+
+function FileIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <polyline points="14 2 14 8 20 8" />
+      <line x1="12" y1="18" x2="12" y2="12" />
+      <polyline points="9 15 12 18 15 15" />
     </svg>
   );
 }
@@ -138,11 +178,29 @@ const socials = [
 
 export function GetInTouch() {
   const [copied, setCopied] = useState(false);
-  const email = "hardeepsindia@gmail.com";
 
-  const handleCopy = (e: React.MouseEvent) => {
-    e.preventDefault();
-    navigator.clipboard.writeText(email);
+  const copyEmail = async () => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(siteMetadata.emailAddress);
+      return true;
+    }
+
+    const textArea = document.createElement("textarea");
+    textArea.value = siteMetadata.emailAddress;
+    textArea.setAttribute("readonly", "");
+    textArea.style.position = "fixed";
+    textArea.style.opacity = "0";
+    document.body.appendChild(textArea);
+    textArea.select();
+    const didCopy = document.execCommand("copy");
+    document.body.removeChild(textArea);
+    return didCopy;
+  };
+
+  const handleCopy = async () => {
+    const didCopy = await copyEmail().catch(() => false);
+    if (!didCopy) return;
+
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -191,72 +249,62 @@ export function GetInTouch() {
                   </p>
                 </div>
 
-                {/* Right column — links */}
-                <div className="flex flex-col gap-3">
-                  {/* Email */}
+                {/* Right column — CTA + secondary links */}
+                <div className="flex flex-col">
+                  {/* Primary CTA — email */}
                   <a
-                    href={`mailto:${email}`}
-                    className="group inline-flex items-center gap-3 text-base text-slate-50 transition-colors hover:text-indigo-300"
+                    href={siteMetadata.email}
+                    className="group inline-flex w-fit items-center gap-2.5 rounded-xl bg-indigo-500 px-6 py-3.5 text-base font-medium text-white shadow-lg shadow-indigo-500/20 transition-all hover:bg-indigo-400 hover:shadow-indigo-400/30"
                   >
-                    <MailIcon className="shrink-0 text-gray-400 transition-colors group-hover:text-indigo-300" />
-                    <span>{email}</span>
-                    <button
-                      type="button"
-                      onClick={handleCopy}
-                      className="inline-flex items-center text-gray-500 transition-colors hover:text-slate-50"
-                      title="Copy email"
-                    >
-                      {copied ? (
-                        <CheckIcon className="text-indigo-400" />
-                      ) : (
-                        <CopyIcon />
-                      )}
-                    </button>
+                    <MailIcon className="shrink-0" />
+                    <span>Say Hello</span>
+                    <ArrowIcon className="shrink-0 transition-transform group-hover:translate-x-0.5" />
                   </a>
-
-                  {/* Download CV */}
-                  <a
-                    href={siteMetadata.resume}
-                    download
-                    className="group inline-flex items-center gap-3 text-base text-slate-50 transition-colors hover:text-indigo-300"
+                  <button
+                    type="button"
+                    onClick={handleCopy}
+                    className="mt-3 flex w-fit items-center gap-2 text-sm text-gray-400 transition-colors hover:text-slate-50"
+                    title="Copy email"
                   >
-                    <svg
-                      className="shrink-0 text-gray-400 transition-colors group-hover:text-indigo-300"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                      <polyline points="14 2 14 8 20 8" />
-                      <line x1="12" y1="18" x2="12" y2="12" />
-                      <polyline points="9 15 12 18 15 15" />
-                    </svg>
-                    <span>My CV</span>
-                  </a>
+                    <span>{siteMetadata.emailAddress}</span>
+                    {copied ? (
+                      <CheckIcon className="text-indigo-400" />
+                    ) : (
+                      <CopyIcon className="text-gray-500" />
+                    )}
+                    <span className="text-gray-600">
+                      {copied ? "copied" : "copy"}
+                    </span>
+                  </button>
 
-                  {/* Social links */}
-                  <div className="mt-1" />
-                  {socials.map((social) => (
+                  {/* Secondary links — menu rows */}
+                  <div className="mt-6 flex max-w-[260px] flex-col border-t border-zinc-700/60 pt-3">
                     <a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group inline-flex items-center gap-3 text-base text-slate-50 transition-colors hover:text-indigo-300"
+                      href={siteMetadata.resume}
+                      download
+                      className="group flex items-center gap-3 rounded-lg py-2.5 text-base text-gray-300 transition-colors hover:text-slate-50"
                     >
-                      <social.icon className="shrink-0 text-gray-400 transition-colors group-hover:text-indigo-300" />
-                      <span>{social.label}</span>
+                      <FileIcon className="shrink-0 text-gray-500 transition-colors group-hover:text-indigo-300" />
+                      <span>My CV</span>
+                      <ArrowIcon className="ml-auto text-gray-600 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:text-indigo-300 group-hover:opacity-100" />
                     </a>
-                  ))}
+                    {socials.map((social) => (
+                      <a
+                        key={social.label}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center gap-3 rounded-lg py-2.5 text-base text-gray-300 transition-colors hover:text-slate-50"
+                      >
+                        <social.icon className="shrink-0 text-gray-500 transition-colors group-hover:text-indigo-300" />
+                        <span>{social.label}</span>
+                        <ArrowIcon className="ml-auto text-gray-600 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:text-indigo-300 group-hover:opacity-100" />
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </GridWrapper>

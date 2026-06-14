@@ -31,7 +31,8 @@ export default async function LinksPage() {
         <GridWrapper>
           <div className="mx-auto max-w-xl text-center md:mt-8">
             <p className="leading-8 text-text-secondary">
-              IIT Delhi → AI Engineer. I work with LLMs, RAG &amp; AI agents while building full-stack AI products that people use daily.
+              IIT Delhi → AI Engineer. I work with LLMs, RAG &amp; AI agents
+              while building full-stack AI products that people use daily.
             </p>
           </div>
         </GridWrapper>
@@ -40,7 +41,7 @@ export default async function LinksPage() {
             <Button href="/" variant="primary">
               View my full website
             </Button>
-            <Button href="mailto:hardeepsindia@gmail.com" variant="secondary">
+            <Button href={siteMetadata.email} variant="secondary">
               Email me
             </Button>
           </div>

@@ -1,3 +1,6 @@
+const emailAddress = "hello@hardeep.cv";
+const emailSubject = "Hi Hardeep!";
+
 export const siteMetadata = {
   title: "Hardeep Singh",
   author: "Hardeep Singh",
@@ -9,7 +12,8 @@ export const siteMetadata = {
   siteRepo: "https://github.com/rav4nn",
   avatarImage: "/hero.webp",
   socialBanner: "/hero.webp",
-  email: "mailto:hardeepsindia@gmail.com",
+  emailAddress,
+  email: `mailto:${emailAddress}?subject=${encodeURIComponent(emailSubject)}`,
   github: "https://github.com/rav4nn",
   twitter: "https://x.com/rav4nn",
   twitterHandle: "@rav4nn",
