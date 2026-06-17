@@ -9,29 +9,56 @@ import {
   useReducedMotion,
   useTransform,
 } from "framer-motion";
-import { useEffect, useState, useSyncExternalStore } from "react";
-import { VISITOR_SEED } from "app/lib/visitorCounter";
+import { useEffect, useSyncExternalStore } from "react";
+import { VISITOR_SEED, isSessionExpired } from "app/lib/visitorCounter";
 
 const STORAGE_KEY = "visitorCounter";
-const DISMISSED_KEY = "visitorCounterDismissed";
 
-type Stored = { id: string; number: number; skipEnter: boolean };
+// Shape persisted to localStorage. `dismissed` lives here (not in a separate
+// forever-flag) so it resets automatically when the session expires.
+type Persisted = {
+  id: string;
+  number: number;
+  registeredAt: number;
+  dismissed: boolean;
+};
 
-function readStored(): Stored | null {
+// Runtime record published to the component. `skipEnter` suppresses the entrance
+// tween when the tab is hidden; `prevNumber` is the value to roll up FROM when the
+// number jumps between sessions (undefined on a first-ever visit).
+type Stored = Persisted & { skipEnter: boolean; prevNumber?: number };
+
+function readStored(): Persisted | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return null;
-    const parsed = JSON.parse(raw) as { id: string; number: number };
-    if (typeof parsed?.number === "number" && typeof parsed?.id === "string") {
-      return { ...parsed, skipEnter: false };
+    const parsed = JSON.parse(raw) as Partial<Persisted>;
+    const { id, number, registeredAt, dismissed } = parsed;
+    if (
+      typeof id !== "string" ||
+      typeof number !== "number" ||
+      !Number.isFinite(number)
+    ) {
+      return null;
     }
-    return null;
+
+    return {
+      id,
+      number,
+      // Legacy records did not include a timestamp. Keep their number available
+      // as the roll-up start, but force a fresh registration.
+      registeredAt:
+        typeof registeredAt === "number" && Number.isFinite(registeredAt)
+          ? registeredAt
+          : 0,
+      dismissed: dismissed === true,
+    };
   } catch {
     return null;
   }
 }
 
-// Module-level store — fetch runs once at client module load, never in an effect
+// Module-level store — runs once at client module load, never in an effect.
 let visitorRecord: Stored | null = null;
 const visitorListeners = new Set<() => void>();
 
@@ -40,38 +67,64 @@ function subscribeToVisitor(cb: () => void) {
   return () => visitorListeners.delete(cb);
 }
 
-function getVisitorSnapshot() { return visitorRecord; }
+function getVisitorSnapshot() {
+  return visitorRecord;
+}
+
+function publish(record: Stored) {
+  visitorRecord = record;
+  visitorListeners.forEach((fn) => fn());
+}
 
 if (typeof window !== "undefined") {
   const existing = readStored();
-  if (existing) {
+  if (existing && !isSessionExpired(existing.registeredAt, Date.now())) {
+    // Within the 15-min window: reuse as-is. No fetch, no counter bump.
     visitorRecord = { ...existing, skipEnter: document.hidden };
   } else {
+    // Missing or expired session: register a fresh visit (this bumps the global
+    // counter). We intentionally send no id so the server increments rather than
+    // looking up the old record. The prior number, if any, is the roll-up start.
+    const prevNumber = existing?.number;
     fetch("/api/visitors", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({}),
     })
       .then((res) => res.json())
-      .then((data: { ok: true; id: string; number: number } | { ok: false }) => {
-        if (!data.ok) return;
-        const next = { id: data.id, number: data.number };
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-        visitorRecord = { ...next, skipEnter: document.hidden };
-        visitorListeners.forEach((fn) => fn());
-      })
+      .then(
+        (data: { ok: true; id: string; number: number } | { ok: false }) => {
+          if (!data.ok) return;
+          const persisted: Persisted = {
+            id: data.id,
+            number: data.number,
+            registeredAt: Date.now(),
+            dismissed: false,
+          };
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(persisted));
+          publish({ ...persisted, skipEnter: document.hidden, prevNumber });
+        },
+      )
       .catch(() => {});
   }
 }
 
 // Animated, comma-formatted number that rolls up to its final value once.
-// `skip` (reduced motion, or tab hidden so rAF is paused) jumps straight to the
-// final value instead of animating — otherwise the count-up would stall at its
-// start value and display the wrong number.
-function RollingNumber({ value, skip }: { value: number; skip?: boolean }) {
+// `from` is where the roll starts — the previous session's number when the count
+// jumped, otherwise a seed-based start for a first-ever visit. `skip` (reduced
+// motion, or tab hidden so rAF is paused) jumps straight to the final value.
+function RollingNumber({
+  value,
+  from,
+  skip,
+}: {
+  value: number;
+  from?: number;
+  skip?: boolean;
+}) {
   const reduceMotion = useReducedMotion();
   const noAnim = skip || reduceMotion;
-  const start = noAnim ? value : Math.max(VISITOR_SEED, value - 60);
+  const start = noAnim ? value : (from ?? Math.max(VISITOR_SEED, value - 60));
   const count = useMotionValue(start);
   const text = useTransform(count, (v) =>
     Math.round(v).toLocaleString("en-US"),
@@ -90,18 +143,26 @@ function RollingNumber({ value, skip }: { value: number; skip?: boolean }) {
 }
 
 export function VisitorCounter() {
-  const record = useSyncExternalStore(subscribeToVisitor, getVisitorSnapshot, () => null);
-  const [dismissed, setDismissed] = useState(() =>
-    typeof window !== "undefined" ? localStorage.getItem(DISMISSED_KEY) === "1" : true,
+  const record = useSyncExternalStore(
+    subscribeToVisitor,
+    getVisitorSnapshot,
+    () => null,
   );
   const reduceMotion = useReducedMotion();
 
   function handleDismiss() {
-    localStorage.setItem(DISMISSED_KEY, "1");
-    setDismissed(true);
+    if (!record) return;
+    const persisted: Persisted = {
+      id: record.id,
+      number: record.number,
+      registeredAt: record.registeredAt,
+      dismissed: true,
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(persisted));
+    publish({ ...persisted, skipEnter: true });
   }
 
-  const show = record !== null && !dismissed;
+  const show = record !== null && !record.dismissed;
 
   return (
     <AnimatePresence>
@@ -112,7 +173,11 @@ export function VisitorCounter() {
           // entrance tween — used when the tab is hidden (rAF is paused) so the
           // pill is guaranteed visible the moment the tab is foregrounded.
           initial={
-            record.skipEnter ? false : reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }
+            record.skipEnter
+              ? false
+              : reduceMotion
+                ? { opacity: 0 }
+                : { opacity: 0, y: 12 }
           }
           animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
@@ -134,7 +199,12 @@ export function VisitorCounter() {
           />
           <span className="hidden sm:inline">You&apos;re visitor&nbsp;</span>
           <span className="font-mono font-semibold tabular-nums text-purple-primary">
-            #<RollingNumber value={record.number} skip={record.skipEnter} />
+            {"#"}
+            <RollingNumber
+              value={record.number}
+              from={record.prevNumber}
+              skip={record.skipEnter}
+            />
           </span>
           <button
             type="button"
