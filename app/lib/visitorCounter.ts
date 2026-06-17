@@ -26,3 +26,17 @@ export function parseVisitorRow(row: unknown): VisitorRecord | null {
   if (!Number.isFinite(n)) return null;
   return { id, number: n };
 }
+
+// A visitor's number is "pinned" for one session. While a stored record is within
+// this window it is reused as-is (so reloads don't bump the counter); once it
+// expires, the next load re-registers and the counter climbs.
+export const SESSION_TTL_MS = 15 * 60 * 1000;
+
+// True when the caller should re-register (no usable timestamp, a future timestamp
+// from clock skew, or one at/older than the TTL). Pure so it can be unit-tested.
+export function isSessionExpired(registeredAt: number | undefined, now: number): boolean {
+  if (typeof registeredAt !== "number" || !Number.isFinite(registeredAt)) return true;
+  const elapsed = now - registeredAt;
+  if (elapsed < 0) return true; // future timestamp => treat as expired
+  return elapsed >= SESSION_TTL_MS;
+}
