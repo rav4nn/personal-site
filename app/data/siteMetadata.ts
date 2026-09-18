@@ -6,7 +6,7 @@ export const siteMetadata = {
   author: "Hardeep Singh",
   headerTitle: "Hardeep's Portfolio",
   description:
-    "Building AI products that turn messy real-world data into usable systems.",
+    "Senior AI Engineer building production AI agents, MCP services, and full-stack AI products.",
   language: "en-us",
   siteUrl: "https://hardeep.cv",
   siteRepo: "https://github.com/rav4nn",

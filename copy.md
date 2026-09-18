@@ -43,7 +43,7 @@ Most developers don't build in public because posting updates is friction. This 
 Most RAG systems ship without evaluation causing hallucinations to go undetected and retrieval quality degrading silently. FluxRAG inverts that: evaluation harness first, optimisation second. Drop in any file type across 10 formats, run a parameter sweep across chunking strategies and embedding models, and get a ranked benchmark report before you touch production. Tracks latency, cost per query, and hallucination rate across every config because retrieval quality and cost tradeoffs shouldn't be assumptions. *(hybrid search + reranking, async FastAPI server, 8 embedding models)*
 
 **splitwala**
-Can't get your friends to install the bill splitting app? This WhatsApp chatbot makes it a single command — /split, /paid, /balances. Lives inside your WhatsApp group. No app to download, no account to create. Built on the principle that the best UX is the one that gets out of the way. *(live in 117 groups, 2000+ active users)*
+Can't get your friends to install the bill splitting app? This Telegram bot makes it a single command — /split, /paid, /balances. Lives inside your Telegram group. No app to download, no account to create. Built on the principle that the best UX is the one that gets out of the way. *(live in 117 groups, 2000+ active users)*
 
 ---
 
@@ -68,7 +68,7 @@ I like building things that solve problems for me, and seeing them become produc
 **Life beyond the screen:**
 I play chess obsessively. I played football every week until I tore my ACL last year. Still in recovery, still bitter about it. I befriend every mountain dog I meet. And I'm on an ongoing, probably never-ending hunt for the best chhole bhature in Delhi.
 
-**Shipping is the habit:**
+**Building AI agents:**
 Since IIT Delhi I've been building independently — a COVID-19 crisis platform, contract SaaS work for a UK-based client, and eventually full-stack AI products that people actually use. I care about the things that matter in production — latency, evaluation, hallucination rates, cost per query. FluxRAG exists because I wanted to benchmark those tradeoffs properly before shipping anything.
 
 ---

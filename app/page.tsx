@@ -25,8 +25,8 @@ interface Project {
 }
 
 export const metadata: Metadata = {
-  title: "Hardeep Singh — Software Engineer",
-  description: "Software engineer, open-source contributor, and speaker. Building products at the intersection of AI and developer tooling.",
+  title: "Hardeep Singh — AI Engineer",
+  description: "Senior AI Engineer building production AI agents, MCP services, and full-stack AI products. Two concurrent contracts and 3,000+ organic users across shipped products.",
 };
 
 // react-doctor-disable-next-line react-doctor/no-giant-component
@@ -111,9 +111,9 @@ export default async function Home() {
                   delay={PARAGRAPH_DELAY}
                   className="leading-8 text-text-secondary"
                 >
-                  IIT Delhi → AI Engineer <br /> Currently contracting at Squidgy
-                  AI (UK) and co-founding Coffee Coach. Building full-stack AI
-                  products with LLMs, RAG, and agentic systems.
+                  IIT Delhi → Senior AI Engineer <br /> Building production AI
+                  agents full-time at Squidgy AI (UK) and co-founding Coffee
+                  Coach. MCP services, agentic systems, and full-stack AI products.
                 </AnimatedText>
               </div>
             </GridWrapper>
@@ -314,17 +314,18 @@ export default async function Home() {
                     </div>
                   </div>
                   <h2 className="mb-6 w-full text-balance text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
-                    Shipping is the habit
+                    Building AI agents
                   </h2>
                   <p className="mb-6 text-base leading-8 text-text-secondary">
-                    Since IIT Delhi I&apos;ve been building independently — a
-                    COVID-19 crisis platform, two ongoing contracts (Squidgy AI
-                    and an NDA SaaS for a UK-based client), and full-stack AI
-                    products like Coffee Coach that people actually use.
+                    At Squidgy AI I built Concierge, an MCP service that indexes
+                    9 repos into a knowledge base — agents ask what lives where
+                    instead of re-reading code, saving 50-100k tokens per session.
+                    I also built SiteBuddy, an agent that rebuilds a website in
+                    2-3 minutes for under $1 in token cost. Around 50 sites shipped.
                   </p>
                   <p className="mb-6 text-base leading-8 text-text-secondary">
-                    I care about the things that matter in production — latency,
-                    evaluation, hallucination rates, cost per query.{" "}
+                    Two concurrent contracts, 3,000+ organic users across shipped
+                    products, and 75+ GitHub stars on open-source tools.{" "}
                     <AboutLink
                       href="https://github.com/rav4nn/flux-rag"
                       className="inline-flex items-baseline gap-1 font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 transition-colors hover:text-indigo-500 hover:decoration-indigo-400"

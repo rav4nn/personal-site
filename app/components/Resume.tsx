@@ -9,9 +9,10 @@ const resumeData: ResumeData = {
         period: "2026 – Present",
         positions: [
           {
-            title: "AI Software Engineer",
+            title: "Senior AI Engineer",
             description: [
-              `{{Full-time contract}} at Squidgy AI, a multi-agent AI product by 4142 Ltd (UK). Working within the engineering team on AI-powered features and {{agentic systems}}, full-time remote mapped to UK working hours.`,
+              `{{Full-time contract}}, remote, UK hours. Built {{Concierge}}, an MCP service that indexes 9 repos into a DeepWiki-style knowledge base — agents ask what lives where instead of re-reading code, saving {{50-100k tokens}} per Claude session. Index rebuilds on every push.`,
+              `Built {{SiteBuddy}}, an agent that rebuilds an existing website in 2-3 minutes for under $1 in token usage. Shipped around {{50 sites}} for real businesses.`,
             ],
           },
         ],
