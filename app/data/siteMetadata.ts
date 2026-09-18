@@ -19,7 +19,7 @@ export const siteMetadata = {
   twitterHandle: "@rav4nn",
   codepen: "",
   linkedin: "https://www.linkedin.com/in/hardeep-singh-a29a14349/",
-  resume: "/Hardeep_Singh_CV_v6.pdf",
+  resume: "/Hardeep_Singh_CV_v7.pdf",
   snippets: "",
   carbonCode: "",
   carbonPlacement: "",
