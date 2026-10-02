@@ -25,8 +25,8 @@ interface Project {
 }
 
 export const metadata: Metadata = {
-  title: "Hardeep Singh — Software Engineer",
-  description: "Software engineer, open-source contributor, and speaker. Building products at the intersection of AI and developer tooling.",
+  title: "Hardeep - AI Engineer",
+  description: "Senior AI Engineer building production AI agents, MCP services, and full-stack AI products. Two concurrent contracts and 3,000+ organic users across shipped products.",
 };
 
 // react-doctor-disable-next-line react-doctor/no-giant-component
@@ -36,13 +36,25 @@ export default async function Home() {
   const PARAGRAPH_DELAY = HEADING_DELAY + 0.1;
   const PHOTOS_DELAY = PARAGRAPH_DELAY + 0.1;
 
-  const [ytStats, bipStats, fluxStats] = await Promise.all([
-    getRepoStats("rav4nn", "youtube-rag-scraper"),
-    getRepoStats("rav4nn", "buildinpublic-x"),
-    getRepoStats("rav4nn", "flux-rag"),
-  ]);
+  const ytStats = await getRepoStats("rav4nn", "youtube-rag-scraper");
 
   const projects: Project[] = [
+    {
+      title: "agent-chrome",
+      description:
+        "Browser MCPs pull Chrome to the front mid-sentence, and they can't get into the sites you're signed in to. agent-chrome gives Claude Code a {{copy of your signed-in Chrome}} that opens {{behind your apps}} and never takes focus. You keep typing while the agent clicks.\n\nShips as a {{Claude Code plugin}}. Built on mimkorn's chrome-pipe-proxy, with background windows and per-account profiles on top.",
+      url: "https://agentchrome.hardeep.cv",
+      logo: "/projects/agent-chrome.webp",
+      stats: ["zero focus steals", "Claude Code plugin", "macOS"],
+    },
+    {
+      title: "CallLane",
+      description:
+        "Join a call on a Mac and macOS drops your music by about 20 dB. Your AirPods fall back to {{headset quality}} too. CallLane is a free {{menu-bar app}} that gives call apps their own audio device, so the rest of your audio {{stays at full volume}}. It locks the input to your Mac's mic, so your headphones keep {{high-quality audio}} through the call.",
+      url: "https://calllane.hardeep.cv",
+      logo: "/projects/calllane.webp",
+      stats: ["free & open source", "no kernel extension", "macOS 14+"],
+    },
     {
       title: "coffeecoach.app",
       description:
@@ -70,22 +82,6 @@ export default async function Home() {
         `${ytStats.forks} forks`,
       ],
     },
-    {
-      title: "buildinpublic-x",
-      description:
-        "Most developers don't build in public because {{posting updates is friction}}. This simple GitHub Action reads your commit history over a few days, generates a thread via LLM, and posts to X and Bluesky automatically — no server, no backend, no SaaS. Lives entirely inside your repo.",
-      url: "https://github.com/rav4nn/buildinpublic-x",
-      logo: "/projects/buildinpublic.webp",
-      stats: ["$0.01/post on X", "zero friction", "one time setup"],
-    },
-    {
-      title: "flux-rag",
-      description:
-        "Most RAG systems ship without evaluation causing hallucinations to go undetected and retrieval quality degrading silently. FluxRAG inverts that: {{evaluation harness}} first, optimisation second. Drop in any file type across 10 formats, run a parameter sweep across {{chunking strategies}} and {{embedding models}}, and get a {{ranked benchmark report}} before you touch production.\n\nTracks {{latency}}, cost per query, and hallucination rate across every config because retrieval quality and {{cost tradeoffs}} shouldn't be assumptions.",
-      url: "https://github.com/rav4nn/flux-rag",
-      logo: "/projects/flux-rag.webp",
-      stats: ["hybrid search + reranking", "async FastAPI server", "8 embedding models"],
-    },
   ];
 
   return (
@@ -111,9 +107,10 @@ export default async function Home() {
                   delay={PARAGRAPH_DELAY}
                   className="leading-8 text-text-secondary"
                 >
-                  IIT Delhi → AI Engineer <br /> Currently contracting at Squidgy
-                  AI (UK) and co-founding Coffee Coach. Building full-stack AI
-                  products with LLMs, RAG, and agentic systems.
+                  IIT Delhi → AI Agent Builder <br /> Team Lead and Senior AI
+                  Engineer at Squidgy AI (UK). I build agentic workflows that
+                  run in production: multi-agent systems, MCP services, and the
+                  tools agents use. Also co-founding Coffee Coach.
                 </AnimatedText>
               </div>
             </GridWrapper>
@@ -314,17 +311,18 @@ export default async function Home() {
                     </div>
                   </div>
                   <h2 className="mb-6 w-full text-balance text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
-                    Shipping is the habit
+                    Building AI agents
                   </h2>
                   <p className="mb-6 text-base leading-8 text-text-secondary">
-                    Since IIT Delhi I&apos;ve been building independently — a
-                    COVID-19 crisis platform, two ongoing contracts (Squidgy AI
-                    and an NDA SaaS for a UK-based client), and full-stack AI
-                    products like Coffee Coach that people actually use.
+                    At Squidgy AI I built Concierge, an MCP service that indexes
+                    9 repos into a knowledge base — agents ask what lives where
+                    instead of re-reading code, saving 50-100k tokens per session.
+                    I also built SiteBuddy, an agent that rebuilds a website in
+                    2-3 minutes for under $1 in token cost. Around 50 sites shipped.
                   </p>
                   <p className="mb-6 text-base leading-8 text-text-secondary">
-                    I care about the things that matter in production — latency,
-                    evaluation, hallucination rates, cost per query.{" "}
+                    Two concurrent contracts, 3,000+ organic users across shipped
+                    products, and 75+ GitHub stars on open-source tools.{" "}
                     <AboutLink
                       href="https://github.com/rav4nn/flux-rag"
                       className="inline-flex items-baseline gap-1 font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 transition-colors hover:text-indigo-500 hover:decoration-indigo-400"
