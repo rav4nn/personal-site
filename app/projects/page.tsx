@@ -20,13 +20,25 @@ interface Project {
 }
 
 export default async function ProjectPage() {
-  const [ytStats, bipStats, fluxStats] = await Promise.all([
-    getRepoStats("rav4nn", "youtube-rag-scraper"),
-    getRepoStats("rav4nn", "buildinpublic-x"),
-    getRepoStats("rav4nn", "flux-rag"),
-  ]);
+  const ytStats = await getRepoStats("rav4nn", "youtube-rag-scraper");
 
   const projects: Project[] = [
+    {
+      title: "agent-chrome",
+      description:
+        "Browser MCPs pull Chrome to the front mid-sentence, and they can't get into the sites you're signed in to. agent-chrome gives Claude Code a {{copy of your signed-in Chrome}} that opens {{behind your apps}} and never takes focus. You keep typing while the agent clicks.\n\nShips as a {{Claude Code plugin}}. Built on mimkorn's chrome-pipe-proxy, with background windows and per-account profiles on top.",
+      url: "https://agentchrome.hardeep.cv",
+      logo: "/projects/agent-chrome.webp",
+      stats: ["zero focus steals", "Claude Code plugin", "macOS"],
+    },
+    {
+      title: "CallLane",
+      description:
+        "Join a call on a Mac and macOS drops your music by about 20 dB. Your AirPods fall back to {{headset quality}} too. CallLane is a free {{menu-bar app}} that gives call apps their own audio device, so the rest of your audio {{stays at full volume}}. It locks the input to your Mac's mic, so your headphones keep {{high-quality audio}} through the call.",
+      url: "https://calllane.hardeep.cv",
+      logo: "/projects/calllane.webp",
+      stats: ["free & open source", "no kernel extension", "macOS 14+"],
+    },
     {
       title: "coffeecoach.app",
       description:
@@ -53,22 +65,6 @@ export default async function ProjectPage() {
         `${ytStats.stars} GitHub stars`,
         `${ytStats.forks} forks`,
       ],
-    },
-    {
-      title: "buildinpublic-x",
-      description:
-        "Most developers don't build in public because {{posting updates is friction}}. This simple GitHub Action reads your commit history over a few days, generates a thread via LLM, and posts to X and Bluesky automatically — no server, no backend, no SaaS. Lives entirely inside your repo.",
-      url: "https://github.com/rav4nn/buildinpublic-x",
-      logo: "/projects/buildinpublic.webp",
-      stats: ["$0.01/post on X", "zero friction", "one time setup"],
-    },
-    {
-      title: "flux-rag",
-      description:
-        "Most RAG systems ship without evaluation causing hallucinations to go undetected and retrieval quality degrading silently. FluxRAG inverts that: {{evaluation harness}} first, optimisation second. Drop in any file type across 10 formats, run a parameter sweep across {{chunking strategies}} and {{embedding models}}, and get a {{ranked benchmark report}} before you touch production.\n\nTracks {{latency}}, cost per query, and hallucination rate across every config because retrieval quality and {{cost tradeoffs}} shouldn't be assumptions.",
-      url: "https://github.com/rav4nn/flux-rag",
-      logo: "/projects/flux-rag.webp",
-      stats: ["hybrid search + reranking", "async FastAPI server", "8 embedding models"],
     },
   ];
 

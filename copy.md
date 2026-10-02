@@ -30,20 +30,20 @@ I work with LLMs, RAG, ML & AI agents while shipping full-stack AI products that
 
 **Section heading:** "Things I've built that people actually use."
 
+**agent-chrome**
+Browser MCPs pull Chrome to the front mid-sentence, and they can't get into the sites you're signed in to. agent-chrome gives Claude Code a copy of your signed-in Chrome that opens behind your apps and never takes focus. You keep typing while the agent clicks. Ships as a Claude Code plugin. Built on mimkorn's chrome-pipe-proxy, with background windows and per-account profiles on top. *(zero focus steals, Claude Code plugin, macOS)*
+
+**CallLane**
+Join a call on a Mac and macOS drops your music by about 20 dB. Your AirPods fall back to headset quality too. CallLane is a free menu-bar app that gives call apps their own audio device, so the rest of your audio stays at full volume. It locks the input to your Mac's mic, so your headphones keep high-quality audio through the call. *(free & open source, no kernel extension, macOS 14+)*
+
 **coffeecoach.app**
 Most coffee brewing advice online is scattered and contradictory. I ingested high-quality brewing data, made a RAG pipeline on top of it, and built an agentic coaching system based on that data — LLM orchestration with feedback loops that adapt recommendations based on user input. Wrapped it all in a full-stack AI coaching app. *(65 daily active users, zero paid promotion)*
 
-**youtube-rag-scraper**
-YouTube has some of the best domain-specific knowledge on the internet, but it's locked in video format, impossible to query or reuse. This pipeline bulk-scrapes transcripts, processes them, and structures them into a searchable knowledge base for RAG systems. Handles chunking, embedding, and retrieval quality out of the box. *(GitHub stars & forks fetched dynamically)*
-
-**buildinpublic-x**
-Most developers don't build in public because posting updates is friction. This simple GitHub Action reads your commit history over a few days, generates a thread via LLM, and posts to X and Bluesky automatically — no server, no backend, no SaaS. Lives entirely inside your repo. *($0.01/post on X, zero friction, one time setup)*
-
-**flux-rag**
-Most RAG systems ship without evaluation causing hallucinations to go undetected and retrieval quality degrading silently. FluxRAG inverts that: evaluation harness first, optimisation second. Drop in any file type across 10 formats, run a parameter sweep across chunking strategies and embedding models, and get a ranked benchmark report before you touch production. Tracks latency, cost per query, and hallucination rate across every config because retrieval quality and cost tradeoffs shouldn't be assumptions. *(hybrid search + reranking, async FastAPI server, 8 embedding models)*
-
 **splitwala**
 Can't get your friends to install the bill splitting app? This Telegram bot makes it a single command — /split, /paid, /balances. Lives inside your Telegram group. No app to download, no account to create. Built on the principle that the best UX is the one that gets out of the way. *(live in 117 groups, 2000+ active users)*
+
+**youtube-rag-scraper**
+YouTube has some of the best domain-specific knowledge on the internet, but it's locked in video format, impossible to query or reuse. This pipeline bulk-scrapes transcripts, processes them, and structures them into a searchable knowledge base for RAG systems. Handles chunking, embedding, and retrieval quality out of the box. *(GitHub stars & forks fetched dynamically)*
 
 ---
 
