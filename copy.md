@@ -10,8 +10,8 @@
 **Heading:** Hey, I'm Hardeep!
 
 **Subheading:**
-IIT Delhi → AI Engineer
-I work with LLMs, RAG, ML & AI agents while shipping full-stack AI products that people use daily.
+IIT Delhi → AI Agent Builder
+Team Lead and Senior AI Engineer at Squidgy AI (UK). I build agentic workflows that run in production: multi-agent systems, MCP services, and the tools agents use. Also co-founding Coffee Coach.
 
 **Site description (meta):** Building AI products that turn messy real-world data into usable systems.
 

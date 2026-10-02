@@ -25,7 +25,7 @@ interface Project {
 }
 
 export const metadata: Metadata = {
-  title: "Hardeep Singh — AI Engineer",
+  title: "Hardeep - AI Engineer",
   description: "Senior AI Engineer building production AI agents, MCP services, and full-stack AI products. Two concurrent contracts and 3,000+ organic users across shipped products.",
 };
 
@@ -107,9 +107,10 @@ export default async function Home() {
                   delay={PARAGRAPH_DELAY}
                   className="leading-8 text-text-secondary"
                 >
-                  IIT Delhi → Senior AI Engineer <br /> Building production AI
-                  agents full-time at Squidgy AI (UK) and co-founding Coffee
-                  Coach. MCP services, agentic systems, and full-stack AI products.
+                  IIT Delhi → AI Agent Builder <br /> Team Lead and Senior AI
+                  Engineer at Squidgy AI (UK). I build agentic workflows that
+                  run in production: multi-agent systems, MCP services, and the
+                  tools agents use. Also co-founding Coffee Coach.
                 </AnimatedText>
               </div>
             </GridWrapper>
