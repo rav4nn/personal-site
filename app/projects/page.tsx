@@ -34,8 +34,8 @@ export default async function ProjectPage() {
     {
       title: "CallLane",
       description:
-        "Join a call on a Mac and macOS drops your music by about 20 dB. Your AirPods fall back to {{headset quality}} too. CallLane is a free {{menu-bar app}} that gives call apps their own audio device, so the rest of your audio {{stays at full volume}}. It locks the input to your Mac's mic, so your headphones keep {{high-quality audio}} through the call.",
-      url: "https://calllane.hardeep.cv",
+        "Join a call on a Mac and macOS drops your music by about 20 dB. Your AirPods fall back to {{headset quality}} too. CallLane is a {{menu-bar app}} that gives call apps their own audio device, so the rest of your audio {{stays at full volume}}. It locks the input to your Mac's mic, so your headphones keep {{high-quality audio}} through the call.",
+      url: "https://calllane.app",
       logo: "/projects/calllane.webp",
       stats: ["free & open source", "no kernel extension", "macOS 14+"],
     },
