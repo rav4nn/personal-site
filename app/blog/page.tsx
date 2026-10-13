@@ -70,7 +70,7 @@ export default async function BlogPage({
     <div className="mt-14 space-y-16 md:mt-16">
       <title>Blog | Hardeep Singh</title>
       <GridWrapper>
-        <h1 className="mx-auto max-w-2xl text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]">
+        <h1 className="mx-auto max-w-2xl text-balance text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]">
           {category
             ? `Articles about ${category}`
             : "Notes from building agents && the tools they use."}

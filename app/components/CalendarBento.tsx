@@ -81,7 +81,8 @@ export function CalendarBento() {
             I&apos;d love to chat even if there&apos;s no agenda!
           </p>
         </div>
-        <div className="absolute left-[43%] top-7 transition-all duration-500 ease-out md:-right-14 md:left-auto md:group-hover:-right-12 md:group-hover:top-5">
+        {/* Pinned right of the text column (col-span-5), so the calendar never covers the text at any card width. */}
+        <div className="absolute left-[43%] top-7 transition-all duration-500 ease-out md:left-[44%] md:group-hover:left-[43%] md:group-hover:top-5">
           <div>
             <div className="h-[278px] w-[550px] rounded-[20px] border border-border-primary p-2 transition-colors duration-100 group-hover:border-indigo-400">
               <div
