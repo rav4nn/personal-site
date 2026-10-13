@@ -9,6 +9,8 @@ import { BgGradient } from "./BgGradient";
 import { CodePlayground } from "./CodePlayground";
 import { Details, DetailsSummary } from "./Details";
 import { LinkPreview } from "./LinkPreview/LinkPreview";
+import { DictationResults } from "./blog/dictation/DictationResults";
+import { DictationTakes } from "./blog/dictation/DictationTakes";
 import type { LinkPreviewData } from "@/app/lib/link-previews/types";
 import type { LinkPreviewManifest } from "@/app/lib/link-previews/types";
 
@@ -581,6 +583,8 @@ const sharedComponents = {
   code: Code,
   Table,
   CodePlayground,
+  DictationResults,
+  DictationTakes,
   Details,
   DetailsSummary,
   p: paragraph,

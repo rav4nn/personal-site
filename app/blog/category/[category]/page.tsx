@@ -2,7 +2,7 @@ import {
   extractUniqueBlogCategories,
   fetchAndSortBlogPosts,
 } from "app/lib/utils";
-import { NewsletterSignUp } from "@/app/components/NewsletterSignUp";
+import { FollowCta } from "@/app/components/FollowCta";
 import { BlogPostList } from "@/app/components/BlogPostList";
 import { CategorySelect } from "@/app/components/CategorySelect";
 import type { Metadata } from "next";
@@ -45,11 +45,7 @@ export default async function CategoryPage({
       <CategorySelect categories={categories} currentCategory={category} />
 
       <BlogPostList posts={categoryPosts} />
-      <NewsletterSignUp
-        title={`Stay updated on ${category} articles`}
-        description={`Sign up to receive notifications about new blog posts, insights, and exclusive content directly in your inbox.`}
-        buttonText="Get Notified"
-      />
+      <FollowCta />
     </div>
   );
 }

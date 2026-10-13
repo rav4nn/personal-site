@@ -2,10 +2,13 @@ import {
   extractUniqueBlogCategories,
   fetchAndSortBlogPosts,
 } from "app/lib/utils";
-import { NewsletterSignUp } from "@/app/components/NewsletterSignUp";
+import { FollowCta } from "@/app/components/FollowCta";
 import { BlogPostList } from "@/app/components/BlogPostList";
 import { CategorySelect } from "@/app/components/CategorySelect";
-import { FeaturedBlogCard } from "@/app/components/FeaturedBlogCard";
+import {
+  FeaturedBlogCard,
+  featuredGridClassName,
+} from "@/app/components/FeaturedBlogCard";
 import { GridWrapper } from "@/app/components/GridWrapper";
 import clsx from "clsx";
 import type { Metadata } from "next";
@@ -34,7 +37,12 @@ export default async function BlogPage({
 
   const featuredPosts = !category && (
     <GridWrapper>
-      <ul className="z-50 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+      <ul
+        className={clsx(
+          "z-50",
+          featuredGridClassName(allPublishedBlogPosts.length),
+        )}
+      >
         {allPublishedBlogPosts.length > 0 ? (
           <>
             {allPublishedBlogPosts.slice(0, 4).map((post, index) => (
@@ -65,7 +73,7 @@ export default async function BlogPage({
         <h1 className="mx-auto max-w-2xl text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]">
           {category
             ? `Articles about ${category}`
-            : "Insightful && helpful content curated for you."}
+            : "Notes from building agents && the tools they use."}
         </h1>
       </GridWrapper>
 
@@ -75,13 +83,7 @@ export default async function BlogPage({
         <BlogPostList posts={displayedPosts} />
       </div>
 
-      <NewsletterSignUp
-        title={
-          category ? `Stay updated on ${category} articles` : "Stay updated"
-        }
-        description="Sign up to receive notifications about new blog posts, insights, and exclusive content directly in your inbox."
-        buttonText="Get Notified"
-      />
+      <FollowCta />
     </div>
   );
 }

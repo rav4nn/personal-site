@@ -14,6 +14,12 @@ import { AboutLink } from "./components/AboutLink";
 import { GithubSection } from "./components/GithubSection";
 import { getRepoStats } from "./lib/stats/github-stats";
 import { getProjects } from "./data/projects";
+import { fetchAndSortBlogPosts } from "./lib/utils";
+import {
+  FeaturedBlogCard,
+  featuredGridClassName,
+} from "./components/FeaturedBlogCard";
+import { BgGradient } from "./components/BgGradient";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -33,6 +39,7 @@ export default async function Home() {
     getRepoStats("rav4nn", "youtube-rag-scraper"),
     getProjects(),
   ]);
+  const latestPosts = fetchAndSortBlogPosts().slice(0, 3);
 
   return (
     <section>
@@ -399,6 +406,68 @@ export default async function Home() {
             </Link>
           </div>
         </section>
+
+        {/* Blog Section */}
+        {latestPosts.length > 0 && (
+          <section className="relative space-y-10 md:space-y-16">
+            <div className="relative space-y-4 text-balance">
+              <span className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2">
+                <BgGradient />
+              </span>
+              <GridWrapper>
+                <div className="text-center text-sm font-medium text-indigo-600">
+                  <span>Blog</span>
+                </div>
+              </GridWrapper>
+              <GridWrapper>
+                <h2 className="mx-auto max-w-lg text-center text-3xl font-medium leading-10 tracking-tighter text-text-primary md:text-4xl">
+                  Notes from building agents && the tools they use
+                </h2>
+              </GridWrapper>
+            </div>
+
+            <div className="z-10">
+              <GridWrapper>
+                <ul
+                  className={`z-50 ${featuredGridClassName(latestPosts.length)}`}
+                >
+                  {latestPosts.map((post) => (
+                    <FeaturedBlogCard
+                      key={post.slug}
+                      slug={post.slug}
+                      imageName={post.imageName}
+                      title={post.title}
+                      summary={post.summary}
+                    />
+                  ))}
+                </ul>
+              </GridWrapper>
+            </div>
+
+            <div className="flex justify-center">
+              <Link
+                href="/blog"
+                className="inline-flex items-center rounded-full border border-border-primary bg-white px-5 py-2 text-sm font-medium text-indigo-600 hover:border-indigo-400"
+              >
+                Read the blog
+                <svg
+                  className="relative ml-2.5 mt-px overflow-visible"
+                  width="3"
+                  height="6"
+                  viewBox="0 0 3 6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M0 0L3 3L0 6" />
+                </svg>
+              </Link>
+            </div>
+          </section>
+        )}
 
         {/* Grid Section */}
         <section className="relative space-y-4 pb-8 md:pb-12">

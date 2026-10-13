@@ -58,6 +58,25 @@ YouTube has some of the best domain-specific knowledge on the internet, but it's
 
 ---
 
+## Blog
+
+Source of truth: `content/blog/*.mdx` (Velite collection `posts`). The home page shows the 3 newest posts as cards and a "Read the blog" link. With fewer than 3 posts the cards stay centred; with 0 posts the home section is hidden.
+
+**Home section label:** Blog
+**Home section heading:** "Notes from building agents && the tools they use"
+**Blog page heading:** "Notes from building agents && the tools they use."
+**Blog page title:** Blog | Hardeep Singh
+
+**Follow box** (end of the blog page, the category pages and each post; replaces the newsletter form):
+- Heading: "Get the next post"
+- Text: "I post every new article on X first."
+- Button: "Follow @rav4nn" → https://x.com/rav4nn
+
+**Posts:**
+- *9 Mac dictation apps on my real agent prompts* (2026-10-13, #tools #mac #agents) — "I sprained my wrist, so I talk to my agents now. One recording, replayed into every app. The free one I use every day came third." Body text, numbers and takes come word for word from the dictation test results page.
+
+---
+
 ## About me
 
 **Heading:** "I'm Hardeep, AI engineer && problem solver."
