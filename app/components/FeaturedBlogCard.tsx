@@ -46,3 +46,12 @@ export function FeaturedBlogCard({
     </li>
   );
 }
+
+// Grid for a row of featured cards. With fewer than 3 posts the cards stay
+// centred instead of leaving empty columns.
+export function featuredGridClassName(count: number) {
+  if (count >= 3) return "grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3";
+  if (count === 2)
+    return "mx-auto grid max-w-3xl grid-cols-1 gap-2 md:grid-cols-2";
+  return "mx-auto grid max-w-md grid-cols-1 gap-2";
+}

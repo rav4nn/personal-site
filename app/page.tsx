@@ -13,16 +13,15 @@ import { Resume } from "./components/Resume";
 import { AboutLink } from "./components/AboutLink";
 import { GithubSection } from "./components/GithubSection";
 import { getRepoStats } from "./lib/stats/github-stats";
-import { parseHighlights } from "./components/parseHighlights";
+import { getProjects } from "./data/projects";
+import { fetchAndSortBlogPosts } from "./lib/utils";
+import {
+  FeaturedBlogCard,
+  featuredGridClassName,
+} from "./components/FeaturedBlogCard";
+import { BgGradient } from "./components/BgGradient";
 import Image from "next/image";
-
-interface Project {
-  title: string;
-  description: string;
-  url: string;
-  logo: string;
-  stats: string[];
-}
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Hardeep - AI Engineer",
@@ -36,53 +35,11 @@ export default async function Home() {
   const PARAGRAPH_DELAY = HEADING_DELAY + 0.1;
   const PHOTOS_DELAY = PARAGRAPH_DELAY + 0.1;
 
-  const ytStats = await getRepoStats("rav4nn", "youtube-rag-scraper");
-
-  const projects: Project[] = [
-    {
-      title: "agent-chrome",
-      description:
-        "Browser MCPs pull Chrome to the front mid-sentence, and they can't get into the sites you're signed in to. agent-chrome gives Claude Code a {{copy of your signed-in Chrome}} that opens {{behind your apps}} and never takes focus. You keep typing while the agent clicks.\n\nShips as a {{Claude Code plugin}}. Built on mimkorn's chrome-pipe-proxy, with background windows and per-account profiles on top.",
-      url: "https://agentchrome.hardeep.cv",
-      logo: "/projects/agent-chrome.webp",
-      stats: ["zero focus steals", "Claude Code plugin", "macOS"],
-    },
-    {
-      title: "CallLane",
-      description:
-        "Join a call on a Mac and macOS drops your music by about 20 dB. Your AirPods fall back to {{headset quality}} too. CallLane is a {{menu-bar app}} that gives call apps their own audio device, so the rest of your audio {{stays at full volume}}. It locks the input to your Mac's mic, so your headphones keep {{high-quality audio}} through the call.",
-      url: "https://calllane.app",
-      logo: "/projects/calllane.webp",
-      stats: ["free & open source", "no kernel extension", "macOS 14+"],
-    },
-    {
-      title: "coffeecoach.app",
-      description:
-        "Most coffee brewing advice online is scattered and contradictory. I ingested high-quality brewing data, made a {{RAG pipeline}} on top of it, and built an {{agentic coaching system}} based on that data — {{LLM orchestration}} with {{feedback loops}} that adapt recommendations based on user input.\n\nWrapped it all in a {{full-stack}} AI coaching app.",
-      url: "https://coffeecoach.app",
-      logo: "/projects/coffee-coach.webp",
-      stats: ["65 daily active users", "zero paid promotion"],
-    },
-    {
-      title: "splitwala",
-      description:
-        "Can't get your friends to install the bill splitting app? This Telegram bot makes it a single command — /split, /paid, /balances. {{Lives inside your Telegram group}}. No app to download, no account to create. Built on the principle that the best UX is the one that gets out of the way.",
-      url: "https://splitwala.hardeep.cv/",
-      logo: "/projects/splitwala-removebg-preview.webp",
-      stats: ["live in 117 groups", "2000+ active users"],
-    },
-    {
-      title: "youtube-rag-scraper",
-      description:
-        "YouTube has some of the best domain-specific knowledge on the internet, but it's locked in video format, impossible to query or reuse. This pipeline bulk-scrapes transcripts, processes them, and structures them into a searchable {{knowledge base}} for RAG systems. Handles {{chunking}}, {{embedding}}, and {{retrieval quality}} out of the box.",
-      url: "https://github.com/rav4nn/youtube-rag-scraper",
-      logo: "/projects/youtube-rag-scraper.webp",
-      stats: [
-        `${ytStats.stars} GitHub stars`,
-        `${ytStats.forks} forks`,
-      ],
-    },
-  ];
+  const [ytStats, projects] = await Promise.all([
+    getRepoStats("rav4nn", "youtube-rag-scraper"),
+    getProjects(),
+  ]);
+  const latestPosts = fetchAndSortBlogPosts().slice(0, 3);
 
   return (
     <section>
@@ -371,7 +328,7 @@ export default async function Home() {
         </section>
 
         {/* Projects Section */}
-        <section className="relative space-y-8 pt-16">
+        <section className="relative space-y-10 pt-16">
           <div className="space-y-4">
             <GridWrapper>
               <div className="text-center text-sm font-medium text-indigo-600">
@@ -385,86 +342,132 @@ export default async function Home() {
             </GridWrapper>
           </div>
 
-          <div className="mx-auto max-w-6xl space-y-4 px-4">
-            {projects.map((project, index) => {
-              const isReversed = index % 2 === 1;
-              return (
-                <a
+          <GridWrapper>
+            <ul className="grid grid-cols-1 gap-2 md:grid-cols-3">
+              {projects.slice(0, 3).map((project) => (
+                <li
                   key={project.title}
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block rounded-2xl border border-border-primary bg-bg-primary p-6 transition-all duration-200 hover:border-indigo-400 md:p-8"
+                  className="flex h-full flex-col rounded-3xl border border-border-primary bg-bg-primary p-2 transition hover:border-indigo-400"
                 >
-                  <div
-                    className={`flex flex-col gap-6 md:flex-row md:items-center ${isReversed ? "md:flex-row-reverse" : ""}`}
-                  >
-                    <div className="flex-1 space-y-3">
-                      <div className="flex items-center gap-4">
-                        <div className="shrink-0 md:hidden">
-                          <Image
-                            src={project.logo}
-                            alt={`${project.title} logo`}
-                            width={64}
-                            height={64}
-                            className="object-contain"
-                          />
-                        </div>
-                        <div className="md:pl-0 pl-1">
-                          <h3 className="text-xl font-semibold tracking-tight text-text-primary group-hover:text-indigo-600">
-                            {project.title}
-                          </h3>
-                          {/* Pills: desktop only in the header */}
-                          <div className="mt-1 hidden flex-wrap gap-1.5 md:flex">
-                            {project.stats.map((stat) => (
-                              <span
-                                key={stat}
-                                className="inline-block rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600"
-                              >
-                                {stat}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        {project.description.split("\n\n").map((para) => (
-                          <p
-                            key={para}
-                            className="text-base leading-7 text-text-secondary"
-                          >
-                            {parseHighlights(para, "bold")}
-                          </p>
-                        ))}
-                      </div>
-                      {/* Pills: mobile only, after description */}
-                      <div className="flex flex-wrap gap-1.5 md:hidden">
-                        {project.stats.map((stat) => (
+                  <Link href="/projects" className="flex h-full flex-col">
+                    <div className="flex h-[170px] items-center justify-center rounded-2xl border border-border-primary/60 bg-white">
+                      <Image
+                        src={project.logo}
+                        alt={`${project.title} logo`}
+                        width={80}
+                        height={80}
+                        className="h-20 w-20 object-contain"
+                      />
+                    </div>
+                    <div className="my-4 flex flex-grow flex-col space-y-3 px-4">
+                      <h3 className="text-lg font-medium leading-7 tracking-tight text-slate-900">
+                        {project.title}
+                      </h3>
+                      <p className="flex-grow leading-7 text-text-secondary">
+                        {project.short}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.stats.slice(0, 2).map((stat) => (
                           <span
                             key={stat}
-                            className="inline-block rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600"
+                            className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600"
                           >
                             {stat}
                           </span>
                         ))}
                       </div>
                     </div>
-                    <div className="hidden shrink-0 items-center justify-center md:flex md:w-36">
-                      <Image
-                        src={project.logo}
-                        alt={`${project.title} logo`}
-                        width={120}
-                        height={120}
-                        className="object-contain"
-                      />
-                    </div>
-                  </div>
-                </a>
-              );
-            })}
-          </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </GridWrapper>
 
+          <div className="flex justify-center">
+            <Link
+              href="/projects"
+              className="inline-flex items-center rounded-full border border-border-primary bg-white px-5 py-2 text-sm font-medium text-indigo-600 hover:border-indigo-400"
+            >
+              See all {projects.length} projects
+              <svg
+                className="relative ml-2.5 mt-px overflow-visible"
+                width="3"
+                height="6"
+                viewBox="0 0 3 6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M0 0L3 3L0 6" />
+              </svg>
+            </Link>
+          </div>
         </section>
+
+        {/* Blog Section */}
+        {latestPosts.length > 0 && (
+          <section className="relative space-y-10 md:space-y-16">
+            <div className="relative space-y-4 text-balance">
+              <span className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2">
+                <BgGradient />
+              </span>
+              <GridWrapper>
+                <div className="text-center text-sm font-medium text-indigo-600">
+                  <span>Blog</span>
+                </div>
+              </GridWrapper>
+              <GridWrapper>
+                <h2 className="mx-auto max-w-lg text-center text-3xl font-medium leading-10 tracking-tighter text-text-primary md:text-4xl">
+                  Notes from building agents && the tools they use
+                </h2>
+              </GridWrapper>
+            </div>
+
+            <div className="z-10">
+              <GridWrapper>
+                <ul
+                  className={`z-50 ${featuredGridClassName(latestPosts.length)}`}
+                >
+                  {latestPosts.map((post) => (
+                    <FeaturedBlogCard
+                      key={post.slug}
+                      slug={post.slug}
+                      imageName={post.imageName}
+                      title={post.title}
+                      summary={post.summary}
+                    />
+                  ))}
+                </ul>
+              </GridWrapper>
+            </div>
+
+            <div className="flex justify-center">
+              <Link
+                href="/blog"
+                className="inline-flex items-center rounded-full border border-border-primary bg-white px-5 py-2 text-sm font-medium text-indigo-600 hover:border-indigo-400"
+              >
+                Read the blog
+                <svg
+                  className="relative ml-2.5 mt-px overflow-visible"
+                  width="3"
+                  height="6"
+                  viewBox="0 0 3 6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M0 0L3 3L0 6" />
+                </svg>
+              </Link>
+            </div>
+          </section>
+        )}
 
         {/* Grid Section */}
         <section className="relative space-y-4 pb-8 md:pb-12">

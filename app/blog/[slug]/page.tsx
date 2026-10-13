@@ -3,7 +3,7 @@ import { MDXContent } from "@/app/components/mdx";
 import { unstable_noStore as noStore } from "next/cache";
 import { SectionTitlePill } from "@/app/components/SectionTitlePill";
 import { HorizontalLine } from "@/app/components/HorizontalLine";
-import { NewsletterSignUp } from "@/app/components/NewsletterSignUp";
+import { FollowCta } from "@/app/components/FollowCta";
 import { posts } from "#site/content";
 import { getRelatedBlogPosts } from "@/app/lib/utils";
 import { FeaturedBlogCard } from "@/app/components/FeaturedBlogCard";
@@ -202,31 +202,6 @@ export default async function BlogPage({ params }: BlogPageProps) {
                 </svg>
                 <p>{readingTime}</p>
               </div>
-              {/* View Count */}
-              <div className="flex items-center gap-1 text-xs text-slate-200">
-                <svg
-                  className="hidden h-5 w-5 text-slate-300 md:block"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M19.25 12C19.25 13 17.5 18.25 12 18.25C6.5 18.25 4.75 13 4.75 12C4.75 11 6.5 5.75 12 5.75C17.5 5.75 19.25 11 19.25 12Z"
-                  ></path>
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="2.25"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                  ></circle>
-                </svg>
-              </div>
             </div>
           </div>
         </div>
@@ -248,6 +223,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
       </div>
 
       {/* Similar Posts */}
+      {similarPosts.length > 0 && (
       <section className="space-y-16">
         <div className="mx-auto w-fit">
         </div>
@@ -264,27 +240,22 @@ export default async function BlogPage({ params }: BlogPageProps) {
         <div className="z-10">
           <ul className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
             <HorizontalLine />
-            {similarPosts.length > 0 ? (
-              <>
-                {similarPosts.slice(0, 3).map((post, index) => (
-                  <FeaturedBlogCard
-                    key={post.slug}
-                    slug={post.slug}
-                    imageName={post.imageName}
-                    title={post.title}
-                    summary={post.summary}
-                    className={clsx(index === 2 && "hidden sm:hidden lg:block")}
-                  />
-                ))}
-              </>
-            ) : (
-              <p>Nothing to see here yet...</p>
-            )}
+            {similarPosts.slice(0, 3).map((post, index) => (
+              <FeaturedBlogCard
+                key={post.slug}
+                slug={post.slug}
+                imageName={post.imageName}
+                title={post.title}
+                summary={post.summary}
+                className={clsx(index === 2 && "hidden sm:hidden lg:block")}
+              />
+            ))}
           </ul>
           <HorizontalLine />
         </div>
       </section>
-      <NewsletterSignUp />
+      )}
+      <FollowCta />
       </article>
     </>
   );

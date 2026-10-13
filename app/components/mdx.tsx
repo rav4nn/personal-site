@@ -4,6 +4,7 @@ import Image from "next/image";
 import * as runtime from "react/jsx-runtime";
 import { tokenize } from "sugar-high";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
 import { BgGradient } from "./BgGradient";
 import { CodePlayground } from "./CodePlayground";
@@ -11,6 +12,14 @@ import { Details, DetailsSummary } from "./Details";
 import { LinkPreview } from "./LinkPreview/LinkPreview";
 import type { LinkPreviewData } from "@/app/lib/link-previews/types";
 import type { LinkPreviewManifest } from "@/app/lib/link-previews/types";
+
+// Post-specific components load lazily, so their data ships only with the post that uses them.
+const DictationResults = dynamic(() =>
+  import("./blog/dictation/DictationResults").then((m) => m.DictationResults),
+);
+const DictationTakes = dynamic(() =>
+  import("./blog/dictation/DictationTakes").then((m) => m.DictationTakes),
+);
 
 interface MDXProps {
   code: string;
@@ -581,6 +590,8 @@ const sharedComponents = {
   code: Code,
   Table,
   CodePlayground,
+  DictationResults,
+  DictationTakes,
   Details,
   DetailsSummary,
   p: paragraph,
