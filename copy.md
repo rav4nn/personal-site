@@ -42,7 +42,7 @@ Browser MCPs pull Chrome to the front mid-sentence, and they can't get into the 
 
 **CallLane** — *Mac apps*
 Short: A menu-bar app that stops macOS from turning your music down when a call starts.
-Join a call on a Mac and macOS drops your music by about 20 dB. Your AirPods fall back to headset quality too. CallLane is a menu-bar app that gives call apps their own audio device, so the rest of your audio stays at full volume. It locks the input to your Mac's mic, so your headphones keep high-quality audio through the call. *(free & open source, no kernel extension, macOS 14+)*
+Join a call on a Mac and macOS drops your music by about 20 dB. Your AirPods fall back to headset quality too. CallLane is a menu-bar app that gives call apps their own audio device, so the rest of your audio stays at full volume. It locks the input to your Mac's mic, so your headphones keep high-quality audio through the call. *(no kernel extension, macOS 14+)*
 
 **coffeecoach.app** — *Products*
 Short: An agentic brewing coach on a RAG pipeline of high-quality coffee data.

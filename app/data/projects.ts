@@ -45,7 +45,7 @@ export async function getProjects(): Promise<Project[]> {
       type: "Mac apps",
       url: "https://calllane.app",
       logo: "/projects/calllane.webp",
-      stats: ["free & open source", "no kernel extension", "macOS 14+"],
+      stats: ["no kernel extension", "macOS 14+"],
     },
     {
       title: "coffeecoach.app",
