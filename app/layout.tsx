@@ -4,6 +4,7 @@ import Navbar from "app/components/Navbar";
 import { siteMetadata } from "app/data/siteMetadata";
 import { Footer } from "./components/Footer";
 import { VisitorCounter } from "./components/VisitorCounter";
+import { CookieConsent } from "./components/CookieConsent";
 import { BgGradient } from "./components/BgGradient";
 import { cx } from "./lib/utils";
 import { GeistMono } from "geist/font/mono";
@@ -65,6 +66,7 @@ export default function RootLayout({
             </div>
             <Footer />
             <VisitorCounter />
+            <CookieConsent />
           </main>
         </MotionProvider>
 

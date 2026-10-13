@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { type ReactNode } from "react";
 
+import { CookieSettingsButton } from "./CookieConsent";
 import { GridWrapper } from "./GridWrapper";
 
 export function Footer(): ReactNode {
@@ -13,9 +14,12 @@ export function Footer(): ReactNode {
               <Link className="inline-block text-sm font-semibold tracking-tight text-text-primary" href="/">
                 hardeep.cv
               </Link>
-              <p className="text-gray-500" suppressHydrationWarning>
-                © {new Date().getFullYear()} Hardeep Singh
-              </p>
+              <div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-1">
+                <CookieSettingsButton />
+                <p className="text-gray-500" suppressHydrationWarning>
+                  © {new Date().getFullYear()} Hardeep Singh
+                </p>
+              </div>
             </div>
           </div>
         </GridWrapper>
