@@ -28,21 +28,32 @@ Team Lead and Senior AI Engineer at Squidgy AI (UK). I build agentic workflows t
 
 ## Projects
 
+Source of truth: `app/data/projects.ts` (`getProjects()`). The home page shows the first 3 projects as compact cards (short line + first 2 stats) and a "See all N projects" link. The `/projects` page shows all of them as a filterable grid: the first project as a wide card with its first paragraph, the rest with their short line.
+
 **Section heading:** "Things I've built that people actually use."
 
-**agent-chrome**
+**Projects page sub line:** "5 shipped tools and products. 3,000+ organic users, no paid promotion." *(the count comes from the list length)*
+
+**Filters:** All · Agent tools · Mac apps · Products · Open source
+
+**agent-chrome** — *Agent tools*
+Short: Gives Claude Code a copy of your signed-in Chrome that opens behind your apps and never takes focus.
 Browser MCPs pull Chrome to the front mid-sentence, and they can't get into the sites you're signed in to. agent-chrome gives Claude Code a copy of your signed-in Chrome that opens behind your apps and never takes focus. You keep typing while the agent clicks. Ships as a Claude Code plugin. Built on mimkorn's chrome-pipe-proxy, with background windows and per-account profiles on top. *(zero focus steals, Claude Code plugin, macOS)*
 
-**CallLane**
-Join a call on a Mac and macOS drops your music by about 20 dB. Your AirPods fall back to headset quality too. CallLane is a free menu-bar app that gives call apps their own audio device, so the rest of your audio stays at full volume. It locks the input to your Mac's mic, so your headphones keep high-quality audio through the call. *(free & open source, no kernel extension, macOS 14+)*
+**CallLane** — *Mac apps*
+Short: A menu-bar app that stops macOS from turning your music down when a call starts.
+Join a call on a Mac and macOS drops your music by about 20 dB. Your AirPods fall back to headset quality too. CallLane is a menu-bar app that gives call apps their own audio device, so the rest of your audio stays at full volume. It locks the input to your Mac's mic, so your headphones keep high-quality audio through the call. *(free & open source, no kernel extension, macOS 14+)*
 
-**coffeecoach.app**
+**coffeecoach.app** — *Products*
+Short: An agentic brewing coach on a RAG pipeline of high-quality coffee data.
 Most coffee brewing advice online is scattered and contradictory. I ingested high-quality brewing data, made a RAG pipeline on top of it, and built an agentic coaching system based on that data — LLM orchestration with feedback loops that adapt recommendations based on user input. Wrapped it all in a full-stack AI coaching app. *(65 daily active users, zero paid promotion)*
 
-**splitwala**
+**splitwala** — *Products*
+Short: Bill splitting inside your Telegram group. No app to install.
 Can't get your friends to install the bill splitting app? This Telegram bot makes it a single command — /split, /paid, /balances. Lives inside your Telegram group. No app to download, no account to create. Built on the principle that the best UX is the one that gets out of the way. *(live in 117 groups, 2000+ active users)*
 
-**youtube-rag-scraper**
+**youtube-rag-scraper** — *Open source*
+Short: Turns YouTube transcripts into a searchable knowledge base for RAG.
 YouTube has some of the best domain-specific knowledge on the internet, but it's locked in video format, impossible to query or reuse. This pipeline bulk-scrapes transcripts, processes them, and structures them into a searchable knowledge base for RAG systems. Handles chunking, embedding, and retrieval quality out of the box. *(GitHub stars & forks fetched dynamically)*
 
 ---
