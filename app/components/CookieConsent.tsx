@@ -14,9 +14,11 @@ function loadPostHog() {
     if (!posthog.__loaded) {
       posthog.init(POSTHOG_TOKEN, {
         api_host: "https://eu.i.posthog.com",
-        defaults: "2026-05-30",
+        defaults: "2026-08-30",
         cookieless_mode: "on_reject",
         opt_out_capturing_by_default: true,
+        opt_out_persistence_by_default: true, // opting out also deletes its storage (same as CallLane)
+        cross_subdomain_cookie: false, // own cookie per *.hardeep.cv site; no cross-site interference
         opt_out_capturing_persistence_type: "localStorage",
         person_profiles: "identified_only",
         autocapture: false,
