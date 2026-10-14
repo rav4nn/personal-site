@@ -48,6 +48,13 @@ export default function RootLayout({
       lang="en"
       className={`bg-bg-primary ${GeistMono.variable} ${GeistSans.variable}`}
     >
+      <head>
+        {/* impact.com site verification. Impact's tag uses `value`, not `content`, so it is written by hand. */}
+        <meta
+          name="impact-site-verification"
+          {...({ value: "8d98d2b2-6c6a-4439-bbed-14ff0849e3b6" } as Record<string, string>)}
+        />
+      </head>
       <body className="flex min-h-screen flex-col font-sans md:max-w-7xl lg:mx-auto lg:flex-row">
         <MotionProvider>
           <main
