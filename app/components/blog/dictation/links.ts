@@ -13,5 +13,5 @@ export const appLinks: Partial<
   willow: { url: "https://willowvoice.com/", affiliate: false },
   parakeety: { url: "https://www.parakeety.com/", affiliate: false },
   typewhisper: { url: "https://www.typewhisper.com/", affiliate: false },
-  wisprflow: { url: "https://wisprflow.ai/", affiliate: false },
+  wisprflow: { url: "https://ref.wisprflow.ai/hardeep-singh-gssh", affiliate: true },
 };
