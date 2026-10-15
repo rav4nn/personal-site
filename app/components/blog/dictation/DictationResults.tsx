@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { AppLogo } from "./AppLogo";
-import { summaryRows, type Tone } from "./data";
+import { summaryRows, type AppLogo as AppLogoName, type Tone } from "./data";
+import { appLinks } from "./links";
 
 const PILL: Record<Tone, string> = {
   G: "bg-emerald-50 text-emerald-700",
@@ -46,6 +47,24 @@ function Pill({ label, tone }: { label: string; tone: Tone }) {
   );
 }
 
+// App name, linked to the app's site when links.ts has an entry for it.
+function AppName({ app, logo }: { app: string; logo: AppLogoName | null }) {
+  const link = logo ? appLinks[logo] : undefined;
+  if (!link) return <>{app}</>;
+  return (
+    <a
+      href={link.url}
+      target="_blank"
+      rel={
+        link.affiliate ? "sponsored noopener noreferrer" : "noopener noreferrer"
+      }
+      className="rounded-sm text-inherit no-underline hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-primary"
+    >
+      {app}
+    </a>
+  );
+}
+
 // Summary table of the dictation test: one row per app, best app first.
 export function DictationResults() {
   return (
@@ -82,7 +101,9 @@ export function DictationResults() {
               <th scope="row" className="px-2 py-2.5 font-normal">
                 <div className="flex items-center gap-2.5">
                   <AppLogo logo={row.logo} size={28} className="rounded-lg" />
-                  <span className="font-medium text-slate-900">{row.app}</span>
+                  <span className="font-medium text-slate-900">
+                    <AppName app={row.app} logo={row.logo} />
+                  </span>
                 </div>
               </th>
               <td className="px-2 py-2.5">
