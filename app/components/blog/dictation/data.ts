@@ -1,4 +1,5 @@
-// Generated once from the dictation test results page (results.html). Do not edit by hand.
+// Generated once from the dictation test results page (results.html). The sort fields
+// (ramMb, priceFirstYear, cleanup) were added by hand for the sortable table.
 // Tones: G/g = good (green), Y/w = warning (yellow), R/r = bad (red), N = no value (grey).
 
 export type Tone = "G" | "Y" | "R" | "N";
@@ -27,10 +28,16 @@ export interface SummaryRow {
   /** Width of the speed bar in percent (the slowest app is 100). */
   speedBar: number;
   ram: string;
+  /** Peak RAM in MB, or null when the app has no own process (Apple Dictation). */
+  ramMb: number | null;
   ramTone: Tone;
   price: string;
+  /** Cost of the first year in USD, so one-time and monthly prices sort on one scale. */
+  priceFirstYear: number;
   priceTone: Tone;
   kind: string;
+  /** "ai" apps clean the transcript with an LLM; "raw" apps paste it word for word. */
+  cleanup: "ai" | "raw";
   /** Accuracy on prompt 1, 2 and 3. */
   byPrompt: [number, number, number];
 }
@@ -67,10 +74,13 @@ export const summaryRows: SummaryRow[] = [
     speedTone: "Y",
     speedBar: 70.2,
     ram: "1.0 GB",
+    ramMb: 1024,
     ramTone: "Y",
     price: "$10/mo",
+    priceFirstYear: 120,
     priceTone: "Y",
     kind: "AI · Cloud",
+    cleanup: "ai",
     byPrompt: [100, 99, 100],
   },
   {
@@ -83,10 +93,13 @@ export const summaryRows: SummaryRow[] = [
     speedTone: "Y",
     speedBar: 54.4,
     ram: "213 MB",
+    ramMb: 213,
     ramTone: "G",
     price: "$8.49/mo",
+    priceFirstYear: 101.88,
     priceTone: "Y",
     kind: "AI · Cloud",
+    cleanup: "ai",
     byPrompt: [100, 97, 98],
   },
   {
@@ -99,10 +112,13 @@ export const summaryRows: SummaryRow[] = [
     speedTone: "R",
     speedBar: 100,
     ram: "117 MB",
+    ramMb: 117,
     ramTone: "G",
     price: "Free",
+    priceFirstYear: 0,
     priceTone: "G",
     kind: "AI · Cloud",
+    cleanup: "ai",
     byPrompt: [86, 100, 100],
   },
   {
@@ -115,10 +131,13 @@ export const summaryRows: SummaryRow[] = [
     speedTone: "G",
     speedBar: 29.5,
     ram: "289 MB",
+    ramMb: 289,
     ramTone: "G",
     price: "$25 once",
+    priceFirstYear: 25,
     priceTone: "Y",
     kind: "Raw · Mac",
+    cleanup: "raw",
     byPrompt: [81, 99, 95],
   },
   {
@@ -131,10 +150,13 @@ export const summaryRows: SummaryRow[] = [
     speedTone: "Y",
     speedBar: 47.2,
     ram: "273 MB",
+    ramMb: 273,
     ramTone: "G",
     price: "$15/mo",
+    priceFirstYear: 180,
     priceTone: "R",
     kind: "AI · Cloud",
+    cleanup: "ai",
     byPrompt: [100, 83, 93],
   },
   {
@@ -147,10 +169,13 @@ export const summaryRows: SummaryRow[] = [
     speedTone: "G",
     speedBar: 22.5,
     ram: "548 MB",
+    ramMb: 548,
     ramTone: "G",
     price: "$25 once",
+    priceFirstYear: 25,
     priceTone: "Y",
     kind: "Raw · Mac",
+    cleanup: "raw",
     byPrompt: [81, 99, 93],
   },
   {
@@ -163,10 +188,13 @@ export const summaryRows: SummaryRow[] = [
     speedTone: "G",
     speedBar: 24.3,
     ram: "191 MB",
+    ramMb: 191,
     ramTone: "G",
     price: "Free",
+    priceFirstYear: 0,
     priceTone: "G",
     kind: "Raw · Mac",
+    cleanup: "raw",
     byPrompt: [76, 99, 96],
   },
   {
@@ -179,10 +207,13 @@ export const summaryRows: SummaryRow[] = [
     speedTone: "G",
     speedBar: 31.7,
     ram: "macOS",
+    ramMb: null,
     ramTone: "N",
     price: "Free",
+    priceFirstYear: 0,
     priceTone: "G",
     kind: "Raw · Mac",
+    cleanup: "raw",
     byPrompt: [76, 100, 92],
   },
   {
@@ -195,10 +226,13 @@ export const summaryRows: SummaryRow[] = [
     speedTone: "Y",
     speedBar: 49.8,
     ram: "1.6 GB",
+    ramMb: 1638,
     ramTone: "R",
     price: "$15/mo",
+    priceFirstYear: 180,
     priceTone: "R",
     kind: "AI · Cloud",
+    cleanup: "ai",
     byPrompt: [81, 96, 87],
   },
 ];

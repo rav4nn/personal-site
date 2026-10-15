@@ -1,7 +1,7 @@
 ---
 title: "9 Mac dictation apps on my real agent prompts"
 publishedAt: "2026-10-13"
-summary: "I sprained my wrist, so I talk to my agents now. One recording, replayed into every app. The free one I use every day came third."
+summary: "I sprained my wrist, so I talk to my agents now. One recording, replayed into every app. The one I kept is the fastest, not the most accurate."
 imageName: "mac-dictation-apps-agent-prompts.png"
 categories: ["tools", "mac", "agents"]
 draft: false
@@ -11,34 +11,49 @@ I sprained my right wrist, so I talk to my agents now. I read 3 prompts once, th
 
 <p className="mb-6 font-mono text-xs leading-6 text-slate-500">13 October 2026 · MacBook Pro, Apple M5 Pro, macOS 27.0.1 · one take per prompt</p>
 
+<YouTubeEmbed id="mXmTYrmK1c0" title="I Broke My Wrist, So I Tested Every Mac Dictation App" />
+
 ## The results
 
 <DictationResults />
-<p className="mb-6 font-mono text-xs leading-6 text-slate-500">App names link to each app. Some are affiliate links.</p>
+<p className="mb-6 font-mono text-xs leading-6 text-slate-500">App names link to each app. Some are affiliate links. Price sorts by the cost of the first year.</p>
 
-## Prompt 1 · short, email
+## What I use now: VoiceInk
 
-<blockquote className="mb-6 border-l-2 border-border-primary pl-4 text-base leading-8 text-text-secondary">What I said: “Are the subagents done yet? When they finish, email the summary to {"hardeep@coffeecoach.app"}, and tell me if anything crashed.”</blockquote>
+Aqua Voice won on accuracy, but I ended up on [VoiceInk](https://tryvoiceink.com/?atp=rav4nn). It is so fast that the text feels instant, and that matters more to me than the last few percent. It runs [Parakeet TDT 0.6B v3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3), NVIDIA's speech model, on the Mac itself.
 
-<DictationTakes prompt={1} />
+I use it in two modes, one key each:
 
-## Prompt 2 · long, natural
+- **Raw** (Right Option): Parakeet only, word for word. I use it for agent prompts, where the model reads my words as they are.
+- **Clean** (Fn): Parakeet, then a cleanup pass by Qwen 3.8 27B on Groq. It fixes names, emails and punctuation in about half a second. I use it for messages and emails.
 
-<blockquote className="mb-6 border-l-2 border-border-primary pl-4 text-base leading-8 text-text-secondary">What I said: “Do deep research about the most popular apps to use, and also open in Agent Chrome primary the links to download all of them. I will return in half an hour to do the testing and make the video. Also, if you have any hooks for the video and this short prompted style script that I like, you can write that as well, but don't make it too long. I will handle most of the script myself.”</blockquote>
-
-<DictationTakes prompt={2} />
-
-## Prompt 3 · long, release task
-
-<blockquote className="mb-6 border-l-2 border-border-primary pl-4 text-base leading-8 text-text-secondary">What I said: “Okay, so I want to ship the next CallLane release today. Bump the version to 1.4, build the DMG, sign it and notarize it, then upload it to the R2 bucket. After that, update latest.json with the new version and purge both URLs on Cloudflare, because the DMG link is cached for four hours. If notarization fails again with that entitlements error, don't try to fix it yourself. Just stop and tell me what Apple said. Also write a short changelog from the commits since the last tag. I will check back after lunch.”</blockquote>
-
-<DictationTakes prompt={3} />
+Both modes share a list of word replacements for the names Parakeet gets wrong.
 
 ## How I measured
 
-- **Accuracy** is the share of words that match what I read. Case, punctuation and "um" don't count. Red words are wrong, struck-through words are missing.
+- **Prompts.** Prompt 1 is short and has an email address. Prompt 2 is long and loose, the way I really talk. Prompt 3 is a long release task with product names.
+- **Accuracy** is the share of words that match what I read. Case, punctuation and "um" don't count.
 - **Speed** is the time from the end of my speech to the last character in the text box. Every app gets the same 0.3 s between the end of speech and the stop key.
 - **RAM** is the peak memory of all the app's processes during the take. Apple Dictation runs inside macOS, so it has no number.
 - Colors: accuracy is green from 97%, yellow from 90%. Speed is green under 1 s, yellow under 2 s. RAM and price compare the apps with each other.
 - **AI** (cleanup) apps send the transcript through an LLM before they paste. **Raw** (word for word) apps paste what the speech model heard.
 - Prices are from each app's site in October 2026. Earlier runs the same day gave numbers within a few percent.
+
+<details className="group/typed mb-10 rounded-2xl border border-border-primary bg-white">
+<summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-medium text-slate-900 [&::-webkit-details-marker]:hidden">
+<span>What each app typed, word by word</span>
+<span className="inline-block text-slate-400 transition group-open/typed:rotate-90">›</span>
+</summary>
+<div className="border-t border-border-primary px-4 pt-4">
+<p className="mb-4 text-sm leading-6 text-slate-500">Red words are wrong, struck-through words are missing.</p>
+<p className="mb-2 text-sm font-semibold text-slate-900">Prompt 1 · short, email</p>
+<blockquote className="mb-4 border-l-2 border-border-primary pl-4 text-sm leading-7 text-text-secondary">“Are the subagents done yet? When they finish, email the summary to {"hardeep@coffeecoach.app"}, and tell me if anything crashed.”</blockquote>
+<DictationTakes prompt={1} />
+<p className="mb-2 text-sm font-semibold text-slate-900">Prompt 2 · long, natural</p>
+<blockquote className="mb-4 border-l-2 border-border-primary pl-4 text-sm leading-7 text-text-secondary">“Do deep research about the most popular apps to use, and also open in Agent Chrome primary the links to download all of them. I will return in half an hour to do the testing and make the video. Also, if you have any hooks for the video and this short prompted style script that I like, you can write that as well, but don't make it too long. I will handle most of the script myself.”</blockquote>
+<DictationTakes prompt={2} />
+<p className="mb-2 text-sm font-semibold text-slate-900">Prompt 3 · long, release task</p>
+<blockquote className="mb-4 border-l-2 border-border-primary pl-4 text-sm leading-7 text-text-secondary">“Okay, so I want to ship the next CallLane release today. Bump the version to 1.4, build the DMG, sign it and notarize it, then upload it to the R2 bucket. After that, update latest.json with the new version and purge both URLs on Cloudflare, because the DMG link is cached for four hours. If notarization fails again with that entitlements error, don't try to fix it yourself. Just stop and tell me what Apple said. Also write a short changelog from the commits since the last tag. I will check back after lunch.”</blockquote>
+<DictationTakes prompt={3} />
+</div>
+</details>

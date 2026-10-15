@@ -10,6 +10,7 @@ import { BgGradient } from "./BgGradient";
 import { CodePlayground } from "./CodePlayground";
 import { Details, DetailsSummary } from "./Details";
 import { LinkPreview } from "./LinkPreview/LinkPreview";
+import { YouTubeEmbed } from "./blog/YouTubeEmbed";
 import type { LinkPreviewData } from "@/app/lib/link-previews/types";
 import type { LinkPreviewManifest } from "@/app/lib/link-previews/types";
 
@@ -592,6 +593,7 @@ const sharedComponents = {
   CodePlayground,
   DictationResults,
   DictationTakes,
+  YouTubeEmbed,
   Details,
   DetailsSummary,
   p: paragraph,
