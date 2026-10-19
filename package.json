@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "node --import tsx --test app/lib/visitorCounter.test.ts app/lib/navActive.test.ts",
+    "test": "node --import tsx --test app/lib/visitorCounter.test.ts app/lib/navActive.test.ts app/lib/study.test.ts",
     "generate-previews": "npx tsx scripts/generate-link-previews.ts",
     "fix-previews": "npx tsx scripts/fix-failed-previews.ts"
   },
