@@ -52,6 +52,14 @@ test("an invalid meta.json names the file and the field", () => {
     () => parseStudyMeta({ ...validMeta, publishedAt: "20 Oct 2026" }, "m"),
     /"publishedAt" must be a YYYY-MM-DD date/,
   );
+  for (const publishedAt of ["2026-02-31", "2026-13-01", "2026-00-10"]) {
+    assert.throws(
+      () => parseStudyMeta({ ...validMeta, publishedAt }, "m"),
+      /"publishedAt" must be a YYYY-MM-DD date/,
+      publishedAt,
+    );
+  }
+  assert.equal(parseStudyMeta({ ...validMeta, publishedAt: "2028-02-29" }, "m").publishedAt, "2028-02-29");
 });
 
 test("lesson.html splits into css, html and script", () => {

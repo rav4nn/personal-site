@@ -97,6 +97,13 @@ function readSource(value: unknown, file: string): StudySource {
   };
 }
 
+// Date.parse rolls 2026-02-31 over to March, so require a round trip.
+function isCalendarDate(value: string): boolean {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const time = Date.parse(`${value}T00:00:00Z`);
+  return !Number.isNaN(time) && new Date(time).toISOString().slice(0, 10) === value;
+}
+
 export function parseStudyMeta(raw: unknown, file: string): StudyLessonMeta {
   if (!isRecord(raw)) throw new StudyContentError(file, "must contain a JSON object");
 
@@ -107,10 +114,7 @@ export function parseStudyMeta(raw: unknown, file: string): StudyLessonMeta {
   }
 
   const publishedAt = readString(raw, "publishedAt", file);
-  if (
-    !/^\d{4}-\d{2}-\d{2}$/.test(publishedAt) ||
-    Number.isNaN(Date.parse(`${publishedAt}T00:00:00Z`))
-  ) {
+  if (!isCalendarDate(publishedAt)) {
     throw new StudyContentError(file, `"publishedAt" must be a YYYY-MM-DD date`);
   }
 
