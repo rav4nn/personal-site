@@ -2,11 +2,14 @@
 // Converts a standalone visual-explainer page into content/study/<slug>/lesson.html:
 // a scoped <style>, the <main> content inside <div class="study-lesson">, and a
 // <script> that runs against the lesson root instead of `document`.
-// Usage: node scripts/study/import-lesson.mjs <standalone.html> <slug>
+// The standalone page is kept beside it as source.html, the input for re-imports.
+// Usage:
+//   node scripts/study/import-lesson.mjs <standalone.html> <slug>   copy in a new source, then convert
+//   node scripts/study/import-lesson.mjs <slug>                     re-convert the committed source.html
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import postcss from "postcss";
 
 const ROOT_CLASS = "study-lesson";
@@ -41,11 +44,16 @@ const GLOBAL_CLASS_RESETS = {
   "code-frame": "justify-content: revert; overflow: revert; border-radius: revert;",
 };
 
+const GOOGLE_FONTS_RE = /\bfonts\.googleapis\.com\//;
+
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
+export class ImportError extends Error {
+  name = "ImportError";
+}
+
 function fail(message) {
-  console.error(`import-lesson: ${message}`);
-  process.exit(1);
+  throw new ImportError(message);
 }
 
 function extractOne(html, re, what) {
@@ -102,12 +110,20 @@ async function globalClassNames() {
 function convertCss(source, globalClasses) {
   const root = postcss.parse(source);
   root.walkComments((comment) => comment.remove());
-  root.walkAtRules("import", (atRule) => atRule.remove());
+  root.walkAtRules("import", (atRule) => {
+    if (!GOOGLE_FONTS_RE.test(atRule.params)) fail(`unsupported @import ${atRule.params}`);
+    atRule.remove();
+  });
+  // Keyframe names are page-global (the site already defines `marquee`).
+  root.walkAtRules(/keyframes$/i, () => {
+    fail("keyframes are not scoped yet; rename or add support");
+  });
+  root.walkDecls(/^(?:-webkit-)?animation(?:-name)?$/i, () => {
+    fail("keyframes are not scoped yet; rename or add support");
+  });
 
   const lessonClasses = new Set();
   root.walkRules((rule) => {
-    if (rule.parent?.type === "atrule" && /keyframes$/i.test(rule.parent.name)) return;
-
     const kept = rule.selectors.filter((selector) => !CHROME_RE.test(selector));
     if (kept.length === 0) {
       rule.remove();
@@ -157,8 +173,18 @@ function convertCss(source, globalClasses) {
   return `${ELEMENT_RESETS.trim()}\n${classResets}\n${root.toString().trim()}`;
 }
 
+function checkStylesheetLinks(page) {
+  for (const [tag] of page.matchAll(/<link\b[^>]*>/gi)) {
+    if (/\brel=["']?stylesheet\b/i.test(tag) && !GOOGLE_FONTS_RE.test(tag)) {
+      fail(`unsupported stylesheet ${tag}; inline it into the <style> block`);
+    }
+  }
+}
+
 function convertBody(page) {
-  const main = extractOne(page, /<main[^>]*>([\s\S]*?)<\/main>/g, "<main> element");
+  const mainTag = page.match(/<main\b[^>]*>/)?.[0];
+  if (mainTag && mainTag !== "<main>") fail(`${mainTag} has attributes, which the lesson root would drop`);
+  const main = extractOne(page, /<main>([\s\S]*?)<\/main>/g, "<main> element");
   const sprite = page.match(/<svg[^>]*>\s*<defs>[\s\S]*?<\/defs>\s*<\/svg>/)?.[0];
   if (sprite && main.includes(sprite)) fail("the <defs> sprite sits inside <main>; expected it outside");
   const content = main
@@ -169,44 +195,88 @@ function convertBody(page) {
   return sprite ? `${sprite}\n${content}` : content;
 }
 
+// Index of the `)` that closes the call whose `(` sits just before `start`,
+// skipping parentheses inside string literals.
+function closingParen(source, start) {
+  let depth = 1;
+  for (let i = start; i < source.length; i++) {
+    const ch = source[i];
+    if (ch === "'" || ch === '"' || ch === "`") {
+      for (i++; i < source.length && source[i] !== ch; i++) if (source[i] === "\\") i++;
+    } else if (ch === "(") depth++;
+    else if (ch === ")" && --depth === 0) return i;
+  }
+  fail("unbalanced parentheses after document.getElementById(");
+}
+
+// getElementById takes a raw id; querySelector needs it escaped (ids like "a.b" or "1x").
+function rewriteGetElementById(source) {
+  const call = "document.getElementById(";
+  let out = "";
+  let rest = source;
+  for (let at = rest.indexOf(call); at !== -1; at = rest.indexOf(call)) {
+    const close = closingParen(rest, at + call.length);
+    const id = rest.slice(at + call.length, close);
+    out += `${rest.slice(0, at)}${ROOT_PARAM}.querySelector("#" + CSS.escape(${id}))`;
+    rest = rest.slice(close + 1);
+  }
+  return out + rest;
+}
+
 function convertScript(source) {
   if (new RegExp(`\\b${ROOT_PARAM}\\b`).test(source)) {
     fail(`the script already uses the identifier "${ROOT_PARAM}", which the converter reserves`);
   }
-  const script = source
+  const script = rewriteGetElementById(source)
     .replace(/document\.documentElement\.classList\.add\(/g, `${ROOT_PARAM}.classList.add(`)
-    .replace(/document\.getElementById\((['"])([^'"]+)\1\)/g, `${ROOT_PARAM}.querySelector('#$2')`)
     .replace(/document\.querySelectorAll\(/g, `${ROOT_PARAM}.querySelectorAll(`)
     .replace(/document\.querySelector\(/g, `${ROOT_PARAM}.querySelector(`)
     .replace(/(['"])main > \*\1/g, "':scope > *'");
-  const stray = script.match(/document\.(?!createElementNS\b)\w+/);
-  if (stray) fail(`script still references ${stray[0]} after rewriting to run against the lesson root`);
+  const stray = script.match(/\bdocument\b(?!\.createElementNS\b).{0,30}/);
+  if (stray) fail(`script still references "${stray[0]}" after rewriting to run against the lesson root`);
   return script.trim();
 }
 
-async function main() {
-  const [input, slug] = process.argv.slice(2);
-  if (!input || !slug) fail("usage: node scripts/study/import-lesson.mjs <standalone.html> <slug>");
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) fail(`slug "${slug}" must be kebab-case`);
-
-  const page = await readFile(input, "utf8");
+export function convertLesson(page, slug, globalClasses) {
+  checkStylesheetLinks(page);
   const css = convertCss(
     extractOne(page, /<style[^>]*>([\s\S]*?)<\/style>/g, "<style> block"),
-    await globalClassNames(),
+    globalClasses,
   );
   const body = convertBody(page);
   const script = convertScript(
     extractOne(page, /<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g, "inline <script>"),
   );
+  const banner = `/* Generated from source.html by scripts/study/import-lesson.mjs. Edit source.html, then run: node scripts/study/import-lesson.mjs ${slug} */`;
+  return `<style>\n${banner}\n${css}\n</style>\n<div class="${ROOT_CLASS}">\n${body}\n</div>\n<script>\n${script}\n</script>\n`;
+}
 
-  const banner = `/* Generated by scripts/study/import-lesson.mjs from ${path.basename(input)}. Re-run it instead of editing. */`;
-  const output = `<style>\n${banner}\n${css}\n</style>\n<div class="${ROOT_CLASS}">\n${body}\n</div>\n<script>\n${script}\n</script>\n`;
+async function main(args) {
+  const usage = "usage: node scripts/study/import-lesson.mjs [<standalone.html>] <slug>";
+  if (args.length < 1 || args.length > 2) fail(usage);
+  const slug = args.at(-1);
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) fail(`slug "${slug}" must be kebab-case. ${usage}`);
 
   const outDir = path.join(repoRoot, "content/study", slug);
+  const sourceFile = path.join(outDir, "source.html");
   await mkdir(outDir, { recursive: true });
+  if (args.length === 2) {
+    await writeFile(sourceFile, await readFile(args[0], "utf8"));
+    console.log(`import-lesson: copied ${args[0]} to ${path.relative(repoRoot, sourceFile)}`);
+  }
+
+  const page = await readFile(sourceFile, "utf8");
   const outFile = path.join(outDir, "lesson.html");
-  await writeFile(outFile, output);
+  await writeFile(outFile, convertLesson(page, slug, await globalClassNames()));
   console.log(`import-lesson: wrote ${path.relative(repoRoot, outFile)}`);
 }
 
-await main();
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
+  try {
+    await main(process.argv.slice(2));
+  } catch (error) {
+    if (!(error instanceof ImportError)) throw error;
+    console.error(`import-lesson: ${error.message}`);
+    process.exit(1);
+  }
+}
