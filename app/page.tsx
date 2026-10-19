@@ -20,6 +20,8 @@ import {
   featuredGridClassName,
 } from "./components/FeaturedBlogCard";
 import { BgGradient } from "./components/BgGradient";
+import { StudyLessonCard } from "./components/StudyLessonCard";
+import { getStudyLessons } from "./lib/study";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -40,6 +42,7 @@ export default async function Home() {
     getProjects(),
   ]);
   const latestPosts = fetchAndSortBlogPosts().slice(0, 3);
+  const [latestLesson] = getStudyLessons();
 
   return (
     <section>
@@ -466,6 +469,21 @@ export default async function Home() {
                 </svg>
               </Link>
             </div>
+          </section>
+        )}
+
+        {latestLesson && (
+          <section className="relative space-y-6">
+            <GridWrapper>
+              <div className="text-center text-sm font-medium text-indigo-600">
+                <span>Latest study</span>
+              </div>
+            </GridWrapper>
+            <GridWrapper>
+              <ul className="mx-auto grid max-w-2xl grid-cols-1">
+                <StudyLessonCard lesson={latestLesson} />
+              </ul>
+            </GridWrapper>
           </section>
         )}
 
