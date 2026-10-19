@@ -1,0 +1,545 @@
+<style>
+/* Generated from source.html by scripts/study/import-lesson.mjs. Edit source.html, then run: node scripts/study/import-lesson.mjs evals-deep-dive */
+.study-lesson :where(h1, h2, h3, h4, h5, h6) { font-size: revert; font-weight: revert; }
+.study-lesson :where(h3, h4) { font-weight: bold !important; letter-spacing: normal !important; }
+.study-lesson :where(code)::before, .study-lesson :where(code)::after { content: none; }
+.study-lesson :where(table) { display: table; max-width: none; overflow-x: visible; white-space: normal; }
+.study-lesson :where(ol, ul, menu) { list-style: revert; padding: revert; }
+.study-lesson :where(img, svg, video, canvas, audio, iframe, embed, object) { display: revert; vertical-align: revert; }
+.study-lesson :where(iframe) { margin-bottom: revert; }
+.study-lesson :where(button, [type="button"], [type="reset"], [type="submit"]) { background-color: revert; background-image: revert; }
+.study-lesson :where(a) { color: revert; text-decoration: revert; }
+.study-lesson .code-frame { justify-content: revert; overflow: revert; border-radius: revert; }
+.study-lesson {
+    color-scheme: light;
+    --bg: #F7F7F8; --surface: #ffffff; --inset: #EDEEF0; --border: #D6DADE; --border-bright: #8B93A0;
+    --text: #0f172a; --text-dim: #5E5F6E; --text-faint: #A5AEB8; --accent: #6C47FF; --accent-dim: #E6E2F9;
+    --ok: #15803d; --warn: #a16207; --risk: #c2410c; --info: #0885c7;
+    --node-top: #ffffff; --lift: rgb(14 22 34 / .10); --halo: 28%;
+    --font-display: var(--font-geist-sans), system-ui, sans-serif;
+    --font-body: var(--font-geist-sans), system-ui, sans-serif;
+    --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+    --t-label: .75rem; --t-small: .875rem; --t-body: 1rem; --t-lead: 1.25rem; --t-h2: 1.75rem; --t-h1: clamp(2.25rem, 5.5vw, 3.75rem);
+    --s-1: .25rem; --s-2: .5rem; --s-3: .75rem; --s-4: 1rem; --s-5: 1.5rem; --s-6: 2rem; --s-7: 3rem; --s-8: 4.5rem;
+    --r-1: 999px; --r-2: 12px; --r-3: 20px;
+    --ease: cubic-bezier(.16,1,.3,1); --fast: 150ms; --med: 300ms; --slow: 500ms;
+  }
+
+  .study-lesson { font-size: 16px; }
+  .study-lesson * { box-sizing: border-box; margin: 0; }
+  .study-lesson { color: var(--text); font: 400 var(--t-body)/1.6 var(--font-body); text-wrap: pretty; font-kerning: normal; font-synthesis: none; -webkit-font-smoothing: antialiased; }
+  .study-lesson ::selection { background: #47a3f3; color: #fefefe; }
+  .study-lesson :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .study-lesson a { color: var(--accent); text-underline-offset: .2em; }
+  .study-lesson .opener { display: grid; gap: 0; margin-top: calc(-1 * var(--s-6)); }
+  .study-lesson .opener > .row { position: relative; padding-block: var(--s-6); }
+  .study-lesson .opener > .row::after { content: ''; position: absolute; left: -100vw; right: -100vw; bottom: 0; height: 1px; background: var(--border); }
+  .study-lesson .opener > .row.first { padding-block: 0 var(--s-4); }
+  .study-lesson .crumbs { display: flex; justify-content: space-between; align-items: center; gap: var(--s-4); font: 500 var(--t-small) var(--font-mono); color: var(--text-dim); }
+  .study-lesson .crumbs a { color: var(--text-dim); text-decoration: none; } .study-lesson .crumbs a:hover { color: var(--accent); }
+  .study-lesson .crumbs .sep { color: var(--text-faint); margin-inline: var(--s-2); }
+  .study-lesson .crumbs .lesson { color: var(--accent); }
+  .study-lesson .tags { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-bottom: var(--s-5); }
+  .study-lesson .tags span { font: 600 .75rem var(--font-mono); color: var(--accent); background: var(--accent-dim); border-radius: 999px; padding: 2px 10px; text-transform: uppercase; letter-spacing: .04em; }
+  .study-lesson .opener h1 { font-size: clamp(2.5rem, 6.2vw, 4.75rem); line-height: 1.04; letter-spacing: -.05em !important; max-width: 19ch; margin: 0 0 var(--s-5); }
+  .study-lesson .opener h1 em { font-style: normal; color: var(--accent); }
+  .study-lesson .opener .lead { max-width: 58ch; font-size: 1.3125rem; }
+  .study-lesson .byline { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-6); }
+  .study-lesson .who { display: flex; align-items: center; gap: var(--s-3); }
+  .study-lesson .avatar { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font: 600 .875rem var(--font-body); color: var(--accent); background: var(--accent-dim); box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px var(--border); }
+  .study-lesson .who b { display: block; font-weight: 600; line-height: 1.3; } .study-lesson .who small { color: var(--text-dim); font-size: var(--t-small); }
+  .study-lesson .facts { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); color: var(--text-dim); font-size: var(--t-small); }
+  .study-lesson .facts span { display: inline-flex; align-items: center; gap: 6px; }
+  .study-lesson .facts svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+  .study-lesson .watch { margin-left: auto; display: inline-flex; align-items: center; gap: var(--s-2); background: #3C3C3F; color: #fff; text-decoration: none; font: 500 var(--t-small) var(--font-body); padding: 10px 18px; border-radius: 999px; transition: background var(--fast) var(--ease); }
+  .study-lesson .watch:hover, .study-lesson .watch:focus-visible { background: var(--text); }
+  .study-lesson .watch svg { width: 14px; height: 14px; fill: currentColor; }
+  .study-lesson .learn-h { font: 600 var(--t-label) var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: var(--s-4); }
+  .study-lesson .learn { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-2); overflow: hidden; }
+  .study-lesson .learn a { display: grid; gap: var(--s-1); height: 100%; background: var(--surface); padding: var(--s-4); text-decoration: none; color: var(--text); transition: background var(--fast) var(--ease); }
+  .study-lesson .learn a:hover, .study-lesson .learn a:focus-visible { background: #FAF9FF; }
+  .study-lesson .learn .n { font: 600 var(--t-label) var(--font-mono); color: var(--accent); }
+  .study-lesson .learn b { font-weight: 600; line-height: 1.3; }
+  .study-lesson .learn small { color: var(--text-dim); font-size: var(--t-small); line-height: 1.45; }
+  .study-lesson .opener + figure { margin-top: calc(var(--s-6) - var(--s-8)); }
+  @media (max-width: 40rem) { .study-lesson .watch { margin-left: 0; } }
+  .study-lesson { max-width: 64rem; margin: 0 auto; padding: var(--s-8) var(--s-5); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); }
+  .study-lesson section, .study-lesson figure, .study-lesson header { min-width: 0; }
+  .study-lesson section { display: grid; gap: var(--s-5); scroll-margin-top: var(--s-6); }
+  .study-lesson header { display: grid; gap: var(--s-4); }
+  .study-lesson header + figure { margin-top: calc(var(--s-6) - var(--s-8)); }
+  .study-lesson h1, .study-lesson h2 { text-box: trim-both cap alphabetic; font-family: var(--font-display); font-weight: 500; letter-spacing: -.05em !important; }
+  .study-lesson h2 { letter-spacing: -.035em !important; }
+  .study-lesson h1 { font-size: var(--t-h1); line-height: 1.05; letter-spacing: -.03em; text-wrap: balance; max-width: 18ch; margin-bottom: var(--s-2); }
+  .study-lesson h2 { font-size: var(--t-h2); line-height: 1.2; letter-spacing: -.01em; text-wrap: balance; max-width: 34ch; }
+  .study-lesson h3 { font-size: var(--t-body); line-height: 1.3; font-weight: 600 !important; }
+  .study-lesson p { max-width: 65ch; }
+  .study-lesson .kicker-head { display: grid; gap: var(--s-5); }
+  .study-lesson .kicker-head .ve-label { max-width: none; position: relative; display: flex; justify-content: center; align-items: center; }
+  .study-lesson .kicker-head .ve-label::before { content: ''; position: absolute; inset-inline: 0; top: 50%; height: 1px; background: color-mix(in srgb, var(--border) 50%, transparent); }
+  .study-lesson .kicker-head .ve-label span { position: relative; z-index: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 200px; padding: 2px var(--s-5); font: 500 var(--t-small) var(--font-body); letter-spacing: .02em; color: #475569; }
+  .study-lesson .eyebrow { display: flex; align-items: center; gap: var(--s-2); font: 600 var(--t-label) var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .study-lesson .eyebrow::before { content: ''; width: .5rem; height: .5rem; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 3px rgba(108,71,255,.15); }
+  .study-lesson .ve-label { font: 500 var(--t-label) var(--font-mono); color: var(--text-dim); }
+  .study-lesson .caps { text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+  .study-lesson .lead { font-size: var(--t-lead); line-height: 1.5; color: var(--text-dim); max-width: 46ch; }
+  .study-lesson .lead b { color: var(--text); font-weight: 600; }
+  .study-lesson .meta { font: 500 var(--t-label) var(--font-mono); color: var(--text-dim); font-variant-numeric: tabular-nums; }
+  .study-lesson code { font: .875em var(--font-mono); font-variant-ligatures: none; }
+
+  .study-lesson .frame { border: 1px solid var(--border); border-radius: var(--r-3); padding: var(--s-2); background: color-mix(in srgb, var(--surface) 60%, transparent); }
+  .study-lesson .well { background: var(--inset); border-radius: var(--r-2); box-shadow: 0 2px 1.5px 0 #A5AEB852 inset; padding: var(--s-5); overflow-x: auto; }
+  .study-lesson figcaption { font-size: var(--t-body); color: var(--text-dim); margin-top: var(--s-3); max-width: 65ch; }
+  .study-lesson .fig-n { font: 600 var(--t-label) var(--font-mono); color: var(--text); margin-right: var(--s-2); }
+  .study-lesson .ve-svg { width: 100%; min-width: 760px; height: auto; display: block; font: 600 17px var(--font-body); }
+  .study-lesson .ve-n .sh { fill: url(#ve-node); stroke: var(--border-bright); stroke-width: 1.5; filter: drop-shadow(0 6px 14px var(--lift)); transition: stroke var(--fast) var(--ease), opacity var(--med) var(--ease); }
+  .study-lesson .ve-n .lid { fill: var(--node-top); }
+  .study-lesson .ve-n.is-key .sh { fill: #F3F0FE; stroke: var(--accent); stroke-width: 2; filter: drop-shadow(0 0 16px color-mix(in srgb, var(--accent) var(--halo), transparent)); }
+  .study-lesson .ve-n text { fill: var(--text); text-anchor: middle; dominant-baseline: central; }
+  .study-lesson .ve-n .sub { fill: var(--text-dim); font: 500 14px var(--font-mono); }
+  .study-lesson .ve-n .gl { fill: none; stroke: var(--text-dim); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+  .study-lesson .ve-n.is-key .gl { stroke: var(--accent); }
+  .study-lesson .ve-e { fill: none; stroke: var(--text-dim); stroke-width: 1.75; marker-end: url(#ve-ah); }
+  .study-lesson .ve-e.is-hot { stroke: var(--accent); stroke-width: 2.75; filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 55%, transparent)); }
+  .study-lesson .ve-e.is-async { stroke-dasharray: 6 5; }
+  .study-lesson .ve-el { fill: var(--text-dim); font: 500 14px var(--font-mono); text-anchor: middle; paint-order: stroke; stroke: var(--bg); stroke-width: 5px; stroke-linejoin: round; }
+  .study-lesson .ve-el.l { text-anchor: end; } .study-lesson .ve-el.r { text-anchor: start; }
+
+  .study-lesson .ve-ref { text-decoration: underline dotted var(--text-dim) 1px; text-underline-offset: .22em; border-radius: var(--r-1); transition: background var(--fast) var(--ease); }
+  .study-lesson .ve-ref.is-lit { background: var(--accent-dim); text-decoration-color: var(--accent); }
+  .study-lesson svg [data-ref] { transition: opacity var(--med) var(--ease); }
+  .study-lesson svg.has-lit path[data-ref]:not(.is-lit), .study-lesson svg.has-lit g[data-ref]:not(.is-lit) .sh { opacity: .25; }
+  .study-lesson svg.has-lit g[data-ref]:not(.is-lit) text, .study-lesson svg.has-lit text[data-ref]:not(.is-lit) { fill: var(--text-dim); }
+  .study-lesson .ve-n.is-lit .sh { stroke: var(--accent); }
+  .study-lesson .ve-e.is-lit { stroke: var(--accent); }
+  .study-lesson .ve-el.is-lit { fill: var(--text); }
+  .study-lesson .ve-steps [data-s] { transition: opacity var(--slow) var(--ease), stroke-dashoffset var(--slow) var(--ease); }
+  .study-lesson .ve-steps [data-s]:not(.on) { opacity: .15; }
+  .study-lesson .ve-steps g[data-s]:not(.on) text, .study-lesson .ve-steps text[data-s]:not(.on) { opacity: 0; }
+  .study-lesson .ve-steps path[pathLength][data-s] { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .study-lesson .ve-steps path[pathLength][data-s].on { stroke-dashoffset: 0; }
+  .study-lesson .ve-steps .ve-n.now .sh { stroke: var(--accent); }
+  .study-lesson .ve-player { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; align-items: center; gap: var(--s-2) var(--s-3); margin-top: var(--s-4); }
+  .study-lesson .ve-cap { grid-column: 1 / -1; list-style: none; padding: 0; min-height: 3.2em; }
+  .study-lesson .ve-cap li::before { content: attr(data-n); font: 600 var(--t-label) var(--font-mono); color: var(--accent); margin-right: var(--s-3); font-variant-numeric: tabular-nums; }
+  .study-lesson .ve-player input { accent-color: var(--accent); min-width: 0; }
+  .study-lesson button { font: 500 var(--t-small) var(--font-mono); color: var(--text); background: var(--surface); border: 1px solid var(--border-bright); border-radius: var(--r-1); padding: var(--s-2) var(--s-3); cursor: pointer; transition: border-color var(--fast) var(--ease); }
+  .study-lesson button:hover, .study-lesson button:focus-visible { border-color: var(--accent); }
+  .study-lesson .tl a { text-decoration: none; }
+  .study-lesson .tl a rect { transition: stroke var(--fast) var(--ease); }
+  .study-lesson .tl a:hover rect, .study-lesson .tl a:focus-visible rect { stroke: var(--accent); stroke-width: 2; }
+  .study-lesson .tl .seg { fill: url(#ve-node); stroke: var(--border-bright); stroke-width: 1.25; }
+  .study-lesson .tl .seg.demo { fill: #F3F0FE; }
+  .study-lesson .tl text { fill: var(--text); font: 600 15px var(--font-body); }
+  .study-lesson .tl .t { fill: var(--text-dim); font: 500 13px var(--font-mono); }
+  .study-lesson .tl .here { stroke: var(--accent); stroke-width: 2.5; }
+  .study-lesson .tl .here-l { fill: var(--accent); font: 600 14px var(--font-mono); }
+  .study-lesson .cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr)); gap: var(--s-4); }
+  .study-lesson .case { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-2); box-shadow: 0 4px 6px -1px rgb(0 0 0 / .06), 0 0 0 1px rgb(99 102 241 / .10); padding: var(--s-4); display: grid; gap: var(--s-3); align-content: start; min-width: 0; }
+  .study-lesson .case[data-st=ok] { --st: var(--ok); } .study-lesson .case[data-st=warn] { --st: var(--warn); } .study-lesson .case[data-st=risk] { --st: var(--risk); }
+  .study-lesson .case p { font-size: var(--t-body); color: var(--text-dim); }
+  .study-lesson .ve-mini { width: 100%; height: auto; font: 600 15px var(--font-body); }
+  .study-lesson .ve-mini .ve-n .sh { filter: none; }
+  .study-lesson .ve-mini .ve-n .sub { font-size: 13px; }
+  .study-lesson .ve-mini .q { fill: var(--text); font: 500 14px var(--font-body); }
+  .study-lesson .ve-mini .is-st.ve-e { stroke: var(--st); stroke-width: 2.75; }
+  .study-lesson .ve-mini .is-st .sh { stroke: var(--st); stroke-width: 2; }
+  .study-lesson .ve-mini .is-st .sub, .study-lesson .ve-mini .vd { fill: var(--st); }
+  .study-lesson .ve-mini .vd { font: 600 14px var(--font-mono); text-anchor: middle; }
+  .study-lesson .ve-mini .pick { fill: none; stroke: var(--st); stroke-width: 2; stroke-dasharray: 4 3; }
+
+  .study-lesson .chip { display: inline-flex; align-items: center; gap: var(--s-2); font: 600 var(--t-label) var(--font-mono); padding: 2px var(--s-3); border: 1px solid currentColor; border-radius: var(--r-1); white-space: nowrap; justify-self: start; }
+  .study-lesson .chip::before { content: ''; width: .5rem; height: .5rem; background: currentColor; }
+  .study-lesson .chip.ok { color: var(--ok); } .study-lesson .chip.ok::before { border-radius: 50%; }
+  .study-lesson .chip.warn { color: var(--warn); } .study-lesson .chip.warn::before { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .study-lesson .chip.risk { color: var(--risk); }
+  .study-lesson .scenario { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin-bottom: var(--s-4); }
+  .study-lesson .bubble { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-2); box-shadow: 0 0 0 1px rgba(14,22,34,.04), 0 2px 4px 0 rgba(0,0,0,.06); padding: var(--s-4); }
+  .study-lesson .bubble .ve-label { display: block; margin-bottom: var(--s-1); }
+  .study-lesson .calib { display: grid; gap: var(--s-6); grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); align-items: end; }
+  .study-lesson .ve-waffle { max-width: 17rem; }
+  .study-lesson .ve-waffle, .study-lesson .ve-scale { width: 100%; height: auto; font: 500 13px var(--font-mono); overflow: visible; }
+  .study-lesson .ve-waffle .on { fill: var(--accent); } .study-lesson .ve-waffle .off { fill: none; stroke: var(--risk); stroke-width: 1.5; }
+  .study-lesson .ve-waffle text, .study-lesson .ve-scale text { fill: var(--text-dim); dominant-baseline: central; }
+  .study-lesson .ve-scale .track { fill: var(--border); } .study-lesson .ve-scale .band { fill: var(--accent-dim); stroke: var(--accent); stroke-width: 1; }
+  .study-lesson .ve-scale .mk { stroke: var(--text); stroke-width: 2.5; } .study-lesson .ve-scale .strong { fill: var(--text); font-weight: 600; }
+  .study-lesson .ve-scale .susp { fill: none; stroke: var(--warn); stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .study-lesson .codebox { border-radius: var(--r-2); box-shadow: 0 4px 6px -1px rgb(0 0 0 / .08), 0 0 0 1px rgb(99 102 241 / .15); overflow: hidden; margin-top: var(--s-4); }
+  .study-lesson .code-frame { display: flex; align-items: center; gap: var(--s-3); height: 2.25rem; padding: 0 var(--s-4); background: #fff; border-bottom: 1px solid #E2E3E5; }
+  .study-lesson .code-frame i { width: 10px; height: 10px; border-radius: 50%; background: #E2E3E5; display: inline-block; margin-right: 2px; }
+  .study-lesson .code-frame span { font: var(--t-small) var(--font-mono); color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .study-lesson .term { font: 500 var(--t-small)/1.75 var(--font-mono); background: var(--surface); padding: var(--s-5); overflow-x: auto; white-space: pre; font-variant-ligatures: none; letter-spacing: .02em; }
+  .study-lesson .term .ok { color: var(--ok); } .study-lesson .term .risk { color: var(--risk); } .study-lesson .term .dim { color: var(--text-dim); }
+
+  .study-lesson .ve-bars { width: 100%; max-width: 30rem; height: auto; font: 500 13px var(--font-mono); overflow: visible; }
+  .study-lesson .ve-bars text { fill: var(--text-dim); dominant-baseline: central; }
+  .study-lesson .ve-bars rect { fill: var(--border-bright); transform-box: fill-box; transform-origin: left; transition: transform 900ms var(--ease) 150ms; }
+  .study-lesson .ve-bars .hot { fill: var(--risk); }
+  .study-lesson .ve-bars .strong { fill: var(--text); }
+
+  .study-lesson .recipe { counter-reset: r; list-style: none; padding: 0; display: grid; gap: var(--s-3); max-width: 65ch; }
+  .study-lesson .recipe li { counter-increment: r; padding-left: var(--s-6); position: relative; }
+  .study-lesson .recipe li::before { content: counter(r); position: absolute; left: 0; top: .15em; font: 600 var(--t-label)/1.4rem var(--font-mono); color: var(--accent); background: var(--accent-dim); border-radius: 50%; width: 1.4rem; height: 1.4rem; text-align: center; }
+  .study-lesson .qa { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+  .study-lesson .qa .case h3 { font-family: var(--font-display); font-weight: 500 !important; font-size: var(--t-lead); line-height: 1.3; }
+
+  .study-lesson .src-list { list-style: none; padding: 0; display: grid; gap: var(--s-2); }
+  .study-lesson .sources { border-top: 1px solid var(--border); padding-top: var(--s-4); display: grid; gap: var(--s-2); color: var(--text-dim); }
+
+  .study-lesson.js-motion > * { transition: opacity var(--slow) var(--ease), transform var(--slow) var(--ease); }
+  .study-lesson.js-motion > :not(.in) { opacity: 0; transform: translateY(1rem); }
+  .study-lesson.js-motion > :not(.in) .ve-bars rect { transform: scaleX(0); }
+  @media (prefers-reduced-motion: reduce) { .study-lesson * { transition: none !important; } }
+
+  @media print {
+    .study-lesson { --bg: #fff; --surface: #fff; --border: #e3e3dc; --border-bright: #8e8e8a; --text: #17191c; --text-dim: #575c63; --accent: #2c4cd0; --ok: #1d7443; --warn: #836000; --risk: #b3301d; --node-top: #fff; }
+    .study-lesson .ve-player button, .study-lesson .ve-player input { display: none; }
+    .study-lesson .frame { overflow: visible; background: #fff; } .study-lesson .ve-svg { min-width: 0; }
+    .study-lesson .frame, .study-lesson .case { break-inside: avoid; } .study-lesson h2 { break-after: avoid; }
+    .study-lesson svg * { filter: none !important; }
+    .study-lesson.js-motion > * { opacity: 1 !important; transform: none !important; }
+    .study-lesson.js-motion .ve-bars rect { transform: none !important; }
+    .study-lesson .ve-steps [data-s]:not(.on), .study-lesson .ve-steps g[data-s]:not(.on) text, .study-lesson .ve-steps text[data-s]:not(.on) { opacity: 1; }
+    .study-lesson .ve-steps path[pathLength][data-s] { stroke-dashoffset: 0; }
+  }
+</style>
+<div class="study-lesson">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="ve-ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker>
+    <linearGradient id="ve-node" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--node-top)"/><stop offset="1" style="stop-color:var(--surface)"/></linearGradient>
+  </defs>
+</svg>
+<header class="opener">
+    <div class="row first crumbs"><span><a href="/">hardeep.cv</a><span class="sep">/</span><a href="/study">Study</a><span class="sep">/</span>Evals</span><span class="lesson">Lesson 01</span></div>
+    <div class="row">
+      <div class="tags"><span>#evals</span><span>#llm-judge</span><span>#talk-notes</span></div>
+      <h1>Evals are fuzzy unit tests, and <em>the judge can lie</em></h1>
+      <p class="lead">An eval runs <span class="ve-ref" data-ref="cases" tabindex="0">test cases</span> through your agent, and a <b class="ve-ref" data-ref="judge" tabindex="0">judge</b> scores each answer against the <span class="ve-ref" data-ref="policy" tabindex="0">policy</span>. Before you trust the judge, check that it <span class="ve-ref" data-ref="agree" tabindex="0">agrees with humans</span>.</p>
+    </div>
+    <div class="row byline">
+      <div class="who"><span class="avatar" aria-hidden="true">TK</span><span><b>Tejas Kumar</b><small>AI Engineer, IBM · talk notes</small></span></div>
+      <div class="facts"><span><svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg>October 20, 2026</span><span><svg viewBox="0 0 16 16"><path d="M4 1.5h8M4 14.5h8M5 1.5c0 4 6 4 6 6.5s-6 2.5-6 6.5M11 1.5c0 4-6 4-6 6.5s6 2.5 6 6.5"/></svg>8 min read</span><span><svg viewBox="0 0 16 16"><rect x="1.5" y="3" width="13" height="10" rx="2.5"/><path d="M6.5 6v4l3.5-2z"/></svg>60 min talk</span></div>
+      <a class="watch" href="https://www.youtube.com/watch?v=NdrSPm6NCdk" target="_blank" rel="noopener"><svg viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z"/></svg>Watch the talk</a>
+    </div>
+    <div class="row">
+      <p class="learn-h">What you’ll learn</p>
+      <ol class="learn">
+        <li><a href="#anatomy"><span class="n">01</span><b>What an eval is</b><small>Test cases, a judge, and a score that gates CI.</small></a></li>
+        <li><a href="#example"><span class="n">02</span><b>Why keyword checks fail</b><small>One return request, five different judges.</small></a></li>
+        <li><a href="#biases"><span class="n">03</span><b>How judges lie</b><small>Four biases, and why pointwise beats pairwise.</small></a></li>
+        <li><a href="#calibrate"><span class="n">04</span><b>How to trust a judge</b><small>80–90% agreement with humans, and live policy.</small></a></li>
+      </ol>
+    </div>
+  </header>
+
+  <figure class="ve-steps" id="anatomy" style="scroll-margin-top:2rem">
+    <div class="frame"><div class="well">
+      <svg class="ve-svg" viewBox="0 20 1000 290" role="img" aria-label="Thirty test cases go to the agent as prompts. The agent's answers go to an LLM judge, which is grounded by the policy. The judge's verdicts are compared with human verdicts. Agreement of at least 80 percent passes the CI gate.">
+        <path class="ve-e" data-s="1" data-ref="cases" pathLength="1" d="M170 82H228"/>
+        <text class="ve-el" data-s="1" data-ref="cases" x="200" y="70">asks</text>
+        <path class="ve-e" data-s="2" data-ref="judge" pathLength="1" d="M390 82H448"/>
+        <text class="ve-el" data-s="2" data-ref="judge" x="420" y="70">reply</text>
+        <path class="ve-e" data-s="2" data-ref="policy judge" pathLength="1" d="M535 200V128"/>
+        <text class="ve-el r" data-s="2" data-ref="policy judge" x="545" y="166">grounds</text>
+        <path class="ve-e" data-s="3" data-ref="judge agree" pathLength="1" d="M620 82H688"/>
+        <text class="ve-el" data-s="3" data-ref="judge agree" x="655" y="70">score</text>
+        <path class="ve-e" data-s="3" data-ref="agree" pathLength="1" d="M770 200V128"/>
+        <text class="ve-el r" data-s="3" data-ref="agree" x="780" y="166">compares</text>
+        <path class="ve-e is-hot" data-s="4" data-ref="agree" pathLength="1" d="M850 82H908"/>
+        <text class="ve-el" data-s="4" data-ref="agree" x="879" y="70">≥ 80%</text>
+
+        <g class="ve-n" data-s="1" data-ref="cases" transform="translate(10 40)"><rect class="sh" width="160" height="84" rx="6"/><path class="gl" transform="translate(12 12)" d="M0 2h14M0 7h14M0 12h9"/><text x="80" y="34">Test cases</text><text class="sub" x="80" y="58">30 scenarios</text></g>
+        <g class="ve-n" data-s="1" transform="translate(230 40)"><rect class="sh" width="160" height="84" rx="6"/><path class="gl" transform="translate(12 12)" d="M0 0h16v11H6l-4 4v-4H0z"/><text x="80" y="34">Agent</text><text class="sub" x="80" y="58">support bot</text></g>
+        <g class="ve-n is-key" data-s="2" data-ref="judge" transform="translate(450 40)"><rect class="sh" width="170" height="84" rx="6"/><path class="gl" transform="translate(12 12)" d="M8 0v16M2 16h12M0 4h16M0 4l-0 0M3 4l-3 6h6zM13 4l-3 6h6z"/><text x="85" y="34">LLM judge</text><text class="sub" x="85" y="58">pointwise</text></g>
+        <g class="ve-n" data-s="2" data-ref="policy" transform="translate(450 200)"><rect class="sh" width="170" height="84" rx="6"/><path class="gl" transform="translate(12 12)" d="M0 0h10l4 4v12H0zM10 0v4h4"/><text x="85" y="34">Policy</text><text class="sub" x="85" y="58">14-day returns</text></g>
+        <g class="ve-n" data-s="3" data-ref="agree" transform="translate(690 40)"><rect class="sh" width="160" height="84" rx="6"/><text x="80" y="34">Agreement</text><text class="sub" x="80" y="58">24 / 30 = 80%</text></g>
+        <g class="ve-n" data-s="3" data-ref="agree" transform="translate(690 200)"><rect class="sh" width="160" height="84" rx="6"/><text x="80" y="34">Human verdicts</text><text class="sub" x="80" y="58">golden set</text></g>
+        <g class="ve-n" data-s="4" transform="translate(910 40)"><rect class="sh" width="80" height="84" rx="6"/><text x="40" y="34">CI</text><text class="sub" x="40" y="58">✓ pass</text></g>
+      </svg></div>
+    </div>
+    <div class="ve-player">
+      <ol class="ve-cap">
+        <li data-n="1/4">Each test case goes to the agent as a prompt, for example “I bought headphones 20 days ago. Can I return them?”</li>
+        <li data-n="2/4">The judge scores one answer at a time against the written policy. It does not compare two answers.</li>
+        <li data-n="3/4">Humans have labeled the same 30 cases pass or fail. The eval counts how often the judge agrees with them.</li>
+        <li data-n="4/4">CI fails when agreement drops below 80%. In the demo the gate passed at 24 of 30.</li>
+      </ol>
+      <button data-go="-1" aria-label="Previous step">←</button>
+      <button data-play>Play</button>
+      <input type="range" min="0" value="0" aria-label="Step">
+      <button data-go="1" aria-label="Next step">→</button>
+    </div>
+    <figcaption><span class="fig-n">Fig. 1</span>An eval has four parts: test cases, expected behavior, a judge, and an aggregate score. The aggregate gates the deploy.</figcaption>
+  </figure>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>Map of the talk</span></p><h2>Your link starts at the list of eval techniques</h2></div>
+    <figure>
+      <div class="frame"><div class="well">
+        <svg class="ve-svg tl" viewBox="0 0 1000 150" role="img" aria-label="Timeline of the 60-minute talk: why evals from 0:00, what evals are from 9:47, how judges lie and how to fix them from 18:30, live coding demo from 28:55, OpenRAG demo and recap from 48:12, questions from 54:36. Your link starts at 15:49, in the what section.">
+          <!-- scale: x = 10 + minutes × 16.35 (YouTube chapters) -->
+          <a href="https://www.youtube.com/watch?v=NdrSPm6NCdk&amp;t=0s" target="_blank"><rect class="seg" x="10" y="40" width="158" height="54" rx="4"/><text x="20" y="62">Why evals</text><text class="t" x="20" y="82">0:00</text></a>
+          <a href="https://www.youtube.com/watch?v=NdrSPm6NCdk&amp;t=587s" target="_blank"><rect class="seg" x="170" y="40" width="140" height="54" rx="4"/><text x="180" y="62">What evals are</text><text class="t" x="180" y="82">9:47</text></a>
+          <a href="https://www.youtube.com/watch?v=NdrSPm6NCdk&amp;t=1110s" target="_blank"><rect class="seg" x="312" y="40" width="169" height="54" rx="4"/><text x="322" y="62">Judges lie + fixes</text><text class="t" x="322" y="82">18:30</text></a>
+          <a href="https://www.youtube.com/watch?v=NdrSPm6NCdk&amp;t=1735s" target="_blank"><rect class="seg demo" x="483" y="40" width="313" height="54" rx="4"/><text x="493" y="62">Live demo: Vitest → judge → CI gate</text><text class="t" x="493" y="82">28:55</text></a>
+          <a href="https://www.youtube.com/watch?v=NdrSPm6NCdk&amp;t=2892s" target="_blank"><rect class="seg" x="798" y="40" width="103" height="54" rx="4"/><text x="808" y="62">OpenRAG</text><text class="t" x="808" y="82">48:12</text></a>
+          <a href="https://www.youtube.com/watch?v=NdrSPm6NCdk&amp;t=3276s" target="_blank"><rect class="seg" x="903" y="40" width="85" height="54" rx="4"/><text x="913" y="62">Q&amp;A</text><text class="t" x="913" y="82">54:36</text></a>
+          <path class="here" d="M269 26V38M269 96V106"/>
+          <text class="here-l" x="269" y="122" text-anchor="middle">▲ your link · 15:49</text>
+          <text class="t" x="10" y="16">0 min</text><text class="t" x="990" y="16" text-anchor="end">60 min</text>
+        </svg></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 2</span>The live demo takes a third of the talk. Click a block to open the video at that point.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>Why</span></p><h2>Evals catch bad behavior before deploy; harnesses catch it at run time</h2></div>
+    <figure>
+      <div class="frame"><div class="well">
+        <svg class="ve-svg" viewBox="0 0 1000 250" role="img" aria-label="A timeline from build to deploy to run time. Evals act before deploy, like the TypeScript checker. A harness acts at run time, like a runtime guard. The Instagram recovery bot shows what happens when nothing checks it: a prompt injection made it add an attacker's email, and 20,225 accounts were exposed.">
+          <path class="ve-e" d="M20 60H980"/>
+          <text class="ve-el r" x="20" y="40">build</text><text class="ve-el" x="430" y="40">deploy</text><text class="ve-el l" x="975" y="40">run time</text>
+          <path d="M430 50V70" stroke="var(--text-dim)" stroke-width="1.5"/>
+          <g class="ve-n is-key" transform="translate(40 90)"><rect class="sh" width="360" height="70" rx="6"/><text x="180" y="25">Evals: ahead-of-time reliability</text><text class="sub" x="180" y="50">like tsc before you ship</text></g>
+          <g class="ve-n" transform="translate(470 90)"><rect class="sh" width="490" height="70" rx="6"/><text x="245" y="25">Harness: just-in-time reliability</text><text class="sub" x="245" y="50">like a runtime guard on each action</text></g>
+          <text class="ve-el r" x="40" y="200" style="fill:var(--risk)">■ no eval, no guard →</text>
+          <text class="ve-el r" x="250" y="200" style="fill:var(--text)">Instagram recovery bot: injection → “add this email” → </text>
+          <text class="ve-el r" x="252" y="226" style="fill:var(--text)">20,225 accounts exposed to takeover</text>
+        </svg></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 3</span>Meta’s recovery chatbot could edit accounts. Attackers matched the owner’s location with a VPN, then asked it to add their email to the account.</figcaption>
+    </figure>
+  </section>
+
+  <section id="example">
+    <div class="kicker-head"><p class="ve-label caps"><span>The running example</span></p><h2>A keyword check passes a wrong answer; a grounded judge does not</h2></div>
+    <figure>
+      <div class="scenario">
+        <div class="bubble"><span class="ve-label">Customer</span>“I bought headphones 20 days ago. Can I return them?”</div>
+        <div class="bubble"><span class="ve-label">Policy</span>Returns only within <b>14 days</b>. 20 &gt; 14, so the right answer is <b>no</b>.</div>
+      </div>
+      <div class="cases">
+        <div class="case" data-st="risk"><span class="chip risk">Wrong pass</span><h3>Keyword match</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="The answer says yes and contains the word cannot. The test checks for cannot, so it passes a wrong answer.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="50" rx="5"/><text class="q" x="120" y="18">“Yes, return it free.</text><text class="q" x="120" y="37">You <tspan font-weight="700">cannot</tspan> pay shipping.”</text></g>
+            <path class="ve-e" d="M120 52V72"/>
+            <g class="ve-n is-st"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">toContain('cannot')</text></g>
+            <text class="vd" x="120" y="136">✓ PASS — wrong</text>
+          </svg>
+          <p>The word appears, but in the wrong place.</p></div>
+        <div class="case" data-st="risk"><span class="chip risk">Wrong pick</span><h3>Pairwise, no policy</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="The judge sees answer A, no, and answer B, yes free return. Asked which is more helpful, it picks B.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="112" height="50" rx="5"/><text x="58" y="18">A</text><text class="sub" x="58" y="37">“No, 14 days”</text></g>
+            <g class="ve-n is-st"><rect class="sh" x="126" y="2" width="112" height="50" rx="5"/><text x="182" y="18">B</text><text class="sub" x="182" y="37">“Yes, free!”</text></g>
+            <path class="ve-e" d="M58 52L110 72"/><path class="ve-e" d="M182 52L130 72"/>
+            <g class="ve-n"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">“more helpful?”</text></g>
+            <text class="vd" x="120" y="136">picks B · 5 of 5 runs</text>
+          </svg>
+          <p>A friendly yes beats a correct no.</p></div>
+        <div class="case" data-st="warn"><span class="chip warn">Below gate</span><h3>Pointwise, weak model</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="A gpt-3.5 judge with the policy in its prompt still disagrees with humans on 6 of 30 cases. Only 5 are allowed.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="50" rx="5"/><text class="q" x="120" y="18">30 labeled scenarios</text><text class="sub" x="120" y="37">5 misses allowed</text></g>
+            <path class="ve-e" d="M120 52V72"/>
+            <g class="ve-n is-st"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">gpt-3.5 + policy</text></g>
+            <text class="vd" x="120" y="136">6 misses · CI ✗</text>
+          </svg>
+          <p>A used yoga mat exposed a rule nobody wrote down.</p></div>
+        <div class="case" data-st="ok"><span class="chip ok">Gate passes</span><h3>Pointwise + policy</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="A gpt-4o-mini judge told the policy is non-negotiable, even for loyal customers, agrees with humans on 27 of 30 cases. CI passes.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="50" rx="5"/><text class="q" x="120" y="18">policy in system prompt</text><text class="sub" x="120" y="37">“even for loyal customers”</text></g>
+            <path class="ve-e" d="M120 52V72"/>
+            <g class="ve-n is-st"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">gpt-4o-mini</text></g>
+            <text class="vd" x="120" y="136">27/30 agree · CI ✓</text>
+          </svg>
+          <p>A stronger model, plus a rule against loyalty appeals.</p></div>
+        <div class="case" data-st="ok"><span class="chip ok">Correct deny</span><h3>RAG-grounded judge</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="The judge retrieves the 14-day clause from refund-policy.pdf through OpenRAG and correctly denies the return.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="50" rx="5"/><text class="q" x="120" y="18">refund-policy.pdf</text><text class="sub" x="120" y="37">via OpenRAG</text></g>
+            <path class="ve-e" d="M120 52V72"/>
+            <g class="ve-n is-st"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">retrieves 14-day rule</text></g>
+            <text class="vd" x="120" y="136">correctly DENIES</text>
+          </svg>
+          <p>When the PDF changes, the judge follows.</p></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 4</span>The same question, five judges. Only the two that read the policy get it right.</figcaption>
+    </figure>
+  </section>
+
+  <section id="biases">
+    <div class="kicker-head"><p class="ve-label caps"><span>How evals lie</span></p><h2>LLM judges have four biases that you must test for</h2></div>
+    <figure>
+      <div class="cases">
+        <div class="case" data-st="risk"><span class="chip risk">Position</span><h3>Picks the first answer</h3>
+          <svg class="ve-mini" viewBox="0 0 240 92" role="img" aria-label="The judge picks answer A because it came first, though B is better.">
+            <g class="ve-n is-st"><rect class="sh" x="2" y="2" width="112" height="56" rx="5"/><text x="58" y="20">A</text><text class="sub" x="58" y="40">shown first</text></g>
+            <g class="ve-n"><rect class="sh" x="126" y="2" width="112" height="56" rx="5"/><text x="182" y="20">B</text><text class="sub" x="182" y="40">better</text></g>
+            <text class="vd" x="58" y="80">◀ picked</text>
+          </svg></div>
+        <div class="case" data-st="risk"><span class="chip risk">Sycophancy</span><h3>Picks the pleasing answer</h3>
+          <svg class="ve-mini" viewBox="0 0 240 92" role="img" aria-label="The judge picks the polite answer that breaks policy over the blunt correct one.">
+            <g class="ve-n is-st"><rect class="sh" x="2" y="2" width="112" height="56" rx="5"/><text x="58" y="20">Polite</text><text class="sub" x="58" y="40">breaks policy</text></g>
+            <g class="ve-n"><rect class="sh" x="126" y="2" width="112" height="56" rx="5"/><text x="182" y="20">Blunt</text><text class="sub" x="182" y="40">correct</text></g>
+            <text class="vd" x="58" y="80">◀ picked</text>
+          </svg></div>
+        <div class="case" data-st="risk"><span class="chip risk">Self-preference</span><h3>Picks its own family</h3>
+          <svg class="ve-mini" viewBox="0 0 240 92" role="img" aria-label="A GPT judge picks the GPT-written answer over the human-written one.">
+            <g class="ve-n is-st"><rect class="sh" x="2" y="2" width="112" height="56" rx="5"/><text x="58" y="20">GPT text</text><text class="sub" x="58" y="40">same family</text></g>
+            <g class="ve-n"><rect class="sh" x="126" y="2" width="112" height="56" rx="5"/><text x="182" y="20">Human</text><text class="sub" x="182" y="40">as good</text></g>
+            <text class="vd" x="58" y="80">◀ picked</text>
+          </svg></div>
+        <div class="case" data-st="risk"><span class="chip risk">Verbosity</span><h3>Picks the longer answer</h3>
+          <svg class="ve-mini" viewBox="0 0 240 92" role="img" aria-label="The judge picks the long answer over the short correct one.">
+            <g class="ve-n is-st"><rect class="sh" x="2" y="2" width="150" height="56" rx="5"/><text x="77" y="20">Long</text><text class="sub" x="77" y="40">padded</text></g>
+            <g class="ve-n"><rect class="sh" x="164" y="2" width="74" height="56" rx="5"/><text x="201" y="20">Short</text><text class="sub" x="201" y="40">right</text></g>
+            <text class="vd" x="77" y="80">◀ picked</text>
+          </svg></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 5</span>Position bias and self-preference come from showing two answers at once. That is why the talk recommends pointwise scoring.</figcaption>
+    </figure>
+    <figure>
+      <svg class="ve-bars" viewBox="0 0 420 60" role="img" aria-label="Research cited in the talk: pairwise judging is about 39 percent more open to manipulation than pointwise judging.">
+        <text y="12">pointwise</text><rect x="90" y="5" width="200" height="14" rx="2"/><text class="strong" x="298" y="12">baseline</text>
+        <text y="42">pairwise</text><rect class="hot" x="90" y="35" width="278" height="14" rx="2"/><text class="strong" x="376" y="42">+39%</text>
+      </svg>
+      <figcaption><span class="fig-n">Fig. 6</span>A study cited at about 17:00: pairwise judges are about 39% more open to manipulation than pointwise judges.</figcaption>
+    </figure>
+  </section>
+
+  <section id="calibrate">
+    <div class="kicker-head"><p class="ve-label caps"><span>Training the judge</span></p><h2>Aim for 80–90% agreement with humans, not 100%</h2></div>
+    <p>Have experts label about 30 question–answer pairs. Run the judge on the same pairs and count agreement. Human support teams agree with each other only about 80% of the time, so a judge near 100% is overfit to your examples.</p>
+    <figure>
+      <div class="frame"><div class="well"><div class="calib">
+        <svg class="ve-waffle" viewBox="0 0 260 130" role="img" aria-label="30 squares: 24 where the judge agreed with humans, 6 where it did not.">
+          <g id="waffle"></g>
+          <text x="0" y="122">■ agree 24</text><text x="120" y="122" style="fill:var(--risk)">□ disagree 6</text>
+        </svg>
+        <svg class="ve-scale" viewBox="0 0 380 128" role="img" aria-label="Agreement scale from 0 to 100 percent. CI is green from 80 to 90 percent. The same demo judge scored 90 percent on one run and 80 percent on the next. Near 100 percent is suspect.">
+          <rect class="track" x="0" y="40" width="300" height="10" rx="2"/>
+          <rect class="band" x="240" y="34" width="30" height="22" rx="2"/>
+          <rect class="susp" x="285" y="34" width="15" height="22" rx="2"/>
+          <path class="mk" d="M240 26V64"/><path class="mk" d="M270 26V64"/>
+          <text class="strong" x="234" y="14" text-anchor="end">run 2 · 80%</text><text class="strong" x="276" y="14">run 1 · 90%</text>
+          <text x="0" y="78">0%</text><text x="300" y="78" text-anchor="end">100%</text>
+          <text x="270" y="98" text-anchor="end">CI green 80–90%</text>
+          <text x="300" y="118" text-anchor="end" style="fill:var(--warn)">▲ near 100% = suspect</text>
+        </svg>
+      </div></div></div>
+      <div class="codebox"><div class="code-frame"><i></i><i></i><i></i><span>agreement.test.ts — demo runs</span></div><div class="term" role="img" aria-label="Summary of the two demo runs. Run 1: 27 of 30 agree. Run 2, after the test became a gate: 24 of 30 agree, exactly 80 percent, and the test passes."><span class="dim"># summary of the demo runs, not literal output</span>
+<span class="dim">run 1</span>  <span class="ok">✓ 27 agree</span>  <span class="risk">✗ 3 disagree</span>   90%
+<span class="dim">run 2</span>  <span class="ok">✓ 24 agree</span>  <span class="risk">✗ 6 disagree</span>   80%  <span class="ok">gate ≥ 80% → pass</span></div></div>
+      <figcaption><span class="fig-n">Fig. 7</span>The same judge on the same 30 cases scored 27, then 24. The gate is a band, so normal run-to-run noise does not break CI.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>Staying relevant</span></p><h2>Give the judge the same policy search the agent uses</h2></div>
+    <figure>
+      <div class="frame"><div class="well">
+        <svg class="ve-svg" viewBox="0 0 1000 270" role="img" aria-label="Policy documents are parsed by Docling and indexed in OpenSearch, which together make up OpenRAG. Both the agent and the judge retrieve the policy from the same index. Production traffic is sampled into new test cases.">
+          <path class="ve-e" d="M160 135H228"/><text class="ve-el" x="194" y="123">parse</text>
+          <path class="ve-e" d="M380 135H438"/><text class="ve-el" x="409" y="123">index</text>
+          <path class="ve-e" d="M600 120C650 120 650 62 708 62"/><text class="ve-el" x="655" y="42">retrieve</text>
+          <path class="ve-e is-hot" d="M600 150C650 150 650 208 708 208"/><text class="ve-el" x="662" y="240">same tool</text>
+          <path class="ve-e is-async" d="M790 100V168"/><text class="ve-el r" x="800" y="138">traffic → new cases</text>
+          <path d="M210 38H610V232H210Z" fill="none" stroke="var(--border-bright)" stroke-dasharray="5 4" stroke-width="1"/>
+          <text class="ve-el r" x="220" y="30">OpenRAG (open source, IBM / Langflow)</text>
+          <g class="ve-n" transform="translate(10 95)"><rect class="sh" width="150" height="80" rx="6"/><text x="75" y="32">Policy docs</text><text class="sub" x="75" y="56">PDF, DOCX…</text></g>
+          <g class="ve-n" transform="translate(230 95)"><rect class="sh" width="150" height="80" rx="6"/><text x="75" y="32">Docling</text><text class="sub" x="75" y="56">to Markdown</text></g>
+          <g class="ve-n" transform="translate(440 95)"><path class="sh" d="M0 10V70A80 10 0 0 0 160 70V10"/><ellipse class="sh lid" cx="80" cy="10" rx="80" ry="10"/><text x="80" y="40">OpenSearch</text><text class="sub" x="80" y="62">vector index</text></g>
+          <g class="ve-n" transform="translate(710 22)"><rect class="sh" width="170" height="78" rx="6"/><text x="85" y="30">Agent</text><text class="sub" x="85" y="54">answers users</text></g>
+          <g class="ve-n is-key" transform="translate(710 170)"><rect class="sh" width="170" height="78" rx="6"/><text x="85" y="30">Judge</text><text class="sub" x="85" y="54">scores answers</text></g>
+        </svg></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 8</span>Policies change. If the judge reads them from the same index as the agent, the eval does not go stale.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>What to remember</span></p><h2>Start cheap and add a judge only where you need one</h2></div>
+    <ol class="recipe">
+      <li>Climb the cost ladder: deterministic tests, then regex, then trace checks (which tools ran, how long), and a judge last.</li>
+      <li>Write about 30 realistic cases and have a human label each one pass or fail.</li>
+      <li>Score answers <b>pointwise</b> against the written policy, not pairwise. Use the cheapest judge model that works, from a different family than the agent, and pin its version.</li>
+      <li>Run the eval in CI. Fail below 80% judge–human agreement, and treat 100% as a red flag.</li>
+      <li>Retrieve the policy from one shared source (RAG) for agent and judge. Add new cases from production traffic.</li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>Q&amp;A · 54:32</span></p><h2>Three audience questions</h2></div>
+    <div class="qa">
+      <div class="case"><span class="ve-label">How do I grow the dataset before real users arrive?</span><h3>Synthetic cases and red-team prompts</h3><p>Generate adversarial prompts, then make more variants of the ones that fail.</p></div>
+      <div class="case"><span class="ve-label">Should I write evals for my Claude Code or Cursor skills?</span><h3>No; write evals when you build a harness</h3><p>Skills you write yourself are mostly deterministic code.</p></div>
+      <div class="case"><span class="ve-label">Should the judge and the agent share the policy?</span><h3>Yes, one source of truth</h3><p>Both query it, for example through OpenRAG. Keep the judge as close to the agent as you can.</p></div>
+    </div>
+  </section>
+
+  <section class="sources" aria-label="Sources">
+    <p class="ve-label caps">Sources</p>
+    <ul class="src-list">
+      <li><a href="https://www.youtube.com/watch?v=NdrSPm6NCdk">Evals in AI: A Deep Dive — Tejas Kumar, IBM (YouTube)</a></li>
+      <li><a href="https://github.com/langflow-ai/openrag">OpenRAG (GitHub)</a></li>
+      <li><a href="https://github.com/docling-project/docling">Docling (GitHub)</a></li>
+    </ul>
+  </section>
+</div>
+<script>
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Waffle: 30 cells, 24 agree then 6 disagree.
+  const w = lessonRoot.querySelector("#" + CSS.escape('waffle')), ns = 'http://www.w3.org/2000/svg';
+  for (let i = 0; i < 30; i++) {
+    const r = document.createElementNS(ns, 'rect');
+    r.setAttribute('x', (i % 10) * 26); r.setAttribute('y', Math.floor(i / 10) * 30);
+    r.setAttribute('width', 20); r.setAttribute('height', 22); r.setAttribute('rx', 3);
+    r.setAttribute('class', i < 24 ? 'on' : 'off'); w.append(r);
+  }
+
+  const linked = [...lessonRoot.querySelectorAll('[data-ref]')], refs = (el) => el.dataset.ref.split(' ');
+  let hovered = null, focused = null;
+  const paint = () => {
+    const keys = (hovered || focused)?.dataset.ref.split(' ') ?? [];
+    for (const t of linked) t.classList.toggle('is-lit', refs(t).some((k) => keys.includes(k)));
+    for (const svg of lessonRoot.querySelectorAll('svg')) svg.classList.toggle('has-lit', !!svg.querySelector('.is-lit'));
+  };
+  for (const el of linked) {
+    el.addEventListener('pointerenter', () => { hovered = el; paint(); });
+    el.addEventListener('pointerleave', () => { hovered = null; paint(); });
+    el.addEventListener('focus', () => { focused = el; paint(); });
+    el.addEventListener('blur', () => { focused = null; paint(); });
+  }
+
+  for (const root of lessonRoot.querySelectorAll('.ve-steps')) {
+    const parts = [...root.querySelectorAll('[data-s]')], caps = [...root.querySelectorAll('.ve-cap li')];
+    const range = root.querySelector('input[type=range]'), play = root.querySelector('[data-play]');
+    const n = caps.length; let i = 0, timer = null;
+    if (range) range.max = n - 1;
+    const show = (k) => {
+      i = Math.max(0, Math.min(n - 1, k));
+      for (const el of parts) { el.classList.toggle('on', +el.dataset.s <= i + 1); el.classList.toggle('now', +el.dataset.s === i + 1); }
+      caps.forEach((c, j) => c.hidden = j !== i);
+      if (range) range.value = i;
+    };
+    const stop = () => { clearInterval(timer); timer = null; if (play) play.textContent = 'Play'; };
+    root.addEventListener('click', (e) => { const b = e.target.closest('[data-go]'); if (b) { stop(); show(i + +b.dataset.go); } });
+    range?.addEventListener('input', () => { stop(); show(+range.value); });
+    play?.addEventListener('click', () => {
+      if (timer) return stop();
+      if (i === n - 1) show(0);
+      play.textContent = 'Pause';
+      timer = setInterval(() => (i < n - 1 ? show(i + 1) : stop()), 3500);
+    });
+    show(n - 1);
+  }
+
+  if (!still) {
+    lessonRoot.classList.add('js-motion');
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { io.unobserve(e.target); e.target.classList.add('in'); }
+    }, { rootMargin: '0px 0px -10% 0px' });
+    for (const el of lessonRoot.querySelectorAll(':scope > *')) io.observe(el);
+  }
+</script>

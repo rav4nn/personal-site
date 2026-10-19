@@ -1,0 +1,17 @@
+{
+  "lesson": 1,
+  "title": "Evals are fuzzy unit tests, and the judge can lie",
+  "titleAccent": "the judge can lie",
+  "summary": "Notes on Tejas Kumar’s IBM talk: what an eval is, why keyword checks and LLM judges fail, and how to calibrate a judge against human verdicts.",
+  "publishedAt": "2026-10-20",
+  "readMinutes": 8,
+  "tags": ["evals", "llm-judge", "talk-notes"],
+  "source": {
+    "kind": "talk",
+    "title": "Evals in AI: A Deep Dive",
+    "author": "Tejas Kumar",
+    "org": "IBM",
+    "url": "https://www.youtube.com/watch?v=NdrSPm6NCdk",
+    "durationMinutes": 60
+  }
+}

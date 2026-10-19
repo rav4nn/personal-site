@@ -9,6 +9,11 @@ if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
 /** @type {import('next').NextConfig} */
 const config = {
   trailingSlash: false,
+  // app/lib/study.ts reads content/study at build time, so tracing pulls in the
+  // whole folder. source.html is only the importer's input.
+  outputFileTracingExcludes: {
+    "/**": ["content/study/*/source.html"],
+  },
   async redirects() {
     return [
       // Handle trailing slashes on blog posts (Google Search Console 404s)
