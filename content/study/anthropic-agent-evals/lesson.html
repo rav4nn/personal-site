@@ -1,0 +1,653 @@
+<style>
+/* Generated from source.html by scripts/study/import-lesson.mjs. Edit source.html, then run: node scripts/study/import-lesson.mjs anthropic-agent-evals */
+.study-lesson :where(h1, h2, h3, h4, h5, h6) { font-size: revert; font-weight: revert; }
+.study-lesson :where(h3, h4) { font-weight: bold !important; letter-spacing: normal !important; }
+.study-lesson :where(code)::before, .study-lesson :where(code)::after { content: none; }
+.study-lesson :where(table) { display: table; max-width: none; overflow-x: visible; white-space: normal; }
+.study-lesson :where(ol, ul, menu) { list-style: revert; padding: revert; }
+.study-lesson :where(img, svg, video, canvas, audio, iframe, embed, object) { display: revert; vertical-align: revert; }
+.study-lesson :where(iframe) { margin-bottom: revert; }
+.study-lesson :where(button, [type="button"], [type="reset"], [type="submit"]) { background-color: revert; background-image: revert; }
+.study-lesson :where(a) { color: revert; text-decoration: revert; }
+.study-lesson .code-frame { justify-content: revert; overflow: revert; border-radius: revert; }
+.study-lesson {
+    color-scheme: light;
+    --bg: #F7F7F8; --surface: #ffffff; --inset: #EDEEF0; --border: #D6DADE; --border-bright: #8B93A0;
+    --text: #0f172a; --text-dim: #5E5F6E; --text-faint: #A5AEB8; --accent: #6C47FF; --accent-dim: #E6E2F9;
+    --ok: #15803d; --warn: #a16207; --risk: #c2410c; --info: #0885c7;
+    --node-top: #ffffff; --lift: rgb(14 22 34 / .10); --halo: 28%;
+    --font-display: var(--font-geist-sans), system-ui, sans-serif;
+    --font-body: var(--font-geist-sans), system-ui, sans-serif;
+    --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+    --t-label: .75rem; --t-small: .875rem; --t-body: 1rem; --t-lead: 1.25rem; --t-h2: 1.75rem; --t-h1: clamp(2.25rem, 5.5vw, 3.75rem);
+    --s-1: .25rem; --s-2: .5rem; --s-3: .75rem; --s-4: 1rem; --s-5: 1.5rem; --s-6: 2rem; --s-7: 3rem; --s-8: 4.5rem;
+    --r-1: 999px; --r-2: 12px; --r-3: 20px;
+    --ease: cubic-bezier(.16,1,.3,1); --fast: 150ms; --med: 300ms; --slow: 500ms;
+  }
+
+  .study-lesson { font-size: 16px; }
+  .study-lesson * { box-sizing: border-box; margin: 0; }
+  .study-lesson { color: var(--text); font: 400 var(--t-body)/1.6 var(--font-body); text-wrap: pretty; font-kerning: normal; font-synthesis: none; -webkit-font-smoothing: antialiased; }
+  .study-lesson ::selection { background: #47a3f3; color: #fefefe; }
+  .study-lesson :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .study-lesson a { color: var(--accent); text-underline-offset: .2em; }
+  .study-lesson .opener { display: grid; gap: 0; margin-top: calc(-1 * var(--s-6)); }
+  .study-lesson .opener > .row { position: relative; padding-block: var(--s-6); }
+  .study-lesson .opener > .row::after { content: ''; position: absolute; left: -100vw; right: -100vw; bottom: 0; height: 1px; background: var(--border); }
+  .study-lesson .opener > .row.first { padding-block: 0 var(--s-4); }
+  .study-lesson .crumbs { display: flex; justify-content: space-between; align-items: center; gap: var(--s-4); font: 500 var(--t-small) var(--font-mono); color: var(--text-dim); }
+  .study-lesson .crumbs a { color: var(--text-dim); text-decoration: none; } .study-lesson .crumbs a:hover { color: var(--accent); }
+  .study-lesson .crumbs .sep { color: var(--text-faint); margin-inline: var(--s-2); }
+  .study-lesson .crumbs .lesson { color: var(--accent); }
+  .study-lesson .tags { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-bottom: var(--s-5); }
+  .study-lesson .tags span { font: 600 .75rem var(--font-mono); color: var(--accent); background: var(--accent-dim); border-radius: 999px; padding: 2px 10px; text-transform: uppercase; letter-spacing: .04em; }
+  .study-lesson .opener h1 { font-size: clamp(2.5rem, 6.2vw, 4.75rem); line-height: 1.04; letter-spacing: -.05em !important; max-width: 19ch; margin: 0 0 var(--s-5); }
+  .study-lesson .opener h1 em { font-style: normal; color: var(--accent); }
+  .study-lesson .opener .lead { max-width: 58ch; font-size: 1.3125rem; }
+  .study-lesson .byline { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-6); }
+  .study-lesson .who { display: flex; align-items: center; gap: var(--s-3); }
+  .study-lesson .avatar { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font: 600 .875rem var(--font-body); color: var(--accent); background: var(--accent-dim); box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px var(--border); }
+  .study-lesson .who b { display: block; font-weight: 600; line-height: 1.3; } .study-lesson .who small { color: var(--text-dim); font-size: var(--t-small); }
+  .study-lesson .facts { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); color: var(--text-dim); font-size: var(--t-small); }
+  .study-lesson .facts span { display: inline-flex; align-items: center; gap: 6px; }
+  .study-lesson .facts svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+  .study-lesson .watch { margin-left: auto; display: inline-flex; align-items: center; gap: var(--s-2); background: #3C3C3F; color: #fff; text-decoration: none; font: 500 var(--t-small) var(--font-body); padding: 10px 18px; border-radius: 999px; transition: background var(--fast) var(--ease); }
+  .study-lesson .watch:hover, .study-lesson .watch:focus-visible { background: var(--text); }
+  .study-lesson .watch svg { width: 14px; height: 14px; fill: currentColor; }
+  .study-lesson .learn-h { font: 600 var(--t-label) var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: var(--s-4); }
+  .study-lesson .learn { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-2); overflow: hidden; }
+  .study-lesson .learn a { display: grid; gap: var(--s-1); height: 100%; background: var(--surface); padding: var(--s-4); text-decoration: none; color: var(--text); transition: background var(--fast) var(--ease); }
+  .study-lesson .learn a:hover, .study-lesson .learn a:focus-visible { background: #FAF9FF; }
+  .study-lesson .learn .n { font: 600 var(--t-label) var(--font-mono); color: var(--accent); }
+  .study-lesson .learn b { font-weight: 600; line-height: 1.3; }
+  .study-lesson .learn small { color: var(--text-dim); font-size: var(--t-small); line-height: 1.45; }
+  .study-lesson .opener + figure { margin-top: calc(var(--s-6) - var(--s-8)); }
+  @media (max-width: 40rem) { .study-lesson .watch { margin-left: 0; } }
+  .study-lesson { max-width: 64rem; margin: 0 auto; padding: var(--s-8) var(--s-5); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); }
+  .study-lesson section, .study-lesson figure, .study-lesson header { min-width: 0; }
+  .study-lesson section { display: grid; gap: var(--s-5); scroll-margin-top: var(--s-6); }
+  .study-lesson header { display: grid; gap: var(--s-4); }
+  .study-lesson header + figure { margin-top: calc(var(--s-6) - var(--s-8)); }
+  .study-lesson h1, .study-lesson h2 { text-box: trim-both cap alphabetic; font-family: var(--font-display); font-weight: 500; letter-spacing: -.05em !important; }
+  .study-lesson h2 { letter-spacing: -.035em !important; }
+  .study-lesson h1 { font-size: var(--t-h1); line-height: 1.05; letter-spacing: -.03em; text-wrap: balance; max-width: 18ch; margin-bottom: var(--s-2); }
+  .study-lesson h2 { font-size: var(--t-h2); line-height: 1.2; letter-spacing: -.01em; text-wrap: balance; max-width: 34ch; }
+  .study-lesson h3 { font-size: var(--t-body); line-height: 1.3; font-weight: 600 !important; }
+  .study-lesson p { max-width: 65ch; }
+  .study-lesson .kicker-head { display: grid; gap: var(--s-5); }
+  .study-lesson .kicker-head .ve-label { max-width: none; position: relative; display: flex; justify-content: center; align-items: center; }
+  .study-lesson .kicker-head .ve-label::before { content: ''; position: absolute; inset-inline: 0; top: 50%; height: 1px; background: color-mix(in srgb, var(--border) 50%, transparent); }
+  .study-lesson .kicker-head .ve-label span { position: relative; z-index: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 200px; padding: 2px var(--s-5); font: 500 var(--t-small) var(--font-body); letter-spacing: .02em; color: #475569; }
+  .study-lesson .eyebrow { display: flex; align-items: center; gap: var(--s-2); font: 600 var(--t-label) var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .study-lesson .eyebrow::before { content: ''; width: .5rem; height: .5rem; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 3px rgba(108,71,255,.15); }
+  .study-lesson .ve-label { font: 500 var(--t-label) var(--font-mono); color: var(--text-dim); }
+  .study-lesson .caps { text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+  .study-lesson .lead { font-size: var(--t-lead); line-height: 1.5; color: var(--text-dim); max-width: 46ch; }
+  .study-lesson .lead b { color: var(--text); font-weight: 600; }
+  .study-lesson .meta { font: 500 var(--t-label) var(--font-mono); color: var(--text-dim); font-variant-numeric: tabular-nums; }
+  .study-lesson code { font: .875em var(--font-mono); font-variant-ligatures: none; }
+
+  .study-lesson .frame { border: 1px solid var(--border); border-radius: var(--r-3); padding: var(--s-2); background: color-mix(in srgb, var(--surface) 60%, transparent); }
+  .study-lesson .well { background: var(--inset); border-radius: var(--r-2); box-shadow: 0 2px 1.5px 0 #A5AEB852 inset; padding: var(--s-5); overflow-x: auto; }
+  .study-lesson figcaption { font-size: var(--t-body); color: var(--text-dim); margin-top: var(--s-3); max-width: 65ch; }
+  .study-lesson .fig-n { font: 600 var(--t-label) var(--font-mono); color: var(--text); margin-right: var(--s-2); }
+  .study-lesson .ve-svg { width: 100%; min-width: 760px; height: auto; display: block; font: 600 17px var(--font-body); }
+  .study-lesson .ve-n .sh { fill: url(#ve-node); stroke: var(--border-bright); stroke-width: 1.5; filter: drop-shadow(0 6px 14px var(--lift)); transition: stroke var(--fast) var(--ease), opacity var(--med) var(--ease); }
+  .study-lesson .ve-n .lid { fill: var(--node-top); }
+  .study-lesson .ve-n.is-key .sh { fill: #F3F0FE; stroke: var(--accent); stroke-width: 2; filter: drop-shadow(0 0 16px color-mix(in srgb, var(--accent) var(--halo), transparent)); }
+  .study-lesson .ve-n text { fill: var(--text); text-anchor: middle; dominant-baseline: central; }
+  .study-lesson .ve-n .sub { fill: var(--text-dim); font: 500 14px var(--font-mono); }
+  .study-lesson .ve-n .gl { fill: none; stroke: var(--text-dim); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+  .study-lesson .ve-n.is-key .gl { stroke: var(--accent); }
+  .study-lesson .ve-e { fill: none; stroke: var(--text-dim); stroke-width: 1.75; marker-end: url(#ve-ah); }
+  .study-lesson .ve-e.is-hot { stroke: var(--accent); stroke-width: 2.75; filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 55%, transparent)); }
+  .study-lesson .ve-e.is-async { stroke-dasharray: 6 5; }
+  .study-lesson .ve-el { fill: var(--text-dim); font: 500 14px var(--font-mono); text-anchor: middle; paint-order: stroke; stroke: var(--bg); stroke-width: 5px; stroke-linejoin: round; }
+  .study-lesson .ve-el.l { text-anchor: end; } .study-lesson .ve-el.r { text-anchor: start; }
+
+  .study-lesson .ve-ref { text-decoration: underline dotted var(--text-dim) 1px; text-underline-offset: .22em; border-radius: var(--r-1); transition: background var(--fast) var(--ease); }
+  .study-lesson .ve-ref.is-lit { background: var(--accent-dim); text-decoration-color: var(--accent); }
+  .study-lesson svg [data-ref] { transition: opacity var(--med) var(--ease); }
+  .study-lesson svg.has-lit path[data-ref]:not(.is-lit), .study-lesson svg.has-lit g[data-ref]:not(.is-lit) .sh { opacity: .25; }
+  .study-lesson svg.has-lit g[data-ref]:not(.is-lit) text, .study-lesson svg.has-lit text[data-ref]:not(.is-lit) { fill: var(--text-dim); }
+  .study-lesson .ve-n.is-lit .sh { stroke: var(--accent); }
+  .study-lesson .ve-e.is-lit { stroke: var(--accent); }
+  .study-lesson .ve-el.is-lit { fill: var(--text); }
+  .study-lesson .ve-steps [data-s] { transition: opacity var(--slow) var(--ease), stroke-dashoffset var(--slow) var(--ease); }
+  .study-lesson .ve-steps [data-s]:not(.on) { opacity: .15; }
+  .study-lesson .ve-steps g[data-s]:not(.on) text, .study-lesson .ve-steps text[data-s]:not(.on) { opacity: 0; }
+  .study-lesson .ve-steps path[pathLength][data-s] { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .study-lesson .ve-steps path[pathLength][data-s].on { stroke-dashoffset: 0; }
+  .study-lesson .ve-steps .ve-n.now .sh { stroke: var(--accent); }
+  .study-lesson .ve-player { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; align-items: center; gap: var(--s-2) var(--s-3); margin-top: var(--s-4); }
+  .study-lesson .ve-cap { grid-column: 1 / -1; list-style: none; padding: 0; min-height: 3.2em; }
+  .study-lesson .ve-cap li::before { content: attr(data-n); font: 600 var(--t-label) var(--font-mono); color: var(--accent); margin-right: var(--s-3); font-variant-numeric: tabular-nums; }
+  .study-lesson .ve-player input { accent-color: var(--accent); min-width: 0; }
+  .study-lesson button { font: 500 var(--t-small) var(--font-mono); color: var(--text); background: var(--surface); border: 1px solid var(--border-bright); border-radius: var(--r-1); padding: var(--s-2) var(--s-3); cursor: pointer; transition: border-color var(--fast) var(--ease); }
+  .study-lesson button:hover, .study-lesson button:focus-visible { border-color: var(--accent); }
+  .study-lesson .tl a { text-decoration: none; }
+  .study-lesson .tl a rect { transition: stroke var(--fast) var(--ease); }
+  .study-lesson .tl a:hover rect, .study-lesson .tl a:focus-visible rect { stroke: var(--accent); stroke-width: 2; }
+  .study-lesson .tl .seg { fill: url(#ve-node); stroke: var(--border-bright); stroke-width: 1.25; }
+  .study-lesson .tl .seg.demo { fill: #F3F0FE; }
+  .study-lesson .tl text { fill: var(--text); font: 600 15px var(--font-body); }
+  .study-lesson .tl .t { fill: var(--text-dim); font: 500 13px var(--font-mono); }
+  .study-lesson .tl .here { stroke: var(--accent); stroke-width: 2.5; }
+  .study-lesson .tl .here-l { fill: var(--accent); font: 600 14px var(--font-mono); }
+  .study-lesson .cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr)); gap: var(--s-4); }
+  .study-lesson .case { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-2); box-shadow: 0 4px 6px -1px rgb(0 0 0 / .06), 0 0 0 1px rgb(99 102 241 / .10); padding: var(--s-4); display: grid; gap: var(--s-3); align-content: start; min-width: 0; }
+  .study-lesson .case[data-st=ok] { --st: var(--ok); } .study-lesson .case[data-st=warn] { --st: var(--warn); } .study-lesson .case[data-st=risk] { --st: var(--risk); }
+  .study-lesson .case p { font-size: var(--t-body); color: var(--text-dim); }
+  .study-lesson .ve-mini { width: 100%; height: auto; font: 600 15px var(--font-body); }
+  .study-lesson .ve-mini .ve-n .sh { filter: none; }
+  .study-lesson .ve-mini .ve-n .sub { font-size: 13px; }
+  .study-lesson .ve-mini .q { fill: var(--text); font: 500 14px var(--font-body); }
+  .study-lesson .ve-mini .is-st.ve-e { stroke: var(--st); stroke-width: 2.75; }
+  .study-lesson .ve-mini .is-st .sh { stroke: var(--st); stroke-width: 2; }
+  .study-lesson .ve-mini .is-st .sub, .study-lesson .ve-mini .vd { fill: var(--st); }
+  .study-lesson .ve-mini .vd { font: 600 14px var(--font-mono); text-anchor: middle; }
+  .study-lesson .ve-mini .pick { fill: none; stroke: var(--st); stroke-width: 2; stroke-dasharray: 4 3; }
+
+  .study-lesson .chip { display: inline-flex; align-items: center; gap: var(--s-2); font: 600 var(--t-label) var(--font-mono); padding: 2px var(--s-3); border: 1px solid currentColor; border-radius: var(--r-1); white-space: nowrap; justify-self: start; }
+  .study-lesson .chip::before { content: ''; width: .5rem; height: .5rem; background: currentColor; }
+  .study-lesson .chip.ok { color: var(--ok); } .study-lesson .chip.ok::before { border-radius: 50%; }
+  .study-lesson .chip.warn { color: var(--warn); } .study-lesson .chip.warn::before { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .study-lesson .chip.risk { color: var(--risk); }
+  .study-lesson .scenario { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin-bottom: var(--s-4); }
+  .study-lesson .bubble { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-2); box-shadow: 0 0 0 1px rgba(14,22,34,.04), 0 2px 4px 0 rgba(0,0,0,.06); padding: var(--s-4); }
+  .study-lesson .bubble .ve-label { display: block; margin-bottom: var(--s-1); }
+  .study-lesson .calib { display: grid; gap: var(--s-6); grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); align-items: end; }
+  .study-lesson .ve-waffle { max-width: 17rem; }
+  .study-lesson .ve-waffle, .study-lesson .ve-scale { width: 100%; height: auto; font: 500 13px var(--font-mono); overflow: visible; }
+  .study-lesson .ve-waffle .on { fill: var(--accent); } .study-lesson .ve-waffle .off { fill: none; stroke: var(--risk); stroke-width: 1.5; }
+  .study-lesson .ve-waffle text, .study-lesson .ve-scale text { fill: var(--text-dim); dominant-baseline: central; }
+  .study-lesson .ve-scale .track { fill: var(--border); } .study-lesson .ve-scale .band { fill: var(--accent-dim); stroke: var(--accent); stroke-width: 1; }
+  .study-lesson .ve-scale .mk { stroke: var(--text); stroke-width: 2.5; } .study-lesson .ve-scale .strong { fill: var(--text); font-weight: 600; }
+  .study-lesson .ve-scale .susp { fill: none; stroke: var(--warn); stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .study-lesson .codebox { border-radius: var(--r-2); box-shadow: 0 4px 6px -1px rgb(0 0 0 / .08), 0 0 0 1px rgb(99 102 241 / .15); overflow: hidden; margin-top: var(--s-4); }
+  .study-lesson .code-frame { display: flex; align-items: center; gap: var(--s-3); height: 2.25rem; padding: 0 var(--s-4); background: #fff; border-bottom: 1px solid #E2E3E5; }
+  .study-lesson .code-frame i { width: 10px; height: 10px; border-radius: 50%; background: #E2E3E5; display: inline-block; margin-right: 2px; }
+  .study-lesson .code-frame span { font: var(--t-small) var(--font-mono); color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .study-lesson .term { font: 500 var(--t-small)/1.75 var(--font-mono); background: var(--surface); padding: var(--s-5); overflow-x: auto; white-space: pre; font-variant-ligatures: none; letter-spacing: .02em; }
+  .study-lesson .term .ok { color: var(--ok); } .study-lesson .term .risk { color: var(--risk); } .study-lesson .term .dim { color: var(--text-dim); }
+
+  .study-lesson .ve-bars { width: 100%; max-width: 30rem; height: auto; font: 500 13px var(--font-mono); overflow: visible; }
+  .study-lesson .ve-bars text { fill: var(--text-dim); dominant-baseline: central; }
+  .study-lesson .ve-bars rect { fill: var(--border-bright); transform-box: fill-box; transform-origin: left; transition: transform 900ms var(--ease) 150ms; }
+  .study-lesson .ve-bars .hot { fill: var(--risk); }
+  .study-lesson .ve-bars .strong { fill: var(--text); }
+
+  .study-lesson .recipe { counter-reset: r; list-style: none; padding: 0; display: grid; gap: var(--s-3); max-width: 65ch; }
+  .study-lesson .recipe li { counter-increment: r; padding-left: var(--s-6); position: relative; }
+  .study-lesson .recipe li::before { content: counter(r); position: absolute; left: 0; top: .15em; font: 600 var(--t-label)/1.4rem var(--font-mono); color: var(--accent); background: var(--accent-dim); border-radius: 50%; width: 1.4rem; height: 1.4rem; text-align: center; }
+  .study-lesson .qa { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+  .study-lesson .qa .case h3 { font-family: var(--font-display); font-weight: 500 !important; font-size: var(--t-lead); line-height: 1.3; }
+
+  .study-lesson .src-list { list-style: none; padding: 0; display: grid; gap: var(--s-2); }
+  .study-lesson .sources { border-top: 1px solid var(--border); padding-top: var(--s-4); display: grid; gap: var(--s-2); color: var(--text-dim); }
+
+  .study-lesson.js-motion > * { transition: opacity var(--slow) var(--ease), transform var(--slow) var(--ease); }
+  .study-lesson.js-motion > :not(.in) { opacity: 0; transform: translateY(1rem); }
+  .study-lesson.js-motion > :not(.in) .ve-bars rect { transform: scaleX(0); }
+  @media (prefers-reduced-motion: reduce) { .study-lesson * { transition: none !important; } }
+
+  @media print {
+    .study-lesson { --bg: #fff; --surface: #fff; --border: #e3e3dc; --border-bright: #8e8e8a; --text: #17191c; --text-dim: #575c63; --accent: #2c4cd0; --ok: #1d7443; --warn: #836000; --risk: #b3301d; --node-top: #fff; }
+    .study-lesson .ve-player button, .study-lesson .ve-player input { display: none; }
+    .study-lesson .frame { overflow: visible; background: #fff; } .study-lesson .ve-svg { min-width: 0; }
+    .study-lesson .frame, .study-lesson .case { break-inside: avoid; } .study-lesson h2 { break-after: avoid; }
+    .study-lesson svg * { filter: none !important; }
+    .study-lesson.js-motion > * { opacity: 1 !important; transform: none !important; }
+    .study-lesson.js-motion .ve-bars rect { transform: none !important; }
+    .study-lesson .ve-steps [data-s]:not(.on), .study-lesson .ve-steps g[data-s]:not(.on) text, .study-lesson .ve-steps text[data-s]:not(.on) { opacity: 1; }
+    .study-lesson .ve-steps path[pathLength][data-s] { stroke-dashoffset: 0; }
+  }
+
+  .study-lesson .chip.info { color: var(--info); } .study-lesson .chip.info::before { border-radius: 2px; }
+  .study-lesson .case[data-st=info] { --st: var(--info); }
+  .study-lesson .recipe.from-0 { counter-reset: r -1; }
+  .study-lesson .recipe b { font-weight: 600; }
+  .study-lesson .ve-svg .bt { fill: var(--border); } .study-lesson .ve-svg .bf { fill: var(--accent); } .study-lesson .ve-svg .bf.hi { fill: var(--ok); }
+  .study-lesson .pk-grid { stroke: var(--border); stroke-width: 1; }
+  .study-lesson .pk-ax { fill: var(--text-dim); font: 500 13px var(--font-mono); }
+  .study-lesson .pk-any, .study-lesson .pk-all { fill: none; stroke-width: 2.75; stroke-linejoin: round; stroke-linecap: round; }
+  .study-lesson .pk-any { stroke: var(--accent); } .study-lesson .pk-all { stroke: var(--risk); }
+  .study-lesson .pk-dot-any { fill: var(--accent); } .study-lesson .pk-dot-all { fill: var(--risk); }
+  .study-lesson .pk-mark { stroke: var(--text-dim); stroke-width: 1.25; stroke-dasharray: 4 4; }
+  .study-lesson .ve-el.any { fill: var(--accent); } .study-lesson .ve-el.all { fill: var(--risk); } .study-lesson .ve-el.strong { fill: var(--text); font-weight: 600; }
+  .study-lesson .ch-slice { fill: url(#ve-node); stroke: var(--border-bright); stroke-width: 1.5; filter: drop-shadow(0 6px 14px var(--lift)); }
+  .study-lesson .ch-slice.is-key { fill: #F3F0FE; stroke: var(--accent); }
+  .study-lesson .ch-hole { fill: var(--inset); stroke: var(--border-bright); stroke-width: 1; }
+  .study-lesson .ch-leak { fill: none; stroke: var(--risk); stroke-width: 2.25; marker-end: url(#ve-ah); }
+  .study-lesson .ch-stop { fill: var(--risk); font: 600 16px var(--font-mono); text-anchor: middle; dominant-baseline: central; }
+  .study-lesson .ch-name { fill: var(--text); font: 600 15px var(--font-body); text-anchor: middle; }
+  .study-lesson .ch-when { fill: var(--text-dim); font: 500 13px var(--font-mono); text-anchor: middle; }
+  .study-lesson .ve-steps [data-s].is-lit { opacity: 1; }
+  .study-lesson .ve-steps g[data-s].is-lit text, .study-lesson .ve-steps text[data-s].is-lit { opacity: 1; }
+  .study-lesson .tl .ph { stroke: var(--border-bright); stroke-width: 1.25; fill: none; }
+</style>
+<div class="study-lesson">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="ve-ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker>
+    <linearGradient id="ve-node" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--node-top)"/><stop offset="1" style="stop-color:var(--surface)"/></linearGradient>
+  </defs>
+</svg>
+<header class="opener">
+    <div class="row first crumbs"><span><a href="/">hardeep.cv</a><span class="sep">/</span><a href="/study">Study</a><span class="sep">/</span>Agent evals</span><span class="lesson">Lesson 02</span></div>
+    <div class="row">
+      <div class="tags"><span>#evals</span><span>#agents</span><span>#article-notes</span></div>
+      <h1>Grade what the agent did, <em>not what it said</em></h1>
+      <p class="lead">An agent eval runs a <span class="ve-ref" data-ref="task" tabindex="0">task</span> several times as <span class="ve-ref" data-ref="trial" tabindex="0">trials</span>. Each trial leaves a <span class="ve-ref" data-ref="transcript" tabindex="0">transcript</span> of what the agent said and an <span class="ve-ref" data-ref="outcome" tabindex="0">outcome</span> in the world. <b class="ve-ref" data-ref="grader" tabindex="0">Graders</b> should score the outcome.</p>
+    </div>
+    <div class="row byline">
+      <div class="who"><span class="avatar" aria-hidden="true">A</span><span><b>Anthropic</b><small>Research article · notes</small></span></div>
+      <div class="facts"><span><svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg>October 21, 2026</span><span><svg viewBox="0 0 16 16"><path d="M4 1.5h8M4 14.5h8M5 1.5c0 4 6 4 6 6.5s-6 2.5-6 6.5M11 1.5c0 4-6 4-6 6.5s6 2.5 6 6.5"/></svg>10 min read</span><span><svg viewBox="0 0 16 16"><path d="M3 1.5h7l3 3v10H3zM10 1.5v3h3M5.5 8h5M5.5 11h5"/></svg>Jan 2026 article</span></div>
+      <a class="watch" href="https://www.anthropic.com/research/demystifying-evals-for-ai-agents" target="_blank" rel="noopener"><svg viewBox="0 0 16 16"><path d="M3 2.5h7l3 3v8H3z"/></svg>Read the article</a>
+    </div>
+    <div class="row">
+      <p class="learn-h">What you’ll learn</p>
+      <ol class="learn">
+        <li><a href="#anatomy"><span class="n">01</span><b>What an agent eval is</b><small>Tasks, trials, transcripts, outcomes and graders.</small></a></li>
+        <li><a href="#graders"><span class="n">02</span><b>Which grader to use</b><small>Code, model or human, and why the path doesn’t count.</small></a></li>
+        <li><a href="#trials"><span class="n">03</span><b>pass@k vs pass^k</b><small>One agent at 75% per trial scores 98% or 42%.</small></a></li>
+        <li><a href="#roadmap"><span class="n">04</span><b>How to start</b><small>Nine steps, from 20 tasks to a suite you trust.</small></a></li>
+      </ol>
+    </div>
+  </header>
+
+  <figure class="ve-steps" id="anatomy" style="scroll-margin-top:2rem">
+    <div class="frame"><div class="well">
+      <svg class="ve-svg" viewBox="0 20 1000 290" role="img" aria-label="A task, such as booking a flight, is run k times as trials. In each trial the agent, meaning the model plus its harness, acts on a clean environment. The trial leaves a transcript of what the agent said and an outcome, the final state of the environment, such as a reservation in the database. Graders score the outcome and can read the transcript. The grades add up to a score.">
+        <path class="ve-e" data-s="1" data-ref="task trial" pathLength="1" d="M150 82H188"/>
+        <text class="ve-el" data-s="1" data-ref="task trial" x="169" y="70">× k</text>
+        <path class="ve-e" data-s="2" data-ref="trial" pathLength="1" d="M340 82H368"/>
+        <path class="ve-e" data-s="2" pathLength="1" d="M450 124V198"/>
+        <text class="ve-el r" data-s="2" x="460" y="162">acts on</text>
+        <path class="ve-e" data-s="3" data-ref="transcript" pathLength="1" d="M530 82H578"/>
+        <text class="ve-el" data-s="3" data-ref="transcript" x="554" y="70">says</text>
+        <path class="ve-e" data-s="3" data-ref="outcome" pathLength="1" d="M530 242H578"/>
+        <text class="ve-el" data-s="3" data-ref="outcome" x="554" y="230">ends</text>
+        <path class="ve-e is-async" data-s="4" data-ref="transcript grader" pathLength="1" d="M750 82C772 82 768 140 788 140"/>
+        <path class="ve-e is-hot" data-s="4" data-ref="outcome grader" pathLength="1" d="M750 242C772 242 768 184 788 184"/>
+        <text class="ve-el r" data-s="4" data-ref="outcome grader" x="778" y="224">grade this</text>
+        <path class="ve-e" data-s="4" data-ref="grader" pathLength="1" d="M900 162H923"/>
+
+        <g class="ve-n" data-s="1" data-ref="task" transform="translate(10 40)"><rect class="sh" width="140" height="84" rx="6"/><path class="gl" transform="translate(12 12)" d="M0 0h10l4 4v12H0zM10 0v4h4"/><text x="70" y="34">Task</text><text class="sub" x="70" y="58">book a flight</text></g>
+        <g class="ve-n" data-s="1" data-ref="trial" transform="translate(190 40)"><rect class="sh" x="8" y="-8" width="140" height="84" rx="6"/><rect class="sh" x="4" y="-4" width="140" height="84" rx="6"/><rect class="sh" width="140" height="84" rx="6"/><text x="70" y="34">Trials</text><text class="sub" x="70" y="58">k = 3 runs</text></g>
+        <g class="ve-n" data-s="2" transform="translate(370 40)"><rect class="sh" width="160" height="84" rx="6"/><path class="gl" transform="translate(12 12)" d="M0 0h16v11H6l-4 4v-4H0z"/><text x="80" y="34">Agent</text><text class="sub" x="80" y="58">model + harness</text></g>
+        <g class="ve-n" data-s="2" transform="translate(370 200)"><rect class="sh" width="160" height="84" rx="6"/><text x="80" y="34">Environment</text><text class="sub" x="80" y="58">clean each trial</text></g>
+        <g class="ve-n" data-s="3" data-ref="transcript" transform="translate(580 40)"><rect class="sh" width="170" height="84" rx="6"/><text x="85" y="34">Transcript</text><text class="sub" x="85" y="58">“Flight booked!”</text></g>
+        <g class="ve-n is-key" data-s="3" data-ref="outcome" transform="translate(580 200)"><rect class="sh" width="170" height="84" rx="6"/><path class="gl" transform="translate(12 12)" d="M0 3a7 3 0 0 0 14 0a7 3 0 0 0-14 0v10a7 3 0 0 0 14 0V3"/><text x="85" y="34">Outcome</text><text class="sub" x="85" y="58">reservation in DB</text></g>
+        <g class="ve-n" data-s="4" data-ref="grader" transform="translate(790 120)"><rect class="sh" width="110" height="84" rx="6"/><text x="55" y="34">Graders</text><text class="sub" x="55" y="58">3 types</text></g>
+        <g class="ve-n" data-s="4" data-ref="grader" transform="translate(925 120)"><rect class="sh" width="65" height="84" rx="6"/><text x="32.5" y="34">Score</text><text class="sub" x="32.5" y="58">pass@k</text></g>
+      </svg></div>
+    </div>
+    <div class="ve-player">
+      <ol class="ve-cap">
+        <li data-n="1/4">A task is one test with inputs and success criteria, here “book this flight.” Each attempt is a trial. Outputs vary between runs, so you run several trials.</li>
+        <li data-n="2/4">You evaluate the model and its harness together. Each trial starts from a clean environment, so files and cached data from one run can’t help or hurt the next.</li>
+        <li data-n="3/4">Every trial leaves two records. The transcript holds everything the agent said, called and reasoned. The outcome is the final state of the environment.</li>
+        <li data-n="4/4">Graders score the trial. The agent may say “Your flight has been booked,” but the grader checks whether the reservation exists in the SQL database.</li>
+      </ol>
+      <button data-go="-1" aria-label="Previous step">←</button>
+      <button data-play>Play</button>
+      <input type="range" min="0" value="0" aria-label="Step">
+      <button data-go="1" aria-label="Next step">→</button>
+    </div>
+    <figcaption><span class="fig-n">Fig. 1</span>One agent eval. The eval harness runs the trials, records every step, grades each trial and adds up the results.</figcaption>
+  </figure>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>Map of the article</span></p><h2>The roadmap is the longest part, about 30% of the words</h2></div>
+    <figure>
+      <div class="frame"><div class="well">
+        <svg class="ve-svg tl" viewBox="0 0 1000 130" role="img" aria-label="Sections of the article by share of words: anatomy of an eval 11 percent, why build evals 9 percent, grader types 8 percent, advice per agent type 20 percent, pass@k and pass^k 5 percent, the roadmap of steps 0 to 8 30 percent, other methods 10 percent, closing and frameworks 8 percent.">
+          <rect class="seg" x="10" y="40" width="109.3" height="54" rx="4"/><text x="20" y="62">Anatomy</text><text class="t" x="20" y="82">11%</text>
+          <rect class="seg" x="121.3" y="40" width="86.4" height="54" rx="4"/><text x="131" y="62">Why</text><text class="t" x="131" y="82">9%</text>
+          <rect class="seg" x="209.8" y="40" width="75.9" height="54" rx="4"/><text x="219" y="62">Graders</text><text class="t" x="219" y="82">8%</text>
+          <rect class="seg" x="287.7" y="40" width="189.6" height="54" rx="4"/><text x="297" y="62">Agent types</text><text class="t" x="297" y="82">20%</text>
+          <rect class="seg" x="479.2" y="40" width="45.4" height="54" rx="4"/><text class="t" x="486" y="82">5%</text>
+          <rect class="seg demo" x="526.7" y="40" width="288.5" height="54" rx="4"/><text x="536" y="62">Roadmap, steps 0 to 8</text><text class="t" x="536" y="82">30%</text>
+          <rect class="seg" x="817.2" y="40" width="97" height="54" rx="4"/><text x="827" y="62">Layers</text><text class="t" x="827" y="82">10%</text>
+          <rect class="seg" x="916.2" y="40" width="71.8" height="54" rx="4"/><text x="926" y="62">End</text><text class="t" x="926" y="82">8%</text>
+          <text class="t" x="502" y="114" text-anchor="middle">▲ pass@k</text>
+          <text class="t" x="10" y="16">0 words</text><text class="t" x="990" y="16" text-anchor="end">≈ 6,000 words</text>
+        </svg></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 2</span>Section lengths by word count. This lesson skips most of the advice per agent type (coding, chat, research, computer use) and keeps what applies to every agent.</figcaption>
+    </figure>
+  </section>
+
+  <section id="graders">
+    <div class="kicker-head"><p class="ve-label caps"><span>Graders</span></p><h2>Use code where you can, a model where you must, and humans to calibrate</h2></div>
+    <p>A grader scores one part of the transcript or the outcome. A task can have several graders. Per task, you can weight their scores against a threshold, require all of them to pass, or mix the two.</p>
+    <figure>
+      <div class="cases">
+        <div class="case" data-st="ok"><span class="chip ok">Where possible</span><h3>Code-based</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="A code grader queries the bookings table after the trial and passes if the reservation row exists.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="50" rx="5"/><text class="q" x="120" y="18">bookings table</text><text class="sub" x="120" y="37">after the trial</text></g>
+            <path class="ve-e" d="M120 52V72"/>
+            <g class="ve-n is-st"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">SELECT … WHERE id</text></g>
+            <text class="vd" x="120" y="136">✓ row exists</text>
+          </svg>
+          <p>String checks, unit tests, static analysis, state checks. Fast, cheap, objective and easy to debug. Brittle when a valid answer doesn’t match the pattern.</p></div>
+        <div class="case" data-st="warn"><span class="chip warn">Where necessary</span><h3>Model-based</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="A model grader reads the transcript against a rubric, with one judge per dimension, and may answer Unknown.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="50" rx="5"/><text class="q" x="120" y="18">transcript + rubric</text><text class="sub" x="120" y="37">one judge per dimension</text></g>
+            <path class="ve-e" d="M120 52V72"/>
+            <g class="ve-n is-st"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">score or “Unknown”</text></g>
+            <text class="vd" x="120" y="136">needs calibration</text>
+          </svg>
+          <p>Rubrics, natural-language assertions, pairwise or reference comparison. Flexible and good with open-ended output. Non-deterministic and costlier than code.</p></div>
+        <div class="case" data-st="info"><span class="chip info">To calibrate</span><h3>Human</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="Human graders review a sample of trials. The question is whether two experts agree. Their verdicts are the gold standard used to calibrate model graders.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="50" rx="5"/><text class="q" x="120" y="18">sample of trials</text><text class="sub" x="120" y="37">expert review</text></g>
+            <path class="ve-e" d="M120 52V72"/>
+            <g class="ve-n is-st"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">do two experts agree?</text></g>
+            <text class="vd" x="120" y="136">gold standard</text>
+          </svg>
+          <p>Expert review, spot checks, A/B tests, inter-annotator agreement. Matches expert judgment. Expensive, slow and hard to get at scale.</p></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 3</span>The article’s rule. Pick deterministic graders where possible, LLM graders where necessary, and human graders for extra validation.</figcaption>
+    </figure>
+    <p>Two tips for LLM judges. Give the judge a way out, such as returning “Unknown” when it lacks information, so it doesn’t make up a verdict. And grade each rubric dimension with its own isolated judge instead of one judge for everything.</p>
+  </section>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>What to grade</span></p><h2>Grade what the agent produced, not the path it took</h2></div>
+    <p>It is tempting to check that the agent called the right tools in the right order. Anthropic found this too rigid. Agents often find valid approaches the eval designer didn’t expect. Frontier models can even outgrow a static eval. Opus 4.5 solved a τ2-bench flight booking problem by finding a loophole in the policy. It “failed” as written, but its answer was better for the user.</p>
+    <figure>
+      <div class="cases">
+        <div class="case" data-st="risk"><span class="chip risk">Wrong fail</span><h3>Tool-order check</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="The grader expects read, edit, test. The agent searched, edited and tested, and fixed the bug. The tool-order check fails a valid fix.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="50" rx="5"/><text class="q" x="120" y="18">expects read → edit → test</text><text class="sub" x="120" y="37">agent: grep → edit → test</text></g>
+            <path class="ve-e" d="M120 52V72"/>
+            <g class="ve-n is-st"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">tool_calls in order</text></g>
+            <text class="vd" x="120" y="136">✗ FAIL · valid fix</text>
+          </svg>
+          <p>Punishes a creative path that worked.</p></div>
+        <div class="case" data-st="ok"><span class="chip ok">Fair</span><h3>Outcome check</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="The same run graded on its outcome: the tests pass, so it passes.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="50" rx="5"/><text class="q" x="120" y="18">same run</text><text class="sub" x="120" y="37">any path</text></g>
+            <path class="ve-e" d="M120 52V72"/>
+            <g class="ve-n is-st"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">tests pass?</text></g>
+            <text class="vd" x="120" y="136">✓ PASS</text>
+          </svg>
+          <p>Checks the result the user cares about.</p></div>
+        <div class="case" data-st="warn"><span class="chip warn">Partial credit</span><h3>Score the parts</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="A support agent identified the problem and verified the customer but did not process the refund. It gets credit for two of three parts.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="76" rx="5"/><text class="q" x="120" y="20">✓ found the problem</text><text class="q" x="120" y="40">✓ verified the customer</text><text class="q" x="120" y="60">✗ processed the refund</text></g>
+            <text class="vd" x="120" y="110">2 of 3 parts</text>
+            <text class="vd" x="120" y="134" style="fill:var(--text-dim)">illustrative</text>
+          </svg>
+          <p>Better than failing at once. The score should show it.</p></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 4</span>For tasks with several parts, build in partial credit. And make graders hard to cheat, so passing means the problem was solved.</figcaption>
+    </figure>
+  </section>
+
+  <section id="trials">
+    <div class="kicker-head"><p class="ve-label caps"><span>Non-determinism</span></p><h2>At three trials, the same 75% agent scores 98% or 42%</h2></div>
+    <p>Agents behave differently from run to run. So the question is how often a task succeeds across trials. Two metrics answer two different questions. <b>pass@k</b> is the chance that at least one of k trials succeeds. <b>pass^k</b> is the chance that all k succeed.</p>
+    <figure class="ve-steps">
+      <div class="frame"><div class="well">
+        <svg class="ve-svg" viewBox="0 0 1000 330" role="img" aria-label="Line chart for an agent with a 75 percent per-trial success rate, k from 1 to 10. pass@k rises from 75 percent to 98 percent at k equals 3 and about 100 percent at k equals 10. pass^k falls from 75 percent to 42 percent at k equals 3 and about 6 percent at k equals 10.">
+          <path class="pk-grid" d="M90 50H882M90 107.5H882M90 165H882M90 222.5H882M90 280H882"/>
+          <text class="pk-ax" x="80" y="54" text-anchor="end">100%</text><text class="pk-ax" x="80" y="112" text-anchor="end">75%</text><text class="pk-ax" x="80" y="169" text-anchor="end">50%</text><text class="pk-ax" x="80" y="227" text-anchor="end">25%</text><text class="pk-ax" x="80" y="284" text-anchor="end">0%</text>
+          <text class="pk-ax" x="90" y="302" text-anchor="middle">1</text><text class="pk-ax" x="178" y="302" text-anchor="middle">2</text><text class="pk-ax" x="266" y="302" text-anchor="middle">3</text><text class="pk-ax" x="354" y="302" text-anchor="middle">4</text><text class="pk-ax" x="442" y="302" text-anchor="middle">5</text><text class="pk-ax" x="530" y="302" text-anchor="middle">6</text><text class="pk-ax" x="618" y="302" text-anchor="middle">7</text><text class="pk-ax" x="706" y="302" text-anchor="middle">8</text><text class="pk-ax" x="794" y="302" text-anchor="middle">9</text><text class="pk-ax" x="882" y="302" text-anchor="middle">10</text>
+          <text class="pk-ax" x="486" y="324" text-anchor="middle">trials per task (k)</text>
+          <path class="pk-any" d="M90 107.5 L178 64.4 L266 53.6 L354 50.9 L442 50.2 L530 50.1 L618 50 L706 50 L794 50 L882 50"/>
+          <path class="pk-all" d="M90 107.5 L178 150.6 L266 183 L354 207.2 L442 225.4 L530 239.1 L618 249.3 L706 257 L794 262.7 L882 267"/>
+          <text class="ve-el r any" x="894" y="50">pass@k</text>
+          <text class="ve-el r all" x="894" y="267">pass^k</text>
+
+          <g data-s="1"><path class="pk-mark" d="M90 50V280"/><circle class="pk-dot-any" cx="90" cy="107.5" r="6"/><text class="ve-el r strong" x="98" y="32">k = 1 · both 75%</text></g>
+          <g data-s="2"><path class="pk-mark" d="M266 50V280"/><circle class="pk-dot-any" cx="266" cy="53.6" r="6"/><circle class="pk-dot-all" cx="266" cy="183" r="6"/><text class="ve-el r any" x="278" y="76">98%</text><text class="ve-el r all" x="278" y="172">42%</text></g>
+          <g data-s="3"><path class="pk-mark" d="M882 50V280"/><circle class="pk-dot-any" cx="882" cy="50" r="6"/><circle class="pk-dot-all" cx="882" cy="267" r="6"/><text class="ve-el l any" x="870" y="74">≈ 100%</text><text class="ve-el l all" x="870" y="242">6%</text></g>
+        </svg></div>
+      </div>
+      <div class="ve-player">
+        <ol class="ve-cap">
+          <li data-n="1/3">One trial per task. Both metrics equal the per-trial success rate, 75%.</li>
+          <li data-n="2/3">Three trials. pass@3 needs one success, so it is 1 − 0.25³ ≈ 98%. pass^3 needs three out of three, so it is 0.75³ ≈ 42%.</li>
+          <li data-n="3/3">Ten trials. pass@10 is about 100%. pass^10 is 0.75¹⁰, about 6%, and keeps falling toward zero.</li>
+        </ol>
+        <button data-go="-1" aria-label="Previous step">←</button>
+        <button data-play>Play</button>
+        <input type="range" min="0" value="0" aria-label="Step">
+        <button data-go="1" aria-label="Next step">→</button>
+      </div>
+      <figcaption><span class="fig-n">Fig. 5</span>The same agent at 75% per trial. More trials make pass@k rise and pass^k fall, so the two tell opposite stories by k = 10.</figcaption>
+    </figure>
+    <div class="qa">
+      <div class="case"><span class="ve-label">Use pass@k when one success is enough</span><h3>Tools that propose options</h3><p>If the user can pick any working answer, more shots on goal is fine. In coding, pass@1 often matters most, because the fix should work the first try.</p></div>
+      <div class="case"><span class="ve-label">Use pass^k when every run must work</span><h3>Customer-facing agents</h3><p>Users expect the same good result each time. A 75% agent fails at least one of three conversations more than half the time.</p></div>
+    </div>
+  </section>
+
+  <section id="suites">
+    <div class="kicker-head"><p class="ve-label caps"><span>Two kinds of suite</span></p><h2>Capability evals start low, then graduate into regression evals</h2></div>
+    <figure>
+      <div class="frame"><div class="well">
+        <svg class="ve-svg" viewBox="0 0 1000 210" role="img" aria-label="Capability evals ask what the agent can do well and start at a low pass rate. When they pass reliably they graduate into regression evals, which ask whether the agent still handles what it used to and should pass nearly 100 percent. A capability eval at 100 percent is saturated and gives no signal for improvement.">
+          <path class="ve-e is-hot" d="M390 98H608"/>
+          <text class="ve-el" x="499" y="86">graduates</text>
+          <text class="ve-el" x="499" y="122">once it passes reliably</text>
+          <g class="ve-n is-key" transform="translate(10 40)"><rect class="sh" width="380" height="116" rx="6"/><text x="190" y="28">Capability evals</text><text class="sub" x="190" y="52">“What can it do well?”</text><rect class="bt" x="30" y="72" width="320" height="10" rx="2"/><rect class="bf" x="30" y="72" width="70" height="10" rx="2"/><text class="sub" x="190" y="100">low pass rate, a hill to climb</text></g>
+          <g class="ve-n" transform="translate(610 40)"><rect class="sh" width="380" height="116" rx="6"/><text x="190" y="28">Regression evals</text><text class="sub" x="190" y="52">“Can it still do it?”</text><rect class="bt" x="30" y="72" width="320" height="10" rx="2"/><rect class="bf hi" x="30" y="72" width="314" height="10" rx="2"/><text class="sub" x="190" y="100">nearly 100%, catches drift</text></g>
+          <text class="ve-el r" x="10" y="188" style="fill:var(--warn)">▲ a capability eval at 100% is saturated, so it tracks regressions but shows no room to improve</text>
+        </svg></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 6</span>Run both. While you climb the capability hill, regression evals check that the change didn’t break something else. The bar lengths are illustrative.</figcaption>
+    </figure>
+    <p>Saturation hides progress. Frontier models now score above 80% on SWE-bench Verified and are nearing saturation. Near the top only the hardest tasks remain, so big capability gains show up as small score bumps. The code review startup Qodo was at first unimpressed by Opus 4.5. Its one-shot coding evals missed the gains on longer, more complex tasks. Qodo built a new agentic eval framework, which gave a much clearer picture.</p>
+  </section>
+
+  <section id="roadmap">
+    <div class="kicker-head"><p class="ve-label caps"><span>Zero to one</span></p><h2>Nine steps from no evals to evals you can trust</h2></div>
+    <figure>
+      <div class="frame"><div class="well">
+        <svg class="ve-svg tl" viewBox="0 0 1000 110" role="img" aria-label="The roadmap in three phases. Collect tasks: step 0 start early, 1 manual checks, 2 clear tasks, 3 both sides. Design the harness and graders: step 4 clean environment, 5 graders. Maintain: step 6 transcripts, 7 saturation, 8 ownership.">
+          <path class="ph" d="M10 34V28H442V34M446 34V28H660V34M664 34V28H982V34"/>
+          <text class="t" x="226" y="18" text-anchor="middle">collect tasks</text><text class="t" x="553" y="18" text-anchor="middle">harness and graders</text><text class="t" x="823" y="18" text-anchor="middle">maintain</text>
+          <rect class="seg demo" x="10" y="44" width="105" height="54" rx="4"/><text x="20" y="66">Start early</text><text class="t" x="20" y="86">step 0</text>
+          <rect class="seg" x="119" y="44" width="105" height="54" rx="4"/><text x="129" y="66">Manual QA</text><text class="t" x="129" y="86">step 1</text>
+          <rect class="seg" x="228" y="44" width="105" height="54" rx="4"/><text x="238" y="66">Clear tasks</text><text class="t" x="238" y="86">step 2</text>
+          <rect class="seg" x="337" y="44" width="105" height="54" rx="4"/><text x="347" y="66">Both sides</text><text class="t" x="347" y="86">step 3</text>
+          <rect class="seg" x="446" y="44" width="105" height="54" rx="4"/><text x="456" y="66">Clean env</text><text class="t" x="456" y="86">step 4</text>
+          <rect class="seg" x="555" y="44" width="105" height="54" rx="4"/><text x="565" y="66">Graders</text><text class="t" x="565" y="86">step 5</text>
+          <rect class="seg" x="664" y="44" width="105" height="54" rx="4"/><text x="674" y="66">Transcripts</text><text class="t" x="674" y="86">step 6</text>
+          <rect class="seg" x="773" y="44" width="105" height="54" rx="4"/><text x="783" y="66">Saturation</text><text class="t" x="783" y="86">step 7</text>
+          <rect class="seg" x="882" y="44" width="105" height="54" rx="4"/><text x="892" y="66">Ownership</text><text class="t" x="892" y="86">step 8</text>
+        </svg></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 7</span>The article calls this eval-driven agent development. Define success early, measure it clearly, and keep iterating.</figcaption>
+    </figure>
+    <ol class="recipe from-0">
+      <li><b>Start early.</b> Teams wait because they think they need hundreds of tasks. 20 to 50 simple tasks drawn from real failures is a great start. Early changes have large effects, so small samples are enough.</li>
+      <li><b>Start with what you test by hand.</b> Use the checks you run before each release. In production, mine the bug tracker and support queue, and prioritize by user impact.</li>
+      <li><b>Write unambiguous tasks with reference solutions.</b> Two domain experts should reach the same pass or fail verdict on their own. A reference solution proves the task is solvable and the graders work.</li>
+      <li><b>Build balanced sets.</b> Test when a behavior should happen and when it shouldn’t. Claude.ai’s web search evals had queries that need a search, like the weather, and queries it should answer from memory, like “who founded Apple?”</li>
+      <li><b>Isolate every trial.</b> Start each one from a clean environment. Leftover files, cached data or resource exhaustion cause correlated failures that have nothing to do with the agent.</li>
+      <li><b>Design graders with care.</b> Grade the output, add partial credit, give judges an “Unknown” option, calibrate them against human experts, and make them hard to cheat.</li>
+      <li><b>Read the transcripts.</b> A failure should look fair. The transcript shows whether the agent made a real mistake or the grader rejected a valid solution.</li>
+      <li><b>Watch for saturation.</b> A suite at 100% gives no signal for improvement. Don’t take a score at face value until someone has read the details and some transcripts.</li>
+      <li><b>Give the suite owners.</b> At Anthropic, an evals team owns the infrastructure, and domain experts and product teams write most tasks. Product managers or salespeople can add a task as a PR with Claude Code.</li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>When the eval is wrong</span></p><h2>A low score can mean a broken eval, not a weak agent</h2></div>
+    <p>With frontier models, a 0% pass rate across many trials (0% pass@100) is most often a broken task. The article has four cases where the eval, not the agent, moved the score.</p>
+    <figure>
+      <div class="cases">
+        <div class="case" data-st="risk"><span class="chip risk">Hidden spec</span><h3>Terminal-Bench</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="A task asks for a script but names no filepath. The tests assume one, so the agent can fail through no fault of its own.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="50" rx="5"/><text class="q" x="120" y="18">“write a script”</text><text class="sub" x="120" y="37">no filepath given</text></g>
+            <path class="ve-e" d="M120 52V72"/>
+            <g class="ve-n is-st"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">tests assume a path</text></g>
+            <text class="vd" x="120" y="136">✗ not the agent’s fault</text>
+          </svg>
+          <p>Everything the grader checks should be clear from the task.</p></div>
+        <div class="case" data-st="risk"><span class="chip risk">Rigid grading</span><h3>CORE-Bench</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="The agent answers 96.12. The grader expects 96.124991 and so on, and marks it wrong.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="50" rx="5"/><text class="q" x="120" y="18">agent: 96.12</text><text class="sub" x="120" y="37">a correct answer</text></g>
+            <path class="ve-e" d="M120 52V72"/>
+            <g class="ve-n is-st"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">wants 96.124991…</text></g>
+            <text class="vd" x="120" y="136">✗ FAIL</text>
+          </svg>
+          <p>Plus ambiguous specs and stochastic tasks that could not be reproduced exactly.</p></div>
+        <div class="case" data-st="risk"><span class="chip risk">Wrong threshold</span><h3>METR time horizon</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="Tasks asked agents to optimize to a stated score threshold, but grading required exceeding it, so following the instructions was penalized.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="50" rx="5"/><text class="q" x="120" y="18">“reach this score”</text><text class="sub" x="120" y="37">the stated goal</text></g>
+            <path class="ve-e" d="M120 52V72"/>
+            <g class="ve-n is-st"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">grader: must exceed it</text></g>
+            <text class="vd" x="120" y="136">✗ obeying is punished</text>
+          </svg>
+          <p>Models that ignored the stated goal scored better than Claude.</p></div>
+        <div class="case" data-st="warn"><span class="chip warn">Shared state</span><h3>Anthropic internal</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="In some internal evals, Claude read the git history from previous trials and gained an unfair advantage, which inflates the score.">
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="236" height="50" rx="5"/><text class="q" x="120" y="18">trial 2 starts</text><text class="sub" x="120" y="37">env not reset</text></g>
+            <path class="ve-e" d="M120 52V72"/>
+            <g class="ve-n is-st"><rect class="sh" x="30" y="74" width="180" height="40" rx="5"/><text class="sub" x="120" y="94">reads old git history</text></g>
+            <text class="vd" x="120" y="136">▲ score inflated</text>
+          </svg>
+          <p>Shared state can make an agent look better than it is.</p></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 8</span>Three evals that scored a good agent too low, and one that scored it too high.</figcaption>
+    </figure>
+    <figure>
+      <svg class="ve-bars" viewBox="0 0 440 60" role="img" aria-label="Opus 4.5 on CORE-Bench scored 42 percent as first graded and 95 percent after the grading bugs were fixed and a less constrained scaffold was used.">
+        <text y="12">as graded</text><rect x="100" y="5" width="126" height="14" rx="2"/><text class="strong" x="234" y="12">42%</text>
+        <text y="42">after fixes</text><rect x="100" y="35" width="285" height="14" rx="2"/><text class="strong" x="393" y="42">95%</text>
+      </svg>
+      <figcaption><span class="fig-n">Fig. 9</span>Opus 4.5 on CORE-Bench. An Anthropic researcher fixed the grading bugs and used a less constrained scaffold. Same model, more than double the score.</figcaption>
+    </figure>
+  </section>
+
+  <section id="layers">
+    <div class="kicker-head"><p class="ve-label caps"><span>Beyond evals</span></p><h2>Automated evals are one slice of Swiss cheese</h2></div>
+    <p>Evals run thousands of tasks without touching real users. They still miss things. The article pairs them with five other ways to watch an agent, each with its own blind spots.</p>
+    <figure>
+      <div class="frame"><div class="well">
+        <svg class="ve-svg" viewBox="0 0 1000 290" role="img" aria-label="Six slices with holes: automated evals on every commit, production monitoring after launch, A/B tests once there is traffic, user feedback triaged constantly, transcript review sampled weekly, and human studies for calibration. Three failures slip through holes in early slices and are stopped by later ones.">
+          <text class="ve-el r" x="10" y="26">failures →</text>
+          <rect class="ch-slice is-key" x="110" y="40" width="34" height="160" rx="8"/>
+          <rect class="ch-slice" x="255" y="40" width="34" height="160" rx="8"/>
+          <rect class="ch-slice" x="400" y="40" width="34" height="160" rx="8"/>
+          <rect class="ch-slice" x="545" y="40" width="34" height="160" rx="8"/>
+          <rect class="ch-slice" x="690" y="40" width="34" height="160" rx="8"/>
+          <rect class="ch-slice" x="835" y="40" width="34" height="160" rx="8"/>
+          <circle class="ch-hole" cx="127" cy="80" r="9"/><circle class="ch-hole" cx="127" cy="120" r="9"/><circle class="ch-hole" cx="127" cy="170" r="9"/>
+          <circle class="ch-hole" cx="272" cy="120" r="9"/><circle class="ch-hole" cx="272" cy="170" r="9"/><circle class="ch-hole" cx="272" cy="60" r="7"/>
+          <circle class="ch-hole" cx="417" cy="120" r="9"/><circle class="ch-hole" cx="417" cy="170" r="9"/><circle class="ch-hole" cx="417" cy="88" r="6"/>
+          <circle class="ch-hole" cx="562" cy="170" r="9"/><circle class="ch-hole" cx="562" cy="70" r="8"/>
+          <circle class="ch-hole" cx="707" cy="170" r="9"/><circle class="ch-hole" cx="707" cy="105" r="7"/>
+          <circle class="ch-hole" cx="852" cy="140" r="8"/><circle class="ch-hole" cx="852" cy="75" r="6"/>
+          <path class="ch-leak" d="M20 80H252"/><text class="ch-stop" x="240" y="62">✕</text>
+          <path class="ch-leak" d="M20 120H542"/><text class="ch-stop" x="530" y="102">✕</text>
+          <path class="ch-leak" d="M20 170H832"/><text class="ch-stop" x="820" y="152">✕</text>
+          <text class="ch-name" x="127" y="226">Automated</text><text class="ch-name" x="127" y="246">evals</text><text class="ch-when" x="127" y="270">every change</text>
+          <text class="ch-name" x="272" y="226">Production</text><text class="ch-name" x="272" y="246">monitoring</text><text class="ch-when" x="272" y="270">after launch</text>
+          <text class="ch-name" x="417" y="226">A/B tests</text><text class="ch-when" x="417" y="270">with traffic</text>
+          <text class="ch-name" x="562" y="226">User</text><text class="ch-name" x="562" y="246">feedback</text><text class="ch-when" x="562" y="270">triage always</text>
+          <text class="ch-name" x="707" y="226">Transcript</text><text class="ch-name" x="707" y="246">review</text><text class="ch-when" x="707" y="270">weekly sample</text>
+          <text class="ch-name" x="852" y="226">Human</text><text class="ch-name" x="852" y="246">studies</text><text class="ch-when" x="852" y="270">to calibrate</text>
+        </svg></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 10</span>No single layer catches every issue. A failure that slips through one layer gets caught by another.</figcaption>
+    </figure>
+    <div class="cases">
+      <div class="case"><span class="ve-label">Automated evals</span><p>Fast, reproducible, no user impact. Cost up front and drift if not maintained. Can give false confidence if they don’t match real usage.</p></div>
+      <div class="case"><span class="ve-label">Production monitoring</span><p>Shows real behavior at scale. Reactive, so problems reach users first, and it lacks ground truth for grading.</p></div>
+      <div class="case"><span class="ve-label">A/B tests</span><p>Measure real outcomes like retention. Slow, need traffic, and only test changes you ship.</p></div>
+      <div class="case"><span class="ve-label">User feedback</span><p>Surfaces what you didn’t expect, with real examples. Sparse, skewed to severe issues, and users rarely say why.</p></div>
+      <div class="case"><span class="ve-label">Transcript review</span><p>Builds intuition and catches subtle issues. Slow, doesn’t scale, and mostly qualitative.</p></div>
+      <div class="case"><span class="ve-label">Human studies</span><p>Gold-standard ratings for subjective work. Expensive, slow, and raters disagree. Use them to calibrate LLM graders.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>What to remember</span></p><h2>Start small, grade outcomes, and read the transcripts</h2></div>
+    <ol class="recipe">
+      <li>Write 20 to 50 tasks from real failures now. Don’t wait for hundreds.</li>
+      <li>Make each task clear enough that two experts agree, and give it a reference solution that passes.</li>
+      <li>Grade the outcome in the environment, not the agent’s claim or its exact tool path. Add partial credit.</li>
+      <li>Use code graders first, LLM judges where needed, and humans to calibrate the judges.</li>
+      <li>Run several trials. Report pass^k when users need it to work every time.</li>
+      <li>Keep a regression suite near 100% and a capability suite with room to climb. Read transcripts before you trust either.</li>
+    </ol>
+  </section>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>Check yourself</span></p><h2>Three quick questions</h2></div>
+    <div class="qa">
+      <div class="case"><span class="ve-label">The agent ends with “Refund processed.” What should the grader check?</span><h3>The refund record, not the message</h3><p>That sentence is in the transcript. The outcome is the state of the system, such as a processed refund and a resolved ticket.</p></div>
+      <div class="case"><span class="ve-label">A support agent succeeds 75% of the time. A customer contacts it three times. Which metric?</span><h3>pass^k, about 42%</h3><p>The customer needs all three to go well, so 0.75³ is the honest number.</p></div>
+      <div class="case"><span class="ve-label">A new capability task scores 0% across 100 trials. What do you check first?</span><h3>The task and its grader</h3><p>With frontier models, 0% pass@100 most often means a broken task. Write a reference solution and see if it passes.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>Related lesson</span></p><h2>Step 5 says calibrate your LLM judges. Lesson 01 shows how.</h2></div>
+    <ol class="learn">
+      <li><a href="/study/evals-deep-dive"><span class="n">Lesson 01</span><b>Evals are fuzzy unit tests, and the judge can lie</b><small>Four biases of LLM judges, and how to check a judge against about 30 human-labeled cases.</small></a></li>
+    </ol>
+  </section>
+
+  <section class="sources" aria-label="Sources">
+    <p class="ve-label caps">Sources</p>
+    <ul class="src-list">
+      <li><a href="https://www.anthropic.com/research/demystifying-evals-for-ai-agents">Demystifying evals for AI agents, by Mikaela Grace, Jeremy Hadfield, Rodrigo Olivares and Jiri De Jonghe, Anthropic (January 2026)</a></li>
+    </ul>
+  </section>
+</div>
+<script>
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const linked = [...lessonRoot.querySelectorAll('[data-ref]')], refs = (el) => el.dataset.ref.split(' ');
+  let hovered = null, focused = null;
+  const paint = () => {
+    const keys = (hovered || focused)?.dataset.ref.split(' ') ?? [];
+    for (const t of linked) t.classList.toggle('is-lit', refs(t).some((k) => keys.includes(k)));
+    for (const svg of lessonRoot.querySelectorAll('svg')) svg.classList.toggle('has-lit', !!svg.querySelector('.is-lit'));
+  };
+  for (const el of linked) {
+    el.addEventListener('pointerenter', () => { hovered = el; paint(); });
+    el.addEventListener('pointerleave', () => { hovered = null; paint(); });
+    el.addEventListener('focus', () => { focused = el; paint(); });
+    el.addEventListener('blur', () => { focused = null; paint(); });
+  }
+
+  for (const root of lessonRoot.querySelectorAll('.ve-steps')) {
+    const parts = [...root.querySelectorAll('[data-s]')], caps = [...root.querySelectorAll('.ve-cap li')];
+    const range = root.querySelector('input[type=range]'), play = root.querySelector('[data-play]');
+    const n = caps.length; let i = 0, timer = null;
+    if (range) range.max = n - 1;
+    const show = (k) => {
+      i = Math.max(0, Math.min(n - 1, k));
+      for (const el of parts) { el.classList.toggle('on', +el.dataset.s <= i + 1); el.classList.toggle('now', +el.dataset.s === i + 1); }
+      caps.forEach((c, j) => c.hidden = j !== i);
+      if (range) range.value = i;
+    };
+    const stop = () => { clearInterval(timer); timer = null; if (play) play.textContent = 'Play'; };
+    root.addEventListener('click', (e) => { const b = e.target.closest('[data-go]'); if (b) { stop(); show(i + +b.dataset.go); } });
+    range?.addEventListener('input', () => { stop(); show(+range.value); });
+    play?.addEventListener('click', () => {
+      if (timer) return stop();
+      if (i === n - 1) show(0);
+      play.textContent = 'Pause';
+      timer = setInterval(() => (i < n - 1 ? show(i + 1) : stop()), 3500);
+    });
+    show(n - 1);
+  }
+
+  if (!still) {
+    lessonRoot.classList.add('js-motion');
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { io.unobserve(e.target); e.target.classList.add('in'); }
+    }, { rootMargin: '0px 0px -10% 0px' });
+    for (const el of lessonRoot.querySelectorAll(':scope > *')) io.observe(el);
+  }
+</script>

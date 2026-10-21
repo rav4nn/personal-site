@@ -5,7 +5,7 @@ import { FollowCta } from "@/app/components/FollowCta";
 import { getStudyLessons } from "@/app/lib/study";
 
 const description =
-  "Visual lessons made from talks and videos, with hand-drawn figures you can step through.";
+  "Visual lessons made from talks, videos and articles, with hand-drawn figures you can step through.";
 
 export const metadata: Metadata = {
   title: "Study | Hardeep Singh",

@@ -1,0 +1,15 @@
+{
+  "lesson": 2,
+  "title": "Grade what the agent did, not what it said",
+  "titleAccent": "not what it said",
+  "summary": "Notes on Anthropic’s guide to agent evals: tasks, trials and graders, why pass@k and pass^k tell opposite stories, and nine steps from zero to evals you can trust.",
+  "publishedAt": "2026-10-21",
+  "readMinutes": 10,
+  "tags": ["evals", "agents", "article-notes"],
+  "source": {
+    "kind": "article",
+    "title": "Demystifying evals for AI agents",
+    "author": "Anthropic",
+    "url": "https://www.anthropic.com/research/demystifying-evals-for-ai-agents"
+  }
+}
