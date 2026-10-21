@@ -8,7 +8,8 @@ import { Button } from "./Button";
 const POSTHOG_TOKEN = "phc_zpowEna9y5tRYDHwSbp477FazHxrHbaLeawGbABaFTsR";
 
 // Visits are counted cookieless until the visitor accepts; Reject keeps them
-// cookieless. Pageviews and pageleaves only: no autocapture, replay or surveys.
+// cookieless. Pageviews, pageleaves and outbound link clicks only: no
+// autocapture, replay or surveys.
 function loadPostHog() {
   return import("posthog-js").then(({ default: posthog }) => {
     if (!posthog.__loaded) {
@@ -71,6 +72,37 @@ export function CookieConsent() {
       .catch(() => {});
     return () => {
       cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.type === "auxclick" && e.button !== 1) return;
+      const a = (e.target as Element | null)?.closest?.("a[href]");
+      if (!(a instanceof HTMLAnchorElement)) return;
+      const isMail = a.protocol === "mailto:";
+      if (!isMail && a.host === location.host) return;
+      loadPostHog()
+        .then((posthog) =>
+          posthog.capture(
+            "outbound_link_clicked",
+            {
+              link_url: a.href,
+              link_host: isMail ? "mailto" : a.hostname,
+              link_text: (a.textContent || a.getAttribute("aria-label") || "").trim().slice(0, 100),
+            },
+            // A beacon survives the page unloading when the link opens in the same tab.
+            { transport: "sendBeacon" },
+          ),
+        )
+        .catch(() => {});
+    };
+    // auxclick catches middle-click "open in new tab".
+    document.addEventListener("click", onClick, true);
+    document.addEventListener("auxclick", onClick, true);
+    return () => {
+      document.removeEventListener("click", onClick, true);
+      document.removeEventListener("auxclick", onClick, true);
     };
   }, []);
 
