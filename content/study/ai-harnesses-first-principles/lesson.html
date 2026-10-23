@@ -1,0 +1,567 @@
+<style>
+/* Generated from source.html by scripts/study/import-lesson.mjs. Edit source.html, then run: node scripts/study/import-lesson.mjs ai-harnesses-first-principles */
+.study-lesson :where(h1, h2, h3, h4, h5, h6) { font-size: revert; font-weight: revert; }
+.study-lesson :where(h3, h4) { font-weight: bold !important; letter-spacing: normal !important; }
+.study-lesson :where(code)::before, .study-lesson :where(code)::after { content: none; }
+.study-lesson :where(table) { display: table; max-width: none; overflow-x: visible; white-space: normal; }
+.study-lesson :where(ol, ul, menu) { list-style: revert; padding: revert; }
+.study-lesson :where(img, svg, video, canvas, audio, iframe, embed, object) { display: revert; vertical-align: revert; }
+.study-lesson :where(iframe) { margin-bottom: revert; }
+.study-lesson :where(button, [type="button"], [type="reset"], [type="submit"]) { background-color: revert; background-image: revert; }
+.study-lesson :where(a) { color: revert; text-decoration: revert; }
+.study-lesson .code-frame { justify-content: revert; overflow: revert; border-radius: revert; }
+.study-lesson {
+    color-scheme: light;
+    --bg: #F7F7F8; --surface: #ffffff; --inset: #EDEEF0; --border: #D6DADE; --border-bright: #8B93A0;
+    --text: #0f172a; --text-dim: #5E5F6E; --text-faint: #A5AEB8; --accent: #6C47FF; --accent-dim: #E6E2F9;
+    --ok: #15803d; --warn: #a16207; --risk: #c2410c; --info: #0885c7;
+    --node-top: #ffffff; --lift: rgb(14 22 34 / .10); --halo: 28%;
+    --font-display: var(--font-geist-sans), system-ui, sans-serif;
+    --font-body: var(--font-geist-sans), system-ui, sans-serif;
+    --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+    --t-label: .75rem; --t-small: .875rem; --t-body: 1rem; --t-lead: 1.25rem; --t-h2: 1.75rem; --t-h1: clamp(2.25rem, 5.5vw, 3.75rem);
+    --s-1: .25rem; --s-2: .5rem; --s-3: .75rem; --s-4: 1rem; --s-5: 1.5rem; --s-6: 2rem; --s-7: 3rem; --s-8: 4.5rem;
+    --r-1: 999px; --r-2: 12px; --r-3: 20px;
+    --ease: cubic-bezier(.16,1,.3,1); --fast: 150ms; --med: 300ms; --slow: 500ms;
+  }
+
+  .study-lesson { font-size: 16px; }
+  .study-lesson * { box-sizing: border-box; margin: 0; }
+  .study-lesson { color: var(--text); font: 400 var(--t-body)/1.6 var(--font-body); text-wrap: pretty; font-kerning: normal; font-synthesis: none; -webkit-font-smoothing: antialiased; }
+  .study-lesson ::selection { background: #47a3f3; color: #fefefe; }
+  .study-lesson :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .study-lesson a { color: var(--accent); text-underline-offset: .2em; }
+  .study-lesson .opener { display: grid; gap: 0; margin-top: calc(-1 * var(--s-6)); }
+  .study-lesson .opener > .row { position: relative; padding-block: var(--s-6); }
+  .study-lesson .opener > .row::after { content: ''; position: absolute; left: -100vw; right: -100vw; bottom: 0; height: 1px; background: var(--border); }
+  .study-lesson .opener > .row.first { padding-block: 0 var(--s-4); }
+  .study-lesson .crumbs { display: flex; justify-content: space-between; align-items: center; gap: var(--s-4); font: 500 var(--t-small) var(--font-mono); color: var(--text-dim); }
+  .study-lesson .crumbs a { color: var(--text-dim); text-decoration: none; } .study-lesson .crumbs a:hover { color: var(--accent); }
+  .study-lesson .crumbs .sep { color: var(--text-faint); margin-inline: var(--s-2); }
+  .study-lesson .crumbs .lesson { color: var(--accent); }
+  .study-lesson .tags { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-bottom: var(--s-5); }
+  .study-lesson .tags span { font: 600 .75rem var(--font-mono); color: var(--accent); background: var(--accent-dim); border-radius: 999px; padding: 2px 10px; text-transform: uppercase; letter-spacing: .04em; }
+  .study-lesson .opener h1 { font-size: clamp(2.5rem, 6.2vw, 4.75rem); line-height: 1.04; letter-spacing: -.05em !important; max-width: 19ch; margin: 0 0 var(--s-5); }
+  .study-lesson .opener h1 em { font-style: normal; color: var(--accent); }
+  .study-lesson .opener .lead { max-width: 58ch; font-size: 1.3125rem; }
+  .study-lesson .byline { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4) var(--s-6); }
+  .study-lesson .who { display: flex; align-items: center; gap: var(--s-3); }
+  .study-lesson .avatar { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font: 600 .875rem var(--font-body); color: var(--accent); background: var(--accent-dim); box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px var(--border); }
+  .study-lesson .who b { display: block; font-weight: 600; line-height: 1.3; } .study-lesson .who small { color: var(--text-dim); font-size: var(--t-small); }
+  .study-lesson .facts { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); color: var(--text-dim); font-size: var(--t-small); }
+  .study-lesson .facts span { display: inline-flex; align-items: center; gap: 6px; }
+  .study-lesson .facts svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+  .study-lesson .watch { margin-left: auto; display: inline-flex; align-items: center; gap: var(--s-2); background: #3C3C3F; color: #fff; text-decoration: none; font: 500 var(--t-small) var(--font-body); padding: 10px 18px; border-radius: 999px; transition: background var(--fast) var(--ease); }
+  .study-lesson .watch:hover, .study-lesson .watch:focus-visible { background: var(--text); }
+  .study-lesson .watch svg { width: 14px; height: 14px; fill: currentColor; }
+  .study-lesson .learn-h { font: 600 var(--t-label) var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: var(--s-4); }
+  .study-lesson .learn { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-2); overflow: hidden; }
+  .study-lesson .learn a { display: grid; gap: var(--s-1); height: 100%; background: var(--surface); padding: var(--s-4); text-decoration: none; color: var(--text); transition: background var(--fast) var(--ease); }
+  .study-lesson .learn a:hover, .study-lesson .learn a:focus-visible { background: #FAF9FF; }
+  .study-lesson .learn .n { font: 600 var(--t-label) var(--font-mono); color: var(--accent); }
+  .study-lesson .learn b { font-weight: 600; line-height: 1.3; }
+  .study-lesson .learn small { color: var(--text-dim); font-size: var(--t-small); line-height: 1.45; }
+  .study-lesson .opener + figure { margin-top: calc(var(--s-6) - var(--s-8)); }
+  @media (max-width: 40rem) { .study-lesson .watch { margin-left: 0; } }
+  .study-lesson { max-width: 64rem; margin: 0 auto; padding: var(--s-8) var(--s-5); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-8); }
+  .study-lesson section, .study-lesson figure, .study-lesson header { min-width: 0; }
+  .study-lesson section { display: grid; gap: var(--s-5); scroll-margin-top: var(--s-6); }
+  .study-lesson header { display: grid; gap: var(--s-4); }
+  .study-lesson header + figure { margin-top: calc(var(--s-6) - var(--s-8)); }
+  .study-lesson h1, .study-lesson h2 { text-box: trim-both cap alphabetic; font-family: var(--font-display); font-weight: 500; letter-spacing: -.05em !important; }
+  .study-lesson h2 { letter-spacing: -.035em !important; }
+  .study-lesson h1 { font-size: var(--t-h1); line-height: 1.05; letter-spacing: -.03em; text-wrap: balance; max-width: 18ch; margin-bottom: var(--s-2); }
+  .study-lesson h2 { font-size: var(--t-h2); line-height: 1.2; letter-spacing: -.01em; text-wrap: balance; max-width: 34ch; }
+  .study-lesson h3 { font-size: var(--t-body); line-height: 1.3; font-weight: 600 !important; }
+  .study-lesson p { max-width: 65ch; }
+  .study-lesson .kicker-head { display: grid; gap: var(--s-5); }
+  .study-lesson .kicker-head .ve-label { max-width: none; position: relative; display: flex; justify-content: center; align-items: center; }
+  .study-lesson .kicker-head .ve-label::before { content: ''; position: absolute; inset-inline: 0; top: 50%; height: 1px; background: color-mix(in srgb, var(--border) 50%, transparent); }
+  .study-lesson .kicker-head .ve-label span { position: relative; z-index: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 200px; padding: 2px var(--s-5); font: 500 var(--t-small) var(--font-body); letter-spacing: .02em; color: #475569; }
+  .study-lesson .eyebrow { display: flex; align-items: center; gap: var(--s-2); font: 600 var(--t-label) var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  .study-lesson .eyebrow::before { content: ''; width: .5rem; height: .5rem; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 3px rgba(108,71,255,.15); }
+  .study-lesson .ve-label { font: 500 var(--t-label) var(--font-mono); color: var(--text-dim); }
+  .study-lesson .caps { text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+  .study-lesson .lead { font-size: var(--t-lead); line-height: 1.5; color: var(--text-dim); max-width: 46ch; }
+  .study-lesson .lead b { color: var(--text); font-weight: 600; }
+  .study-lesson .meta { font: 500 var(--t-label) var(--font-mono); color: var(--text-dim); font-variant-numeric: tabular-nums; }
+  .study-lesson code { font: .875em var(--font-mono); font-variant-ligatures: none; }
+
+  .study-lesson .frame { border: 1px solid var(--border); border-radius: var(--r-3); padding: var(--s-2); background: color-mix(in srgb, var(--surface) 60%, transparent); }
+  .study-lesson .well { background: var(--inset); border-radius: var(--r-2); box-shadow: 0 2px 1.5px 0 #A5AEB852 inset; padding: var(--s-5); overflow-x: auto; }
+  .study-lesson figcaption { font-size: var(--t-body); color: var(--text-dim); margin-top: var(--s-3); max-width: 65ch; }
+  .study-lesson .fig-n { font: 600 var(--t-label) var(--font-mono); color: var(--text); margin-right: var(--s-2); }
+  .study-lesson .ve-svg { width: 100%; min-width: 760px; height: auto; display: block; font: 600 17px var(--font-body); }
+  .study-lesson .ve-n .sh { fill: url(#ve-node); stroke: var(--border-bright); stroke-width: 1.5; filter: drop-shadow(0 6px 14px var(--lift)); transition: stroke var(--fast) var(--ease), opacity var(--med) var(--ease); }
+  .study-lesson .ve-n .lid { fill: var(--node-top); }
+  .study-lesson .ve-n.is-key .sh { fill: #F3F0FE; stroke: var(--accent); stroke-width: 2; filter: drop-shadow(0 0 16px color-mix(in srgb, var(--accent) var(--halo), transparent)); }
+  .study-lesson .ve-n text { fill: var(--text); text-anchor: middle; dominant-baseline: central; }
+  .study-lesson .ve-n .sub { fill: var(--text-dim); font: 500 14px var(--font-mono); }
+  .study-lesson .ve-n .gl { fill: none; stroke: var(--text-dim); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+  .study-lesson .ve-n.is-key .gl { stroke: var(--accent); }
+  .study-lesson .ve-e { fill: none; stroke: var(--text-dim); stroke-width: 1.75; marker-end: url(#ve-ah); }
+  .study-lesson .ve-e.is-hot { stroke: var(--accent); stroke-width: 2.75; filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 55%, transparent)); }
+  .study-lesson .ve-e.is-async { stroke-dasharray: 6 5; }
+  .study-lesson .ve-el { fill: var(--text-dim); font: 500 14px var(--font-mono); text-anchor: middle; paint-order: stroke; stroke: var(--bg); stroke-width: 5px; stroke-linejoin: round; }
+  .study-lesson .ve-el.l { text-anchor: end; } .study-lesson .ve-el.r { text-anchor: start; }
+
+  .study-lesson .ve-ref { text-decoration: underline dotted var(--text-dim) 1px; text-underline-offset: .22em; border-radius: var(--r-1); transition: background var(--fast) var(--ease); }
+  .study-lesson .ve-ref.is-lit { background: var(--accent-dim); text-decoration-color: var(--accent); }
+  .study-lesson svg [data-ref] { transition: opacity var(--med) var(--ease); }
+  .study-lesson svg.has-lit path[data-ref]:not(.is-lit), .study-lesson svg.has-lit g[data-ref]:not(.is-lit) .sh { opacity: .25; }
+  .study-lesson svg.has-lit g[data-ref]:not(.is-lit) text, .study-lesson svg.has-lit text[data-ref]:not(.is-lit) { fill: var(--text-dim); }
+  .study-lesson .ve-n.is-lit .sh { stroke: var(--accent); }
+  .study-lesson .ve-e.is-lit { stroke: var(--accent); }
+  .study-lesson .ve-el.is-lit { fill: var(--text); }
+  .study-lesson .ve-steps [data-s] { transition: opacity var(--slow) var(--ease), stroke-dashoffset var(--slow) var(--ease); }
+  .study-lesson .ve-steps [data-s]:not(.on) { opacity: .15; }
+  .study-lesson .ve-steps g[data-s]:not(.on) text, .study-lesson .ve-steps text[data-s]:not(.on) { opacity: 0; }
+  .study-lesson .ve-steps path[pathLength][data-s] { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .study-lesson .ve-steps path[pathLength][data-s].on { stroke-dashoffset: 0; }
+  .study-lesson .ve-steps .ve-n.now .sh { stroke: var(--accent); }
+  .study-lesson .ve-player { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; align-items: center; gap: var(--s-2) var(--s-3); margin-top: var(--s-4); }
+  .study-lesson .ve-cap { grid-column: 1 / -1; list-style: none; padding: 0; min-height: 3.2em; }
+  .study-lesson .ve-cap li::before { content: attr(data-n); font: 600 var(--t-label) var(--font-mono); color: var(--accent); margin-right: var(--s-3); font-variant-numeric: tabular-nums; }
+  .study-lesson .ve-player input { accent-color: var(--accent); min-width: 0; }
+  .study-lesson button { font: 500 var(--t-small) var(--font-mono); color: var(--text); background: var(--surface); border: 1px solid var(--border-bright); border-radius: var(--r-1); padding: var(--s-2) var(--s-3); cursor: pointer; transition: border-color var(--fast) var(--ease); }
+  .study-lesson button:hover, .study-lesson button:focus-visible { border-color: var(--accent); }
+  .study-lesson .tl a { text-decoration: none; }
+  .study-lesson .tl a rect { transition: stroke var(--fast) var(--ease); }
+  .study-lesson .tl a:hover rect, .study-lesson .tl a:focus-visible rect { stroke: var(--accent); stroke-width: 2; }
+  .study-lesson .tl .seg { fill: url(#ve-node); stroke: var(--border-bright); stroke-width: 1.25; }
+  .study-lesson .tl .seg.demo { fill: #F3F0FE; }
+  .study-lesson .tl text { fill: var(--text); font: 600 15px var(--font-body); }
+  .study-lesson .tl .t { fill: var(--text-dim); font: 500 13px var(--font-mono); }
+  .study-lesson .tl .here { stroke: var(--accent); stroke-width: 2.5; }
+  .study-lesson .tl .here-l { fill: var(--accent); font: 600 14px var(--font-mono); }
+  .study-lesson .cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr)); gap: var(--s-4); }
+  .study-lesson .case { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-2); box-shadow: 0 4px 6px -1px rgb(0 0 0 / .06), 0 0 0 1px rgb(99 102 241 / .10); padding: var(--s-4); display: grid; gap: var(--s-3); align-content: start; min-width: 0; }
+  .study-lesson .case[data-st=ok] { --st: var(--ok); } .study-lesson .case[data-st=warn] { --st: var(--warn); } .study-lesson .case[data-st=risk] { --st: var(--risk); }
+  .study-lesson .case p { font-size: var(--t-body); color: var(--text-dim); }
+  .study-lesson .ve-mini { width: 100%; height: auto; font: 600 15px var(--font-body); }
+  .study-lesson .ve-mini .ve-n .sh { filter: none; }
+  .study-lesson .ve-mini .ve-n .sub { font-size: 13px; }
+  .study-lesson .ve-mini .q { fill: var(--text); font: 500 14px var(--font-body); }
+  .study-lesson .ve-mini .is-st.ve-e { stroke: var(--st); stroke-width: 2.75; }
+  .study-lesson .ve-mini .is-st .sh { stroke: var(--st); stroke-width: 2; }
+  .study-lesson .ve-mini .is-st .sub, .study-lesson .ve-mini .vd { fill: var(--st); }
+  .study-lesson .ve-mini .vd { font: 600 14px var(--font-mono); text-anchor: middle; }
+  .study-lesson .ve-mini .pick { fill: none; stroke: var(--st); stroke-width: 2; stroke-dasharray: 4 3; }
+
+  .study-lesson .chip { display: inline-flex; align-items: center; gap: var(--s-2); font: 600 var(--t-label) var(--font-mono); padding: 2px var(--s-3); border: 1px solid currentColor; border-radius: var(--r-1); white-space: nowrap; justify-self: start; }
+  .study-lesson .chip::before { content: ''; width: .5rem; height: .5rem; background: currentColor; }
+  .study-lesson .chip.ok { color: var(--ok); } .study-lesson .chip.ok::before { border-radius: 50%; }
+  .study-lesson .chip.warn { color: var(--warn); } .study-lesson .chip.warn::before { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .study-lesson .chip.risk { color: var(--risk); }
+  .study-lesson .scenario { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin-bottom: var(--s-4); }
+  .study-lesson .bubble { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-2); box-shadow: 0 0 0 1px rgba(14,22,34,.04), 0 2px 4px 0 rgba(0,0,0,.06); padding: var(--s-4); }
+  .study-lesson .bubble .ve-label { display: block; margin-bottom: var(--s-1); }
+
+  .study-lesson .codebox { border-radius: var(--r-2); box-shadow: 0 4px 6px -1px rgb(0 0 0 / .08), 0 0 0 1px rgb(99 102 241 / .15); overflow: hidden; margin-top: var(--s-4); }
+  .study-lesson .code-frame { display: flex; align-items: center; gap: var(--s-3); height: 2.25rem; padding: 0 var(--s-4); background: #fff; border-bottom: 1px solid #E2E3E5; }
+  .study-lesson .code-frame i { width: 10px; height: 10px; border-radius: 50%; background: #E2E3E5; display: inline-block; margin-right: 2px; }
+  .study-lesson .code-frame span { font: var(--t-small) var(--font-mono); color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .study-lesson .term { font: 500 var(--t-small)/1.75 var(--font-mono); background: var(--surface); padding: var(--s-5); overflow-x: auto; white-space: pre; font-variant-ligatures: none; letter-spacing: .02em; }
+  .study-lesson .term .ok { color: var(--ok); } .study-lesson .term .risk { color: var(--risk); } .study-lesson .term .dim { color: var(--text-dim); }
+
+
+  .study-lesson .recipe { counter-reset: r; list-style: none; padding: 0; display: grid; gap: var(--s-3); max-width: 65ch; }
+  .study-lesson .recipe li { counter-increment: r; padding-left: var(--s-6); position: relative; }
+  .study-lesson .recipe li::before { content: counter(r); position: absolute; left: 0; top: .15em; font: 600 var(--t-label)/1.4rem var(--font-mono); color: var(--accent); background: var(--accent-dim); border-radius: 50%; width: 1.4rem; height: 1.4rem; text-align: center; }
+  .study-lesson .qa { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+  .study-lesson .qa .case h3 { font-family: var(--font-display); font-weight: 500 !important; font-size: var(--t-lead); line-height: 1.3; }
+
+  .study-lesson .src-list { list-style: none; padding: 0; display: grid; gap: var(--s-2); }
+  .study-lesson .sources { border-top: 1px solid var(--border); padding-top: var(--s-4); display: grid; gap: var(--s-2); color: var(--text-dim); }
+
+  .study-lesson .chip.info { color: var(--info); } .study-lesson .chip.info::before { border-radius: 2px; }
+  .study-lesson .case[data-st=info] { --st: var(--info); }
+  .study-lesson .recipe b { font-weight: 600; }
+  .study-lesson .ve-n.is-ext .sh { stroke-dasharray: 6 5; filter: none; }
+  .study-lesson .ve-el.ok { fill: var(--ok); } .study-lesson .ve-el.warn { fill: var(--warn); } .study-lesson .ve-el.strong { fill: var(--text); }
+  .study-lesson .lifeline { stroke: var(--border-bright); stroke-width: 1; stroke-dasharray: 3 4; }
+  .study-lesson .bound { fill: none; stroke: var(--border-bright); stroke-width: 1; stroke-dasharray: 5 4; }
+  .study-lesson .tl .seg.hope { fill: none; stroke-dasharray: 6 5; }
+
+  .study-lesson .quiz .picks { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .study-lesson .quiz .picks .right { border-color: var(--ok); color: var(--ok); }
+  .study-lesson .quiz .picks .wrong { border-color: var(--risk); color: var(--risk); }
+  .study-lesson .quiz .verdict:empty { display: none; }
+  @media print { .study-lesson .quiz .ans[hidden] { display: grid; } .study-lesson .quiz .picks, .study-lesson .quiz .verdict { display: none; } }
+  .study-lesson .quiz .ans:not([hidden]) { display: grid; gap: var(--s-2); }
+
+  .study-lesson.js-motion > * { transition: opacity var(--slow) var(--ease), transform var(--slow) var(--ease); }
+  .study-lesson.js-motion > :not(.in) { opacity: 0; transform: translateY(1rem); }
+  @media (prefers-reduced-motion: reduce) { .study-lesson * { transition: none !important; } }
+
+  @media print {
+    .study-lesson { --bg: #fff; --surface: #fff; --border: #e3e3dc; --border-bright: #8e8e8a; --text: #17191c; --text-dim: #575c63; --accent: #2c4cd0; --ok: #1d7443; --warn: #836000; --risk: #b3301d; --node-top: #fff; }
+    .study-lesson .ve-player button, .study-lesson .ve-player input { display: none; }
+    .study-lesson .frame { overflow: visible; background: #fff; } .study-lesson .ve-svg { min-width: 0; }
+    .study-lesson .frame, .study-lesson .case { break-inside: avoid; } .study-lesson h2 { break-after: avoid; }
+    .study-lesson svg * { filter: none !important; }
+    .study-lesson.js-motion > * { opacity: 1 !important; transform: none !important; }
+    .study-lesson .ve-steps [data-s]:not(.on), .study-lesson .ve-steps g[data-s]:not(.on) text, .study-lesson .ve-steps text[data-s]:not(.on) { opacity: 1; }
+    .study-lesson .ve-steps path[pathLength][data-s] { stroke-dashoffset: 0; }
+  }
+</style>
+<div class="study-lesson">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <marker id="ve-ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker>
+    <linearGradient id="ve-node" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--node-top)"/><stop offset="1" style="stop-color:var(--surface)"/></linearGradient>
+  </defs>
+</svg>
+<header class="opener">
+    <div class="row first crumbs"><span><a href="/">hardeep.cv</a><span class="sep">/</span><a href="/study">Study</a><span class="sep">/</span>Harness</span><span class="lesson">Lesson 02</span></div>
+    <div class="row">
+      <div class="tags"><span>#agents</span><span>#harnesses</span><span>#talk-notes</span></div>
+      <h1>The harness, <em>not the prompt</em>, makes an agent reliable</h1>
+      <p class="lead">A harness is the code around the model: <span class="ve-ref" data-ref="tools" tabindex="0">tools</span>, <span class="ve-ref" data-ref="context" tabindex="0">context</span>, <span class="ve-ref" data-ref="guard" tabindex="0">guardrails</span>, the <span class="ve-ref" data-ref="loop" tabindex="0">loop</span>, and a <b class="ve-ref" data-ref="verify" tabindex="0">verify step</b>. In this talk, an old model learns to upvote a story on Hacker News, and the prompt never changes.</p>
+    </div>
+    <div class="row byline">
+      <div class="who"><span class="avatar" aria-hidden="true">TK</span><span><b>Tejas Kumar</b><small>AI Developer Advocate, IBM · talk notes</small></span></div>
+      <div class="facts"><span><svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="11" rx="2"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg>October 23, 2026</span><span><svg viewBox="0 0 16 16"><path d="M4 1.5h8M4 14.5h8M5 1.5c0 4 6 4 6 6.5s-6 2.5-6 6.5M11 1.5c0 4-6 4-6 6.5s6 2.5 6 6.5"/></svg>7 min read</span><span><svg viewBox="0 0 16 16"><rect x="1.5" y="3" width="13" height="10" rx="2.5"/><path d="M6.5 6v4l3.5-2z"/></svg>20 min talk</span></div>
+      <a class="watch" href="https://www.youtube.com/watch?v=C_GG5g38vLU" target="_blank" rel="noopener"><svg viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z"/></svg>Watch the talk</a>
+    </div>
+    <div class="row">
+      <p class="learn-h">What you’ll learn</p>
+      <ol class="learn">
+        <li><a href="#parts"><span class="n">01</span><b>What a harness is</b><small>Six parts, and only one of them is the model.</small></a></li>
+        <li><a href="#why"><span class="n">02</span><b>Why you need one</b><small>You rent the model. Reliability must come from your code.</small></a></li>
+        <li><a href="#demo"><span class="n">03</span><b>The demo</b><small>One prompt, one old model, and a harness that grows.</small></a></li>
+        <li><a href="#practice"><span class="n">04</span><b>Where a fix goes</b><small>Sort five failures into the part that fixes them.</small></a></li>
+      </ol>
+    </div>
+  </header>
+
+  <figure class="ve-steps" id="parts" style="scroll-margin-top:2rem">
+    <div class="frame"><div class="well">
+      <svg class="ve-svg" viewBox="0 0 1000 360" role="img" aria-label="An agent harness. A task starts the agent loop. Guardrails cap the loop. The loop asks the model for the next step, runs tools from the tool registry, and trims its history with context management. When the loop ends, its final answer and trace go to verify, which reports an honest result: passed true or false.">
+        <path class="ve-e" data-s="3" data-ref="loop" pathLength="1" d="M130 190H188"/>
+        <text class="ve-el" data-s="3" data-ref="loop" x="159" y="181">starts</text>
+        <path class="ve-e" data-s="3" data-ref="loop" pathLength="1" d="M360 170C405 170 405 70 448 70"/>
+        <text class="ve-el r" data-s="3" data-ref="loop" x="412" y="122">asks</text>
+        <path class="ve-e" data-s="3" data-ref="loop tools" pathLength="1" d="M360 210C405 210 405 310 448 310"/>
+        <text class="ve-el r" data-s="3" data-ref="loop tools" x="412" y="256">runs tool</text>
+        <path class="ve-e" data-s="4" data-ref="context" pathLength="1" d="M275 230V268"/>
+        <text class="ve-el r" data-s="4" data-ref="context" x="283" y="254">trims</text>
+        <path class="ve-e" data-s="5" data-ref="guard" pathLength="1" d="M275 110V148"/>
+        <text class="ve-el r" data-s="5" data-ref="guard" x="283" y="134">caps</text>
+        <path class="ve-e is-hot" data-s="6" data-ref="verify" pathLength="1" d="M360 190H758"/>
+        <text class="ve-el" data-s="6" data-ref="verify" x="560" y="181">final answer + trace</text>
+        <path class="ve-e" data-s="6" data-ref="verify" pathLength="1" d="M860 230V268"/>
+        <text class="ve-el r" data-s="6" data-ref="verify" x="868" y="254">reports</text>
+
+        <g class="ve-n" data-s="1" transform="translate(10 150)"><rect class="sh" width="120" height="80" rx="6"/><path class="gl" transform="translate(12 12)" d="M0 0h16v11H6l-4 4v-4H0z"/><text x="60" y="34">Task</text><text class="sub" x="60" y="58">one prompt</text></g>
+        <g class="ve-n" data-s="1" transform="translate(450 30)"><rect class="sh" width="190" height="80" rx="6"/><path class="gl" transform="translate(12 12)" d="M0 0h16v16H0zM5 5h6v6H5z"/><text x="95" y="32">Model</text><text class="sub" x="95" y="56">rented black box</text></g>
+        <g class="ve-n" data-s="2" data-ref="tools" transform="translate(450 270)"><rect class="sh" width="190" height="80" rx="6"/><path class="gl" transform="translate(12 12)" d="M0 0h7v7H0zM9 0h7v7H9zM0 9h7v7H0zM9 9h7v7H9z"/><text x="95" y="32">Tool registry</text><text class="sub" x="95" y="56">browser tools</text></g>
+        <g class="ve-n" data-s="3" data-ref="loop" transform="translate(190 150)"><rect class="sh" width="170" height="80" rx="6"/><path class="gl" transform="translate(12 12)" d="M14 8a6 6 0 1 1-2-4.5M14 1v4h-4"/><text x="85" y="32">Agent loop</text><text class="sub" x="85" y="56">repeats until done</text></g>
+        <g class="ve-n" data-s="4" data-ref="context" transform="translate(190 270)"><rect class="sh" width="170" height="80" rx="6"/><path class="gl" transform="translate(12 12)" d="M0 2h16M0 7h16M0 12h9"/><text x="85" y="32">Context</text><text class="sub" x="85" y="56">trims history</text></g>
+        <g class="ve-n" data-s="5" data-ref="guard" transform="translate(190 30)"><rect class="sh" width="170" height="80" rx="6"/><path class="gl" transform="translate(12 12)" d="M8 0l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V3z"/><text x="85" y="32">Guardrails</text><text class="sub" x="85" y="56">15 steps · 50 msgs</text></g>
+        <g class="ve-n is-key" data-s="6" data-ref="verify" transform="translate(760 150)"><rect class="sh" width="200" height="80" rx="6"/><path class="gl" transform="translate(12 12)" d="M1 8l5 5L15 3"/><text x="100" y="32">Verify</text><text class="sub" x="100" y="56">checks the trace</text></g>
+        <g class="ve-n" data-s="6" data-ref="verify" transform="translate(760 270)"><rect class="sh" width="200" height="80" rx="6"/><text x="100" y="32">Honest result</text><text class="sub" x="100" y="56">passed: true / false</text></g>
+      </svg></div>
+    </div>
+    <div class="ve-player">
+      <ol class="ve-cap">
+        <li data-n="1/6">The model reads messages and picks the next step. You rent it, and you cannot see inside it.</li>
+        <li data-n="2/6">The tool registry lists what the agent can do. In the demo these are browser tools, such as go to a page, click, and read text.</li>
+        <li data-n="3/6">The agent loop sends the history to the model, runs the tool it picks, adds the result, and asks again.</li>
+        <li data-n="4/6">Context management trims or compacts the history, so a long run does not overflow the context window.</li>
+        <li data-n="5/6">Guardrails are hard limits on the loop. The demo stops at 15 iterations or 50 messages.</li>
+        <li data-n="6/6">Verify is plain code that runs after the loop. It checks what happened, not what the model says happened.</li>
+      </ol>
+      <button data-go="-1" aria-label="Previous step">←</button>
+      <button data-play>Play</button>
+      <input type="range" min="0" value="0" aria-label="Step">
+      <button data-go="1" aria-label="Next step">→</button>
+    </div>
+    <figcaption><span class="fig-n">Fig. 1</span>An agent harness is everything around the model. The talk lists six parts: tool registry, model, context management, guardrails, agent loop, and verify.</figcaption>
+  </figure>
+
+  <section id="why">
+    <div class="kicker-head"><p class="ve-label caps"><span>Why a harness</span></p><h2>You rent the model, so reliability must come from your code</h2></div>
+    <figure>
+      <div class="frame"><div class="well">
+        <svg class="ve-svg" viewBox="0 0 1000 230" role="img" aria-label="Your harness pays a provider for a rented model, per token or 20 dollars a month for Claude Pro. The model sends back answers that vary. The model is non-deterministic and the provider can change how it routes requests and handles context. You can test and fix only the harness side.">
+          <path class="ve-e" d="M350 90H648"/>
+          <text class="ve-el" x="500" y="81">pays per token or $20/month</text>
+          <path class="ve-e is-async" d="M650 128H352"/>
+          <text class="ve-el" x="500" y="119">answers vary</text>
+          <g class="ve-n is-key" transform="translate(20 64)"><rect class="sh" width="330" height="90" rx="6"/><text x="165" y="34">Your harness</text><text class="sub" x="165" y="60">you write it, test it, fix it</text></g>
+          <g class="ve-n is-ext" transform="translate(650 64)"><rect class="sh" width="330" height="90" rx="6"/><text x="165" y="34">Rented model</text><text class="sub" x="165" y="60">a black box behind an API</text></g>
+          <text class="ve-el r ok" x="20" y="190">● you control this side</text>
+          <text class="ve-el r warn" x="650" y="190">▲ non-deterministic</text>
+          <text class="ve-el r warn" x="650" y="214">▲ routing and context can change</text>
+        </svg></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 2</span>Most of us are not “token billionaires”. We pay rent for a model we cannot inspect, and the provider can change it at any time.</figcaption>
+    </figure>
+    <p>Think of a climbing harness. It ties you to the mountain, which does not move, so you do not fall. A dog harness keeps the dog from running off and, in his words, from bankrupting you with tokens. An agent harness ties a model that changes to code that does not.</p>
+  </section>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>Two meanings</span></p><h2>“Harness” means two things, and this talk is about the agent kind</h2></div>
+    <figure>
+      <div class="cases">
+        <div class="case"><span class="ve-label">Machine learning</span><h3>Eval harness</h3>
+          <svg class="ve-mini" viewBox="0 0 240 116" role="img" aria-label="An eval harness gives a model inputs and scores the quality of its outputs, like a test suite and a test runner.">
+            <path class="ve-e" d="M66 40H88"/><path class="ve-e" d="M154 40H176"/>
+            <g class="ve-n"><rect class="sh" x="2" y="16" width="64" height="48" rx="5"/><text x="34" y="40">inputs</text></g>
+            <g class="ve-n"><rect class="sh" x="90" y="16" width="64" height="48" rx="5"/><text x="122" y="40">model</text></g>
+            <g class="ve-n"><rect class="sh" x="178" y="16" width="60" height="48" rx="5"/><text x="208" y="40">score</text></g>
+            <text class="ve-el" x="120" y="100">test suite + runner</text>
+          </svg>
+          <p>It measures a model. Nothing runs in production.</p></div>
+        <div class="case"><span class="ve-label">AI engineering</span><h3>Agent harness</h3>
+          <svg class="ve-mini" viewBox="0 0 240 116" role="img" aria-label="An agent harness wraps a running agent and its tools, and controls what happens at run time.">
+            <rect class="bound" x="2" y="2" width="236" height="76" rx="6"/>
+            <text class="ve-el r" x="12" y="18">harness</text>
+            <path class="ve-e" d="M110 50H128"/>
+            <g class="ve-n"><rect class="sh" x="22" y="28" width="88" height="40" rx="5"/><text x="66" y="48">agent</text></g>
+            <g class="ve-n"><rect class="sh" x="130" y="28" width="88" height="40" rx="5"/><text x="174" y="48">tools</text></g>
+            <text class="ve-el" x="120" y="100">wraps a live agent</text>
+          </svg>
+          <p>It controls an agent while it runs. This is the kind in Fig. 1.</p></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 3</span>An eval harness is a test runner for a model. An agent harness is the run-time environment around an agent.</figcaption>
+    </figure>
+  </section>
+
+  <section id="demo">
+    <div class="kicker-head"><p class="ve-label caps"><span>The demo</span></p><h2>Same prompt, same old model, and only the harness changed</h2></div>
+    <p>He builds a browser agent live. He picks an older model on purpose, and he does not change the prompt at any point. Each run adds parts to the harness.</p>
+    <figure>
+      <div class="scenario">
+        <div class="bubble"><span class="ve-label">Prompt, every run</span>“Upvote a story on Hacker News.”</div>
+        <div class="bubble"><span class="ve-label">Model, every run</span><code>gpt-3.5-turbo-0613</code>, an older model with less skill than current ones.</div>
+      </div>
+      <div class="cases">
+        <div class="case" data-st="risk"><span class="chip risk">Lies</span><h3>Bare agent</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="The agent clicks upvote and lands on the login page. It stops, but says it upvoted the story. No vote happened.">
+            <path class="ve-e" d="M108 25H130"/><path class="ve-e" d="M185 48V62"/>
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="106" height="46" rx="5"/><text x="55" y="25">▲ upvote</text></g>
+            <g class="ve-n"><rect class="sh" x="132" y="2" width="106" height="46" rx="5"/><text x="185" y="17">login</text><text class="sub" x="185" y="35">stuck</text></g>
+            <g class="ve-n is-st"><rect class="sh" x="2" y="64" width="236" height="42" rx="5"/><text class="q" x="120" y="85">“I have upvoted …”</text></g>
+            <text class="vd" x="120" y="134">✗ no vote · claims done</text>
+          </svg>
+          <p>It hits the login page, gives up, and reports success.</p></div>
+        <div class="case" data-st="warn"><span class="chip warn">Bounded</span><h3>+ guardrails</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="Guardrails cap the run at 15 iterations and 50 messages. The login page still blocks the vote.">
+            <path class="ve-e" d="M108 25H130"/><path class="ve-e" d="M185 48V62"/>
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="106" height="46" rx="5"/><text x="55" y="25">▲ upvote</text></g>
+            <g class="ve-n"><rect class="sh" x="132" y="2" width="106" height="46" rx="5"/><text x="185" y="17">login</text><text class="sub" x="185" y="35">stuck</text></g>
+            <g class="ve-n is-st"><rect class="sh" x="2" y="64" width="236" height="42" rx="5"/><text class="sub" x="120" y="85">≤ 15 steps · ≤ 50 msgs</text></g>
+            <text class="vd" x="120" y="134">✗ still blocked at login</text>
+          </svg>
+          <p>The run can no longer loop forever. The login page still stops it.</p></div>
+        <div class="case" data-st="info"><span class="chip info">Honest fail</span><h3>+ verify</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="Verify reads the trace, finds no completed upvote and an unrecovered login page, and reports passed false.">
+            <path class="ve-e" d="M108 25H130"/><path class="ve-e" d="M185 48V62"/>
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="106" height="46" rx="5"/><text x="55" y="25">▲ upvote</text></g>
+            <g class="ve-n"><rect class="sh" x="132" y="2" width="106" height="46" rx="5"/><text x="185" y="17">login</text><text class="sub" x="185" y="35">stuck</text></g>
+            <g class="ve-n is-st"><rect class="sh" x="2" y="64" width="236" height="42" rx="5"/><text class="sub" x="120" y="85">verify: stuck at login</text></g>
+            <text class="vd" x="120" y="134">passed: false</text>
+          </svg>
+          <p>The harness reports the failure instead of the agent’s claim.</p></div>
+        <div class="case" data-st="ok"><span class="chip ok">Upvoted</span><h3>+ login handler</h3>
+          <svg class="ve-mini" viewBox="0 0 240 150" role="img" aria-label="The harness logs in by itself, the upvote lands, and verify reports passed true.">
+            <path class="ve-e" d="M108 25H130"/><path class="ve-e" d="M185 48V62"/>
+            <g class="ve-n"><rect class="sh" x="2" y="2" width="106" height="46" rx="5"/><text x="55" y="25">▲ upvote</text></g>
+            <g class="ve-n is-st"><rect class="sh" x="132" y="2" width="106" height="46" rx="5"/><text x="185" y="17">login</text><text class="sub" x="185" y="35">harness</text></g>
+            <g class="ve-n is-st"><rect class="sh" x="2" y="64" width="236" height="42" rx="5"/><text class="sub" x="120" y="85">verify: vote in trace</text></g>
+            <text class="vd" x="120" y="134">passed: true</text>
+          </svg>
+          <p>The harness logs in with code. The vote lands, and verify agrees.</p></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 4</span>The same prompt and model in every card. Each card keeps the parts of the card before it and adds more.</figcaption>
+    </figure>
+  </section>
+
+  <section id="login">
+    <div class="kicker-head"><p class="ve-label caps"><span>The last run</span></p><h2>The harness logs in, so the model never has to</h2></div>
+    <figure class="ve-steps">
+      <div class="frame"><div class="well">
+        <svg class="ve-svg" viewBox="0 0 1000 410" role="img" aria-label="Sequence of the final run. The agent clicks upvote and Hacker News sends the browser to the login page. The harness sees the login URL, fills in the form, and submits it without a model call. The harness adds a system note that the agent is logged in. The agent completes the upvote. Verify reads the trace and reports passed true.">
+          <path class="lifeline" d="M150 70V400M500 70V330M850 70V400"/>
+          <path class="ve-e" data-s="1" pathLength="1" d="M150 112H848"/>
+          <text class="ve-el" data-s="1" x="325" y="103">click ▲ upvote</text>
+          <path class="ve-e" data-s="1" pathLength="1" d="M850 156H502"/>
+          <text class="ve-el" data-s="1" x="675" y="147">lands on login page</text>
+          <path class="ve-e is-hot" data-s="2" pathLength="1" d="M500 204H848"/>
+          <text class="ve-el" data-s="2" x="675" y="195">fills form, submits</text>
+          <text class="ve-el r" data-s="2" x="512" y="230">no model call</text>
+          <path class="ve-e" data-s="3" pathLength="1" d="M500 262H152"/>
+          <text class="ve-el" data-s="3" x="325" y="253">note: you are logged in</text>
+          <path class="ve-e" data-s="4" pathLength="1" d="M150 310H848"/>
+          <text class="ve-el" data-s="4" x="675" y="301">upvote lands</text>
+
+          <g class="ve-n" transform="translate(60 10)"><rect class="sh" width="180" height="60" rx="6"/><text x="90" y="22">Agent</text><text class="sub" x="90" y="44">gpt-3.5</text></g>
+          <g class="ve-n" transform="translate(410 10)"><rect class="sh" width="180" height="60" rx="6"/><text x="90" y="22">Harness</text><text class="sub" x="90" y="44">your code</text></g>
+          <g class="ve-n" transform="translate(760 10)"><rect class="sh" width="180" height="60" rx="6"/><text x="90" y="22">Hacker News</text><text class="sub" x="90" y="44">in a browser</text></g>
+          <g class="ve-n is-key" data-s="5" transform="translate(410 336)"><rect class="sh" width="180" height="64" rx="6"/><text x="90" y="22">Verify</text><text class="sub" x="90" y="46">passed: true</text></g>
+        </svg></div>
+      </div>
+      <div class="ve-player">
+        <ol class="ve-cap">
+          <li data-n="1/5">The agent clicks upvote. Hacker News wants a signed-in user, so the browser lands on the login page.</li>
+          <li data-n="2/5">The harness checks the URL after each step. It sees the login page, fills in the form, and submits it. The model is not called.</li>
+          <li data-n="3/5">The harness adds a system note to the history that says the agent is now logged in.</li>
+          <li data-n="4/5">The agent continues with the same prompt, and this time the upvote lands.</li>
+          <li data-n="5/5">Verify reads the trace. It finds the click on the vote link and no login page left unresolved, so it reports passed: true.</li>
+        </ol>
+        <button data-go="-1" aria-label="Previous step">←</button>
+        <button data-play>Play</button>
+        <input type="range" min="0" value="0" aria-label="Step">
+        <button data-go="1" aria-label="Next step">→</button>
+      </div>
+      <figcaption><span class="fig-n">Fig. 5</span>A login is the same every time, so code handles it. The model only does the part that needs judgment.</figcaption>
+    </figure>
+  </section>
+
+  <section id="verify">
+    <div class="kicker-head"><p class="ve-label caps"><span>Verify</span></p><h2>Verify reads the trace, not the agent’s last message</h2></div>
+    <p>The bare agent said it upvoted the story. It did not. A model’s report on its own work is not evidence. The trace is. It holds every tool call and every page the browser visited.</p>
+    <figure>
+      <div class="codebox"><div class="code-frame"><i></i><i></i><i></i><span>verify in words (a summary, not the demo code)</span></div><div class="term" role="img" aria-label="Verify passes only when the trace has a browser click on a vote link and the run did not end stuck on a login page. Before the login handler it reported passed false. After the login handler it reported passed true."><span class="dim"># the two checks</span>
+clicked a /vote link?           <span class="dim">browser_click in the trace</span>
+stuck on a login page?          <span class="dim">login URL with no recovery</span>
+passed = clicked AND NOT stuck
+
+<span class="dim">before login handler</span>   <span class="risk">passed: false</span>   <span class="dim">reason: hit the login page</span>
+<span class="dim">after login handler</span>    <span class="ok">passed: true</span></div></div>
+      <figcaption><span class="fig-n">Fig. 6</span>Two plain checks on the trace turn a confident lie into an honest failure, and later into a pass you can trust.</figcaption>
+    </figure>
+  </section>
+
+  <section id="next">
+    <div class="kicker-head"><p class="ve-label caps"><span>Takeaway</span></p><h2>Fix behavior in the harness, not in the prompt</h2></div>
+    <p>A login page, a loop that does not end, a history that grows too long, and a claim with no proof each have a part of the harness that fixes them in code. Code does the same thing every run. A longer prompt does not.</p>
+    <p>The demo used an old model on purpose. With a good harness, a smaller and cheaper model can do the job. He gave IBM’s open-source OpenRAG as an example of the same idea at company scale: a security harness around retrieval over private data such as PDFs, invoices, and call transcripts.</p>
+    <figure>
+      <div class="frame"><div class="well">
+        <svg class="ve-svg tl" viewBox="0 0 1000 130" role="img" aria-label="The speaker's timeline. 2025 was the year of agents. 2026 is the year of harnesses. He hopes 2027 is the year of dynamic harnesses that agents generate on the fly.">
+          <rect class="seg" x="10" y="20" width="320" height="58" rx="4"/><text x="24" y="44">Agents</text><text class="t" x="24" y="64">2025</text>
+          <rect class="seg demo" x="340" y="20" width="320" height="58" rx="4"/><text x="354" y="44">Harnesses</text><text class="t" x="354" y="64">2026</text>
+          <rect class="seg hope" x="670" y="20" width="320" height="58" rx="4"/><text x="684" y="44">Generated harnesses</text><text class="t" x="684" y="64">2027 · his hope</text>
+          <path class="here" d="M500 82V94"/>
+          <text class="here-l" x="500" y="114" text-anchor="middle">▲ now</text>
+        </svg></div>
+      </div>
+      <figcaption><span class="fig-n">Fig. 7</span>His timeline. The last block is a wish, not a forecast. He hopes agents will build their own harness on the fly before they start a task.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>What to remember</span></p><h2>Ground the model in code you control</h2></div>
+    <ol class="recipe">
+      <li>A harness is everything around the model: tool registry, context management, guardrails, the agent loop, and verify.</li>
+      <li>Treat the model as a black box you rent. Do not rest reliability on the prompt alone.</li>
+      <li>Put hard limits on every run, for example <b>15 iterations and 50 messages</b>.</li>
+      <li>Verify in code. Check the trace or the real state, never the agent’s own report.</li>
+      <li>When the agent fails at a step that is the same every time, such as a login, handle that step in the harness and leave the prompt alone.</li>
+    </ol>
+  </section>
+
+  <section id="practice">
+    <div class="kicker-head"><p class="ve-label caps"><span>Practice</span></p><h2>Which part of the harness fixes it?</h2></div>
+    <p>Pick a part for each failure. “Prompt” is on the list too.</p>
+    <div class="qa">
+      <div class="case quiz" data-answer="guardrails"><span class="ve-label">The agent goes back and forth between two pages and burns tokens for an hour.</span>
+        <div class="ans"><h3>Guardrails</h3><p>A cap on iterations or messages ends the run. A prompt that says “do not loop” is a request, not a limit.</p></div></div>
+      <div class="case quiz" data-answer="verify"><span class="ve-label">The agent says “Done, the form is sent.” Nothing reached the server.</span>
+        <div class="ans"><h3>Verify</h3><p>Check the trace or the real state after the run. The agent’s last message is not proof.</p></div></div>
+      <div class="case quiz" data-answer="context"><span class="ve-label">After many tool calls, the agent forgets the task it was given.</span>
+        <div class="ans"><h3>Context management</h3><p>Keep the system prompt and the task, and trim or compact the old tool output in between.</p></div></div>
+      <div class="case quiz" data-answer="loop"><span class="ve-label">Every run stops at the same cookie banner.</span>
+        <div class="ans"><h3>Agent loop</h3><p>This works like the login handler. The loop sees the banner, closes it with code, and tells the agent. No model call.</p></div></div>
+      <div class="case quiz" data-answer="tools"><span class="ve-label">The task needs a PDF, and the agent has no way to open files.</span>
+        <div class="ans"><h3>Tool registry</h3><p>Add a tool that reads files. The model cannot do what no tool lets it do.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker-head"><p class="ve-label caps"><span>Related lesson</span></p><h2>Evals check the agent before deploy. The harness guards it at run time.</h2></div>
+    <ol class="learn">
+      <li><a href="/study/evals-deep-dive"><span class="n">Lesson 01</span><b>Evals are fuzzy unit tests, and the judge can lie</b><small>The same speaker on evals: test cases, LLM judges, and how to check a judge against humans.</small></a></li>
+    </ol>
+  </section>
+
+  <section class="sources" aria-label="Sources">
+    <p class="ve-label caps">Sources</p>
+    <ul class="src-list">
+      <li><a href="https://www.youtube.com/watch?v=C_GG5g38vLU">AI Harnesses: From First Principles, Tejas Kumar, IBM, at AI Engineer Europe (YouTube)</a></li>
+      <li><a href="https://github.com/langflow-ai/openrag">OpenRAG (GitHub)</a></li>
+    </ul>
+  </section>
+</div>
+<script>
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const linked = [...lessonRoot.querySelectorAll('[data-ref]')], refs = (el) => el.dataset.ref.split(' ');
+  let hovered = null, focused = null;
+  const paint = () => {
+    const keys = (hovered || focused)?.dataset.ref.split(' ') ?? [];
+    for (const t of linked) t.classList.toggle('is-lit', refs(t).some((k) => keys.includes(k)));
+    for (const svg of lessonRoot.querySelectorAll('svg')) svg.classList.toggle('has-lit', !!svg.querySelector('.is-lit'));
+  };
+  for (const el of linked) {
+    el.addEventListener('pointerenter', () => { hovered = el; paint(); });
+    el.addEventListener('pointerleave', () => { hovered = null; paint(); });
+    el.addEventListener('focus', () => { focused = el; paint(); });
+    el.addEventListener('blur', () => { focused = null; paint(); });
+  }
+
+  for (const root of lessonRoot.querySelectorAll('.ve-steps')) {
+    const parts = [...root.querySelectorAll('[data-s]')], caps = [...root.querySelectorAll('.ve-cap li')];
+    const range = root.querySelector('input[type=range]'), play = root.querySelector('[data-play]');
+    const n = caps.length; let i = 0, timer = null;
+    if (range) range.max = n - 1;
+    const show = (k) => {
+      i = Math.max(0, Math.min(n - 1, k));
+      for (const el of parts) { el.classList.toggle('on', +el.dataset.s <= i + 1); el.classList.toggle('now', +el.dataset.s === i + 1); }
+      caps.forEach((c, j) => c.hidden = j !== i);
+      if (range) range.value = i;
+    };
+    const stop = () => { clearInterval(timer); timer = null; if (play) play.textContent = 'Play'; };
+    root.addEventListener('click', (e) => { const b = e.target.closest('[data-go]'); if (b) { stop(); show(i + +b.dataset.go); } });
+    range?.addEventListener('input', () => { stop(); show(+range.value); });
+    play?.addEventListener('click', () => {
+      if (timer) return stop();
+      if (i === n - 1) show(0);
+      play.textContent = 'Pause';
+      timer = setInterval(() => (i < n - 1 ? show(i + 1) : stop()), 3500);
+    });
+    show(n - 1);
+  }
+
+  const harnessParts = [['prompt', 'Prompt'], ['tools', 'Tool registry'], ['context', 'Context'], ['guardrails', 'Guardrails'], ['loop', 'Agent loop'], ['verify', 'Verify']];
+  for (const quiz of lessonRoot.querySelectorAll('.quiz')) {
+    const ans = quiz.querySelector('.ans');
+    ans.hidden = true;
+    ans.insertAdjacentHTML('beforebegin', `<div class="picks" role="group" aria-label="Where does the fix go?">${harnessParts.map(([key, label]) => `<button type="button" data-pick="${key}" aria-pressed="false">${label}</button>`).join('')}</div><span class="verdict" aria-live="polite"></span>`);
+    const verdict = quiz.querySelector('.verdict');
+    quiz.querySelector('.picks').addEventListener('click', (e) => {
+      const picked = e.target.closest('[data-pick]');
+      if (!picked) return;
+      const right = picked.dataset.pick === quiz.dataset.answer;
+      for (const b of quiz.querySelectorAll('[data-pick]')) {
+        b.setAttribute('aria-pressed', String(b === picked));
+        b.classList.toggle('right', b === picked && right);
+        b.classList.toggle('wrong', b === picked && !right);
+      }
+      verdict.className = `verdict chip ${right ? 'ok' : 'risk'}`;
+      verdict.textContent = right ? 'Right' : picked.dataset.pick === 'prompt' ? 'Not the prompt' : 'Not this part';
+      ans.hidden = false;
+    });
+  }
+
+  if (!still) {
+    lessonRoot.classList.add('js-motion');
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { io.unobserve(e.target); e.target.classList.add('in'); }
+    }, { rootMargin: '0px 0px -10% 0px' });
+    for (const el of lessonRoot.querySelectorAll(':scope > *')) io.observe(el);
+  }
+</script>
