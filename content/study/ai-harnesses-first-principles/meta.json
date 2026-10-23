@@ -1,0 +1,17 @@
+{
+  "lesson": 2,
+  "title": "The harness, not the prompt, makes an agent reliable",
+  "titleAccent": "not the prompt",
+  "summary": "Notes on Tejas Kumar’s AI Engineer Europe talk: the six parts of an agent harness, and a live demo where an old model learns to upvote on Hacker News while the prompt never changes.",
+  "publishedAt": "2026-10-23",
+  "readMinutes": 7,
+  "tags": ["agents", "harnesses", "talk-notes"],
+  "source": {
+    "kind": "talk",
+    "title": "AI Harnesses: From First Principles",
+    "author": "Tejas Kumar",
+    "org": "IBM",
+    "url": "https://www.youtube.com/watch?v=C_GG5g38vLU",
+    "durationMinutes": 20
+  }
+}
