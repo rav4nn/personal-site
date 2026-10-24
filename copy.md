@@ -2,22 +2,30 @@
 
 ---
 
-## Hero section
-**Photo:** `assets/hero.jpg`
+## Home page
 
-**Name:** Hardeep Singh
+Source of truth: `app/page.tsx` (cards come from `app/components/lanes/lanes.ts`). The home page is the home of the Mac apps and has nothing else on it: no photos, about text, projects list, blog cards, study card, GitHub stats or contact block.
 
-**Heading:** Hey, I'm Hardeep!
+**Heading:** Small Mac apps / that fix macOS.
+**Sub line:** by Hardeep, AI engineer
 
-**Subheading:**
-IIT Delhi → AI Agent Builder
-Team Lead and Senior AI Engineer at Squidgy AI (UK). I build agentic workflows that run in production: multi-agent systems, MCP services, and the tools agents use. Also co-founding Coffee Coach.
+**Cards** (tile animation, name, status dot, one line):
+- CallLane (green dot, "Live"): Music stays loud on calls. Links to https://calllane.app.
+- MacLane (indigo dot, "Beta"): Your Mac, for cloud agents. No link yet (no public page).
+- GuardLane (amber dot, "Coming soon"): Agent tools, kept safe. No link yet (app not built).
 
-**Site description (meta):** Building AI products that turn messy real-world data into usable systems.
+**Link row:** Writing (/blog) · Study (/study) · X (https://x.com/rav4nn) · GitHub (https://github.com/rav4nn)
 
-**Email:** hardeepsindia@gmail.com
+**Meta title:** Hardeep - Small Mac apps that fix macOS
+**Meta description:** CallLane, MacLane and GuardLane: small Mac apps that fix macOS. Built by Hardeep, AI engineer.
 
-**Links:**
+**Nav labels:** Apps (/projects) · Writing (/blog) · Study (/study) · About (/about). The hardeep.cv logo links home. /toolbox is not in the nav.
+
+**Site description (site-wide fallback meta):** Senior AI Engineer building production AI agents, MCP services, and full-stack AI products.
+
+**Person details** (About page, footer, contact):
+- Name: Hardeep Singh
+- Email: hardeepsindia@gmail.com
 - X: https://x.com/rav4nn
 - GitHub: https://github.com/rav4nn
 - LinkedIn: https://www.linkedin.com/in/hardeep-singh-a29a14349/
@@ -28,9 +36,7 @@ Team Lead and Senior AI Engineer at Squidgy AI (UK). I build agentic workflows t
 
 ## Projects
 
-Source of truth: `app/data/projects.ts` (`getProjects()`). The home page shows the first 3 projects as compact cards (short line + first 2 stats) and a "See all N projects" link. The `/projects` page shows all of them as a filterable grid: the first project as a wide card with its first paragraph, the rest with their short line.
-
-**Section heading:** "Things I've built that people actually use."
+Source of truth: `app/data/projects.ts` (`getProjects()`). The nav calls this page "Apps". The `/projects` page shows all of them as a filterable grid: the first project as a wide card with its first paragraph, the rest with their short line.
 
 **Projects page sub line:** "5 shipped tools and products. 3,000+ organic users, no paid promotion." *(the count comes from the list length)*
 
@@ -60,10 +66,8 @@ YouTube has some of the best domain-specific knowledge on the internet, but it's
 
 ## Blog
 
-Source of truth: `content/blog/*.mdx` (Velite collection `posts`). The home page shows the 3 newest posts as cards and a "Read the blog" link. With fewer than 3 posts the cards stay centred; with 0 posts the home section is hidden.
+Source of truth: `content/blog/*.mdx` (Velite collection `posts`). The nav calls this page "Writing"; the home page links to it.
 
-**Home section label:** Blog
-**Home section heading:** "Notes from building agents && the tools they use"
 **Blog page heading:** "Notes from building agents && the tools they use."
 **Blog page title:** Blog | Hardeep Singh
 
@@ -125,14 +129,13 @@ Chemical Engineering degree providing the analytical foundation for systems thin
 ---
 
 ## GitHub Stats
-GitHub contribution graph + stats cards showing total stars, forks, and commits (fetched dynamically).
+GitHub contribution graph + stats cards on the /projects page: showing total stars, forks, and commits (fetched dynamically).
 
 ---
 
 ## Toolbox
 
 **Page heading:** "Software I keep in my toolbox."
-**Bento card copy:** "Check out my favorite tools and spots around the web."
 
 **Applications:**
 VSCode, Claude Code, ChatGPT, DeepSeek, Gemini, Notion, Spotify, flowtunes, GitHub, Docker, FastAPI, Porkbun, Cloudflare, Hetzner, WhatsApp, Vercel
