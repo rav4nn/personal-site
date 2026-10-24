@@ -13,11 +13,10 @@ type NavigationLink = {
 };
 
 const navigationLinks: readonly NavigationLink[] = [
-  { name: "Home", link: "/" },
-  { name: "Projects", link: "/projects" },
-  { name: "Blog", link: "/blog" },
+  { name: "Apps", link: "/projects" },
+  { name: "Writing", link: "/blog" },
   { name: "Study", link: "/study" },
-  { name: "Toolbox", link: "/toolbox" },
+  { name: "About", link: "/about" },
 ] as const;
 
 const Navbar: React.FC = () => {
