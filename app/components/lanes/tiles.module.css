@@ -1,0 +1,210 @@
+.tile {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+.tile svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* CallLane: the call starts, macOS tries to duck the music, CallLane holds it at 100% */
+.call {
+  background: radial-gradient(110% 90% at 50% 0%, #232318 0%, #111110 60%, #0a0a09 100%);
+}
+.clPill {
+  animation: clPill 6s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+@keyframes clPill {
+  0%, 10% { opacity: 0; transform: translateY(-8px); }
+  17%, 84% { opacity: 1; transform: none; }
+  92%, 100% { opacity: 0; transform: translateY(-5px); }
+}
+.clRing {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: clRing 1s ease-in-out infinite;
+}
+@keyframes clRing {
+  0%, 100% { transform: rotate(0); }
+  10% { transform: rotate(-14deg); }
+  20% { transform: rotate(12deg); }
+  30% { transform: rotate(-8deg); }
+  40% { transform: rotate(0); }
+}
+.arc {
+  fill: none;
+  stroke: #e6e51e;
+  stroke-width: 6;
+  stroke-linecap: round;
+  animation: arc 1.4s ease-out infinite;
+}
+.a2 { animation-delay: 0.25s; }
+.a3 { animation-delay: 0.5s; }
+@keyframes arc {
+  0% { opacity: 0.25; }
+  35% { opacity: 1; }
+  100% { opacity: 0.25; }
+}
+.ghost {
+  transform-box: fill-box;
+  transform-origin: 0 50%;
+  animation: ghost 6s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+@keyframes ghost {
+  0%, 18% { transform: scaleX(1); opacity: 0; }
+  24% { opacity: 0.9; }
+  34%, 82% { transform: scaleX(0.2); opacity: 0.9; }
+  92%, 100% { transform: scaleX(0.2); opacity: 0; }
+}
+.blocked {
+  animation: blocked 6s ease-out infinite;
+}
+@keyframes blocked {
+  0%, 32% { opacity: 0; transform: translateY(4px); }
+  40%, 82% { opacity: 1; transform: none; }
+  92%, 100% { opacity: 0; }
+}
+.hold {
+  animation: hold 6s ease-in-out infinite;
+}
+@keyframes hold {
+  0%, 30% { stroke: rgba(255, 255, 255, 0); }
+  38%, 82% { stroke: rgba(230, 229, 30, 0.55); }
+  92%, 100% { stroke: rgba(255, 255, 255, 0); }
+}
+
+/* MacLane: a cloud agent sends work to your Mac and gets the result back */
+.mac {
+  background: radial-gradient(110% 90% at 30% 0%, #2c2a7a 0%, #17153f 55%, #0e0c2a 100%);
+}
+.path {
+  stroke: rgba(165, 180, 252, 0.28);
+  stroke-width: 2;
+  stroke-dasharray: 3 7;
+  fill: none;
+}
+.pkt {
+  fill: #c7d2fe;
+  offset-path: path("M 92 118 C 140 70, 220 70, 268 118");
+  animation: fly 2.4s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+}
+.p2 { animation-delay: 0.8s; }
+.p3 { animation-delay: 1.6s; }
+.back {
+  fill: #86efac;
+  offset-path: path("M 268 150 C 220 192, 150 192, 112 146");
+  animation: fly 2.4s cubic-bezier(0.5, 0, 0.3, 1) infinite;
+  animation-delay: 1.2s;
+}
+@keyframes fly {
+  0% { offset-distance: 0%; opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+.screen {
+  animation: screen 2.4s ease-in-out infinite;
+}
+@keyframes screen {
+  0%, 40% { fill: #1e1b4b; }
+  55%, 80% { fill: #3730a3; }
+  100% { fill: #1e1b4b; }
+}
+.tick {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: tick 2.4s ease-out infinite;
+}
+@keyframes tick {
+  0%, 45% { stroke-dashoffset: 30; opacity: 0; }
+  55% { opacity: 1; }
+  70%, 85% { stroke-dashoffset: 0; opacity: 1; }
+  100% { opacity: 0; stroke-dashoffset: 0; }
+}
+.cloud {
+  animation: bob 4.8s ease-in-out infinite;
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* GuardLane: a radar sweep checks tool versions and flags advisories */
+.guard {
+  background: radial-gradient(110% 90% at 50% 100%, #284d10 0%, #15290a 55%, #0c1806 100%);
+}
+.scan {
+  transform-box: view-box;
+  transform-origin: 180px 135px;
+  animation: spin 3.6s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.shield {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: beat 3.6s ease-in-out infinite;
+}
+@keyframes beat {
+  0%, 18% { transform: scale(1); }
+  24% { transform: scale(1.07); }
+  32%, 100% { transform: scale(1); }
+}
+.chk {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: chk 3.6s ease-out infinite;
+}
+@keyframes chk {
+  0%, 8% { stroke-dashoffset: 40; opacity: 1; }
+  24%, 90% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+.chip {
+  opacity: 0;
+  animation: chip 3.6s ease-out infinite;
+}
+.c2 { animation-delay: 1.2s; }
+.c3 { animation-delay: 2.4s; }
+@keyframes chip {
+  0% { opacity: 0; transform: translateY(6px); }
+  12%, 62% { opacity: 1; transform: none; }
+  80%, 100% { opacity: 0; transform: translateY(-4px); }
+}
+.guard text {
+  font: 600 11px ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Reduced motion: stop every animation and rest on the frame where the story reads. */
+@media (prefers-reduced-motion: reduce) {
+  .tile * {
+    animation: none !important;
+  }
+  .arc { opacity: 1; }
+  .ghost { transform: scaleX(0.2); opacity: 0.9; }
+  .hold { stroke: rgba(230, 229, 30, 0.55); }
+  .pkt { offset-distance: 38%; }
+  .p2 { offset-distance: 62%; }
+  .p3 { offset-distance: 86%; }
+  .back { offset-distance: 50%; }
+  .screen { fill: #3730a3; }
+  .tick { stroke-dashoffset: 0; }
+  .chk { stroke-dashoffset: 0; }
+  .chip { opacity: 1; }
+}
