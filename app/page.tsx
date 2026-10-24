@@ -4,10 +4,24 @@ import { GridWrapper } from "./components/GridWrapper";
 import { LaneCard } from "./components/lanes/LaneCard";
 import { lanes } from "./components/lanes/lanes";
 
+const title = "Hardeep - Small Mac apps that fix macOS";
+const description =
+  "CallLane, MacLane and GuardLane: small Mac apps that fix macOS. Built by Hardeep, AI engineer.";
+
 export const metadata: Metadata = {
-  title: "Hardeep - Small Mac apps that fix macOS",
-  description:
-    "CallLane, MacLane and GuardLane: small Mac apps that fix macOS. Built by Hardeep, AI engineer.",
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    images: [{ url: "/hero.webp", width: 1200, height: 630, alt: title }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/hero.webp"],
+  },
 };
 
 const footLinks = [

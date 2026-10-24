@@ -15,7 +15,7 @@ export function LaneCard({ name, line, status, href, Tile }: Lane) {
           className="inline-block h-[7px] w-[7px] rounded-full"
           style={{ backgroundColor: colour }}
         />
-        <span className="sr-only">{label}</span>
+        <span className="text-xs font-medium text-text-secondary">{label}</span>
       </h2>
       <p className="mt-0.5 text-sm text-text-secondary">{line}</p>
     </>
