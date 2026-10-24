@@ -129,7 +129,7 @@ Chemical Engineering degree providing the analytical foundation for systems thin
 ---
 
 ## GitHub Stats
-GitHub contribution graph + stats cards on the /projects page: showing total stars, forks, and commits (fetched dynamically).
+GitHub contribution graph + stats cards on the /projects page, showing total stars, forks, and commits (fetched dynamically).
 
 ---
 
