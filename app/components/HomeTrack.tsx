@@ -3,15 +3,16 @@
 import { m, useMotionValue, useMotionValueEvent, useScroll } from "framer-motion";
 import { useLayoutEffect, useRef, useState } from "react";
 
-type Side = "mid" | "left" | "right";
+type Side = "mid" | "center" | "left" | "right";
 
 const GUTTER = 28;
 const RADIUS = 16;
 
-// Sections opt in with data-track="mid|left|right"; the track runs down that side of each one.
+// Sections opt in with data-track; the track runs down that side of each one and turns just above the next.
 function sideX(side: Side, width: number) {
   if (side === "left") return GUTTER;
   if (side === "right") return width - GUTTER;
+  if (side === "center") return width / 2;
   return width / 2 - 48;
 }
 
@@ -51,14 +52,12 @@ function buildTrack(container: HTMLElement) {
 
   const points: [number, number][] = [];
   const first = sections[0];
-  points.push([width / 2, first.top]);
-  points.push([width / 2, first.top + 40]);
-  let y = first.top + 40;
+  let y = first.top;
   sections.forEach((section, i) => {
     const x = sideX(section.side, width);
     points.push([x, y]);
     const next = sections[i + 1];
-    y = next ? (section.bottom + next.top) / 2 : section.bottom;
+    y = next ? next.top - 24 : section.bottom;
     points.push([x, y]);
   });
   return { d: roundedPath(points), width, height: box.height };

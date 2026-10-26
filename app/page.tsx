@@ -4,8 +4,7 @@ import Link from "next/link";
 import { GridWrapper } from "./components/GridWrapper";
 import { HomeTrack } from "./components/HomeTrack";
 import { ShadowBox } from "./components/ShadowBox";
-import { LaneCard } from "./components/lanes/LaneCard";
-import { lanes } from "./components/lanes/lanes";
+import { lanes, statusDot, type Lane } from "./components/lanes/lanes";
 import { parseHighlights } from "./components/parseHighlights";
 import { getProjects } from "./data/projects";
 
@@ -62,17 +61,47 @@ const footLinks = [
 const moreLinkClassName =
   "inline-flex items-center gap-1 text-sm font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 transition-colors hover:text-indigo-500 hover:decoration-indigo-400";
 
+const listClassName =
+  "divide-y divide-border-primary rounded-2xl border border-border-primary bg-bg-primary";
+
+function MacAppRow({ name, line, status, href, Tile }: Lane) {
+  const { colour, label } = statusDot[status];
+  const body = (
+    <>
+      <span className="w-28 shrink-0">
+        <Tile />
+      </span>
+      <span className="min-w-0">
+        <span className="flex items-center gap-2 text-sm font-semibold text-text-primary">
+          {name}
+          <span
+            aria-hidden="true"
+            className="inline-block h-[7px] w-[7px] rounded-full"
+            style={{ backgroundColor: colour }}
+          />
+          <span className="text-xs font-medium text-text-secondary">{label}</span>
+        </span>
+        <span className="block text-sm leading-6 text-text-secondary">{line}</span>
+      </span>
+    </>
+  );
+  const rowClassName = "flex items-center gap-4 p-4";
+  return href ? (
+    <a href={href} className={`${rowClassName} transition-colors hover:bg-black/[0.02]`}>
+      {body}
+    </a>
+  ) : (
+    <div className={rowClassName}>{body}</div>
+  );
+}
+
 function SectionTitle({ id, eyebrow, heading }: { id: string; eyebrow: string; heading: string }) {
   return (
     <div className="space-y-4">
-      <GridWrapper>
-        <p className="text-center text-sm font-medium text-indigo-600">{eyebrow}</p>
-      </GridWrapper>
-      <GridWrapper>
-        <h2 id={id} className="mx-auto max-w-xl text-balance text-center text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
-          {heading}
-        </h2>
-      </GridWrapper>
+      <p className="text-center text-sm font-medium text-indigo-600">{eyebrow}</p>
+      <h2 id={id} className="mx-auto max-w-xl text-balance text-center text-3xl font-medium leading-[40px] tracking-tighter text-text-primary">
+        {heading}
+      </h2>
     </div>
   );
 }
@@ -163,17 +192,17 @@ export default async function Home() {
       </section>
 
       {/* Projects */}
-      <section aria-labelledby="projects" data-track="right" className="space-y-10">
+      <section aria-labelledby="projects" className="space-y-10">
         <SectionTitle id="projects" eyebrow="Projects" heading="Things I've built" />
-        <div className="grid grid-cols-1 gap-12 md:px-8 lg:grid-cols-[3fr_2fr] lg:gap-10 lg:pl-8 lg:pr-16">
+        <div data-track="center" className="grid grid-cols-1 gap-12 md:px-8 lg:grid-cols-2 lg:gap-24">
           <div className="space-y-5">
             <h3 className="text-center text-sm font-medium text-text-secondary lg:text-left">
               Mac apps
             </h3>
-            <ul className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-4">
+            <ul className={listClassName}>
               {lanes.map((lane) => (
                 <li key={lane.name}>
-                  <LaneCard {...lane} />
+                  <MacAppRow {...lane} />
                 </li>
               ))}
             </ul>
@@ -182,7 +211,7 @@ export default async function Home() {
             <h3 className="text-center text-sm font-medium text-text-secondary lg:text-left">
               Other things I&apos;ve built
             </h3>
-            <ul className="divide-y divide-border-primary rounded-2xl border border-border-primary bg-bg-primary">
+            <ul className={listClassName}>
               {otherProjects.map((project) => (
                 <li key={project.title}>
                   <a
