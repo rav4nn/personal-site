@@ -1,4 +1,4 @@
-import { NewsletterSignUp } from "@/app/components/NewsletterSignUp";
+import { FollowCta } from "@/app/components/FollowCta";
 
 import { GridWrapper } from "@/app/components/GridWrapper";
 import { ProfilePicture } from "@/app/components/ProfilePicture";
@@ -11,7 +11,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Links | Hardeep Singh",
-  description: "A curated collection of useful links and resources.",
+  description: "Hardeep Singh: AI agent builder and maker of small Mac apps. Links to the site, socials and latest writing.",
 };
 
 export default async function LinksPage() {
@@ -31,8 +31,8 @@ export default async function LinksPage() {
         <GridWrapper>
           <div className="mx-auto max-w-xl text-center md:mt-8">
             <p className="leading-8 text-text-secondary">
-              IIT Delhi → AI Engineer. I work with LLMs, RAG &amp; AI agents
-              while building full-stack AI products that people use daily.
+              IIT Delhi → AI agent builder. Team Lead and Senior AI Engineer at
+              Squidgy AI, and maker of small Mac apps that fix macOS.
             </p>
           </div>
         </GridWrapper>
@@ -209,7 +209,7 @@ export default async function LinksPage() {
           </GridWrapper>
         </div>
 
-        <NewsletterSignUp />
+        <FollowCta />
       </div>
     </div>
   );
