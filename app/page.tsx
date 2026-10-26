@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { GridWrapper } from "./components/GridWrapper";
+import { HomeAbout } from "./components/HomeAbout";
 import { LaneCard } from "./components/lanes/LaneCard";
 import { lanes } from "./components/lanes/lanes";
 
 const title = "Hardeep - Small Mac apps that fix macOS";
 const description =
-  "CallLane, MacLane and GuardLane: small Mac apps that fix macOS. Built by Hardeep, AI engineer.";
+  "CallLane, MacLane and GuardLane: small Mac apps that fix macOS. Built by Hardeep Singh, Team Lead and Senior AI Engineer at Squidgy AI.";
 
 export const metadata: Metadata = {
   title,
@@ -56,6 +57,8 @@ export default function Home() {
           ))}
         </ul>
       </GridWrapper>
+
+      <HomeAbout />
 
       <nav aria-label="More from Hardeep">
         <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-text-secondary">
