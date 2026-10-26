@@ -8,8 +8,6 @@ type Side = "mid" | "center" | "left" | "right";
 const GUTTER = 28;
 const RADIUS = 16;
 const TURN_GAP = 40;
-// Distance from the bottom of a letter box to the centre of an i-dot, in ems.
-const DOT_HEIGHT = 0.8;
 
 // Sections opt in with data-track; the track runs down that side of each one and turns just above the next.
 function sideX(side: Side, width: number) {
@@ -38,6 +36,27 @@ function roundedPath(points: [number, number][]) {
   return `${d} L${lx} ${ly}`;
 }
 
+// Where the dot of an "i" would sit above the dotless "ı" in `origin`, from the font's real ink.
+// The baseline comes from an empty inline-block inside origin, whose bottom edge sits on the baseline.
+function letterDot(origin: HTMLElement) {
+  const baseline = origin.querySelector<HTMLElement>("[data-track-baseline]");
+  const ctx = document.createElement("canvas").getContext("2d");
+  if (!baseline || !ctx) return null;
+  const style = getComputedStyle(origin);
+  ctx.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+  const stem = ctx.measureText("\u0131");
+  const dotted = ctx.measureText("i");
+  const box = origin.getBoundingClientRect();
+  const baselineY = baseline.getBoundingClientRect().bottom;
+  const stemTop = stem.actualBoundingBoxAscent;
+  const dotTop = dotted.actualBoundingBoxAscent;
+  const dotSize = (stem.actualBoundingBoxRight + stem.actualBoundingBoxLeft) * 1.1;
+  return {
+    x: box.left + (stem.actualBoundingBoxRight - stem.actualBoundingBoxLeft) / 2,
+    y: baselineY - Math.max(dotTop - dotSize / 2, stemTop + 12),
+  };
+}
+
 function buildTrack(container: HTMLElement) {
   const box = container.getBoundingClientRect();
   const width = box.width;
@@ -58,11 +77,10 @@ function buildTrack(container: HTMLElement) {
   let y = first.top;
   // The track can start from a letter (data-track-origin): the ball sits where its dot would be.
   const origin = container.querySelector<HTMLElement>("[data-track-origin]");
-  if (origin && origin.offsetParent) {
-    const r = origin.getBoundingClientRect();
-    const fontSize = parseFloat(getComputedStyle(origin).fontSize);
-    const x = r.left + r.width / 2 - box.left;
-    points.push([x, r.bottom - box.top - DOT_HEIGHT * fontSize]);
+  const dot = origin?.offsetParent ? letterDot(origin) : null;
+  if (dot) {
+    const x = dot.x - box.left;
+    points.push([x, dot.y - box.top]);
     y = first.top + TURN_GAP;
     points.push([x, y]);
   }
@@ -91,9 +109,15 @@ export function HomeTrack() {
     if (!container) return;
     const update = () => setTrack(buildTrack(container));
     update();
+    // Web fonts load after first paint and move the letters, so measure again once they are in.
+    document.fonts?.ready.then(update);
+    window.addEventListener("resize", update);
     const observer = new ResizeObserver(update);
     observer.observe(container);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   const placeBall = (progress: number) => {

@@ -139,7 +139,7 @@ export default async function Home() {
             AI eng
             <span className="lg:hidden">i</span>
             <span data-track-origin className="hidden lg:inline">
-              ı
+              ı<span data-track-baseline className="inline-block h-0 w-0" />
             </span>
             neer.
           </h1>
