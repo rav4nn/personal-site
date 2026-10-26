@@ -6,7 +6,7 @@
 
 Source of truth: `app/page.tsx`. Order: intro, Work, Projects, link row.
 
-**Intro:** h1 "Hey, I'm Hardeep!", then the About-page track with the tilted `hero.webp` photo (track hidden below lg). Text, highlights in purple: "IIT Delhi → **AI agent builder**" / "**Team Lead and Senior AI Engineer** at **Squidgy AI**. I build **multi-agent systems** that run in production, and the **tools agents use**." / "After hours: **small Mac apps** that fix macOS, and **visual lessons** on how agents are built."
+**Intro:** h1 "Hey, I'm Hardeep, an AI engineer.", tilted `hero.webp` photo. One track (`app/components/HomeTrack.tsx`, lg and up) runs the whole page: middle of the intro, left side of Work, right side of Projects, with the purple ball following scroll. Text, highlights in purple: "IIT Delhi → **AI agent builder**" / "**Team Lead and Senior AI Engineer** at **Squidgy AI**. I build **multi-agent systems** that run in production, and the **tools agents use**." / "After hours: **small Mac apps** that fix macOS, and **visual lessons** on how agents are built."
 
 **Work** ("What I'm working on right now", AI only, links to /about): Day job (Team Lead, Squidgy AI: multi-agent systems, Concierge, SiteBuddy, ~50 client sites) · Agent tools (MacLane, GuardLane) · Learning in public (visual lessons, daily Claude Code 101 on X) · Side builds (AI-built MVPs for founders).
 

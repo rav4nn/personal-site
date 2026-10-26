@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { AboutTrackPattern } from "./components/AboutTrackPattern";
 import { GridWrapper } from "./components/GridWrapper";
+import { HomeTrack } from "./components/HomeTrack";
 import { ShadowBox } from "./components/ShadowBox";
 import { LaneCard } from "./components/lanes/LaneCard";
 import { lanes } from "./components/lanes/lanes";
@@ -99,19 +99,17 @@ export default async function Home() {
   );
 
   return (
-    <section className="space-y-16 pb-12 pt-12 md:space-y-24 md:pb-16 md:pt-16">
+    <section className="relative space-y-16 pb-12 pt-12 md:space-y-24 md:pb-16 md:pt-16">
+      <HomeTrack />
       {/* Intro */}
       <section className="relative">
         <GridWrapper>
           <h1 className="mx-auto max-w-2xl text-balance text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]">
-            Hey, I&apos;m Hardeep!
+            Hey, I&apos;m Hardeep, an AI engineer.
           </h1>
         </GridWrapper>
-        <div className="relative h-fit w-full overflow-hidden">
-          <div className="absolute left-0 top-0 hidden w-full lg:left-[355px] lg:block xl:left-[455px]">
-            <AboutTrackPattern />
-          </div>
-          <div className="grid grid-cols-1 gap-8 py-12 pr-12 lg:grid-cols-2 lg:items-center lg:justify-between lg:py-28">
+        <div className="relative h-fit w-full">
+          <div data-track="mid" className="grid grid-cols-1 gap-8 py-12 pr-12 lg:grid-cols-2 lg:items-center lg:justify-between lg:py-28">
             <div className="flex flex-col items-center text-left lg:order-2 lg:items-start">
               <div className="mb-8 lg:hidden">
                 <HeroPhoto />
@@ -138,7 +136,7 @@ export default async function Home() {
       </section>
 
       {/* Work */}
-      <section aria-labelledby="work" className="space-y-10">
+      <section aria-labelledby="work" data-track="left" className="space-y-10">
         <SectionTitle id="work" eyebrow="Work" heading="What I'm working on right now" />
         <ol className="mx-auto max-w-3xl divide-y divide-border-primary px-2 md:px-8">
           {work.map((item) => (
@@ -165,9 +163,9 @@ export default async function Home() {
       </section>
 
       {/* Projects */}
-      <section aria-labelledby="projects" className="space-y-10">
+      <section aria-labelledby="projects" data-track="right" className="space-y-10">
         <SectionTitle id="projects" eyebrow="Projects" heading="Things I've built" />
-        <div className="grid grid-cols-1 gap-12 md:px-8 lg:grid-cols-[3fr_2fr] lg:gap-10">
+        <div className="grid grid-cols-1 gap-12 md:px-8 lg:grid-cols-[3fr_2fr] lg:gap-10 lg:pl-8 lg:pr-16">
           <div className="space-y-5">
             <h3 className="text-center text-sm font-medium text-text-secondary lg:text-left">
               Mac apps
