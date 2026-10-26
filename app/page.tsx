@@ -133,8 +133,15 @@ export default async function Home() {
       {/* Intro */}
       <section className="relative">
         <GridWrapper>
-          <h1 className="mx-auto max-w-2xl text-balance text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]">
-            Hey, I&apos;m Hardeep, an AI engineer.
+          <h1 aria-label="Hey, I'm Hardeep, AI engineer." className="mx-auto max-w-2xl text-balance text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]">
+            Hey, I&apos;m Hardeep,
+            <br />
+            AI eng
+            <span className="lg:hidden">i</span>
+            <span data-track-origin className="hidden lg:inline">
+              ı
+            </span>
+            neer.
           </h1>
         </GridWrapper>
         <div className="relative h-fit w-full">
@@ -192,7 +199,7 @@ export default async function Home() {
       </section>
 
       {/* Projects */}
-      <section aria-labelledby="projects" className="space-y-20">
+      <section aria-labelledby="projects" data-track="right" className="space-y-20">
         <SectionTitle id="projects" eyebrow="Projects" heading="Things I've built" />
         <div data-track="center" className="grid grid-cols-1 gap-12 md:px-8 lg:grid-cols-2 lg:gap-24">
           <div className="space-y-5">

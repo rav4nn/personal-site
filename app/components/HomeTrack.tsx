@@ -8,6 +8,8 @@ type Side = "mid" | "center" | "left" | "right";
 const GUTTER = 28;
 const RADIUS = 16;
 const TURN_GAP = 40;
+// Distance from the bottom of a letter box to the centre of an i-dot, in ems.
+const DOT_HEIGHT = 0.8;
 
 // Sections opt in with data-track; the track runs down that side of each one and turns just above the next.
 function sideX(side: Side, width: number) {
@@ -54,6 +56,16 @@ function buildTrack(container: HTMLElement) {
   const points: [number, number][] = [];
   const first = sections[0];
   let y = first.top;
+  // The track can start from a letter (data-track-origin): the ball sits where its dot would be.
+  const origin = container.querySelector<HTMLElement>("[data-track-origin]");
+  if (origin && origin.offsetParent) {
+    const r = origin.getBoundingClientRect();
+    const fontSize = parseFloat(getComputedStyle(origin).fontSize);
+    const x = r.left + r.width / 2 - box.left;
+    points.push([x, r.bottom - box.top - DOT_HEIGHT * fontSize]);
+    y = first.top + TURN_GAP;
+    points.push([x, y]);
+  }
   sections.forEach((section, i) => {
     const x = sideX(section.side, width);
     points.push([x, y]);

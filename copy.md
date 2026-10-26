@@ -6,7 +6,7 @@
 
 Source of truth: `app/page.tsx`. Order: intro, Work, Projects, link row.
 
-**Intro:** h1 "Hey, I'm Hardeep, an AI engineer.", tilted `hero.webp` photo. One track (`app/components/HomeTrack.tsx`, lg and up) runs the whole page: starts beside the intro photo, left side of Work, then down the centre between the two Projects columns, with the purple ball following scroll. Text, highlights in purple: "IIT Delhi → **AI agent builder**" / "**Team Lead and Senior AI Engineer** at **Squidgy AI**. I build **multi-agent systems** that run in production, and the **tools agents use**." / "After hours: **small Mac apps** that fix macOS, and **visual lessons** on how agents are built."
+**Intro:** h1 "Hey, I'm Hardeep, / AI engineer." (on lg+ the i in engineer is dotless and the track's ball is its dot), tilted `hero.webp` photo. One track (`app/components/HomeTrack.tsx`, lg and up) runs the whole page: starts beside the intro photo, left side of Work, across the page above Projects (divider), down the right, then down the centre between the two Projects columns, with the purple ball following scroll. Text, highlights in purple: "IIT Delhi → **AI agent builder**" / "**Team Lead and Senior AI Engineer** at **Squidgy AI**. I build **multi-agent systems** that run in production, and the **tools agents use**." / "After hours: **small Mac apps** that fix macOS, and **visual lessons** on how agents are built."
 
 **Work** ("What I'm working on right now", AI only, links to /about): Day job (Team Lead, Squidgy AI: multi-agent systems, Concierge, SiteBuddy, ~50 client sites) · Agent tools (MacLane, GuardLane) · Learning in public (visual lessons, daily Claude Code 101 on X) · Side builds (AI-built MVPs for founders).
 
