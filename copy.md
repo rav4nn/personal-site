@@ -4,26 +4,18 @@
 
 ## Home page
 
-Source of truth: `app/page.tsx` (cards come from `app/components/lanes/lanes.ts`, the About block from `app/components/HomeAbout.tsx`). Order: hero, the three Lane cards, the About block, the link row. No projects list, blog cards, study card or GitHub stats.
+Source of truth: `app/page.tsx`. Order: intro, Work, Projects, link row.
 
-**Heading:** Small Mac apps / that fix macOS.
-**Sub line:** by Hardeep, AI engineer
+**Intro:** h1 "Hey, I'm Hardeep!", then the About-page track with the tilted `hero.webp` photo (track hidden below lg). Text, highlights in purple: "IIT Delhi → **AI agent builder**" / "**Team Lead and Senior AI Engineer** at **Squidgy AI**. I build **multi-agent systems** that run in production, and the **tools agents use**." / "After hours: **small Mac apps** that fix macOS, and **visual lessons** on how agents are built."
 
-**Cards** (tile animation, name, status dot, one line):
-- CallLane (green dot, "Live"): Music stays loud on calls. Links to https://calllane.app.
-- MacLane (amber dot, "Coming soon"): Your Mac, for cloud agents. No link yet (no public page).
-- GuardLane (amber dot, "Coming soon"): Agent tools, kept safe. No link yet (app not built).
+**Work** ("What I'm working on right now", AI only, links to /about): Day job (Team Lead, Squidgy AI: multi-agent systems, Concierge, SiteBuddy, ~50 client sites) · Agent tools (MacLane, GuardLane) · Learning in public (visual lessons, daily Claude Code 101 on X) · Side builds (AI-built MVPs for founders).
 
-**About block** (below the cards):
-- Eyebrow: About. Heading: "I build AI agents by day and Mac apps by night."
-- Photo `hero_2.webp`, then: "I'm Hardeep Singh. I studied Chemical Engineering at IIT Delhi and taught myself to code. These days I'm Team Lead and Senior AI Engineer at Squidgy AI, where I build agents that do real work for real clients." / "Most of my day is spent with coding agents, so I keep building the tools they are missing. The Lane apps above came out of that: small Mac apps that fix macOS, and give agents a safe way into my Mac." / "Off screen I play chess, brew too much specialty coffee, and keep hunting for the best chhole bhature in Delhi."
-- "What I'm working on now", 4 cards: Day job (Team Lead at Squidgy AI: Concierge, SiteBuddy, ~50 client sites) · Mac apps (The Lane apps; link Try CallLane) · Learning in public (Harnesses, evals, prompts; Study lessons and the daily Claude Code 101 series on X; link Read the lessons) · Side builds (MVPs for founders; CoffeeCoach and SplitWala reached 3,000+ people; link Say hello → hello@hardeep.cv).
-- Link: More about me → /about
+**Projects** ("Things I've built", links to /projects): left "Mac apps" = the three Lane cards from `app/components/lanes/lanes.ts` (CallLane Live → calllane.app; MacLane and GuardLane Coming soon, no link); right "Other things I've built" = every non-Mac project from `app/data/projects.ts` (logo, title, short line, first stat).
 
 **Link row:** Writing (/blog) · Study (/study) · X (https://x.com/rav4nn) · GitHub (https://github.com/rav4nn)
 
-**Meta title:** Hardeep - Small Mac apps that fix macOS
-**Meta description:** CallLane, MacLane and GuardLane: small Mac apps that fix macOS. Built by Hardeep Singh, Team Lead and Senior AI Engineer at Squidgy AI.
+**Meta title:** Hardeep Singh - AI agent builder
+**Meta description:** Team Lead and Senior AI Engineer at Squidgy AI. I build multi-agent systems in production and small Mac apps that fix macOS.
 
 **Nav labels:** Apps (/projects) · Writing (/blog) · Study (/study) · About (/about). The hardeep.cv logo links home. /toolbox is not in the nav.
 
