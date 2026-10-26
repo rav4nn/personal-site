@@ -128,7 +128,7 @@ export default async function Home() {
   );
 
   return (
-    <section className="relative space-y-16 pb-12 pt-12 md:space-y-24 md:pb-16 md:pt-16">
+    <section className="relative space-y-20 pb-12 pt-12 md:space-y-32 md:pb-16 md:pt-16">
       <HomeTrack />
       {/* Intro */}
       <section className="relative">
@@ -165,7 +165,7 @@ export default async function Home() {
       </section>
 
       {/* Work */}
-      <section aria-labelledby="work" data-track="left" className="space-y-10">
+      <section aria-labelledby="work" data-track="left" className="space-y-12">
         <SectionTitle id="work" eyebrow="Work" heading="What I'm working on right now" />
         <ol className="mx-auto max-w-3xl divide-y divide-border-primary px-2 md:px-8">
           {work.map((item) => (
@@ -192,7 +192,7 @@ export default async function Home() {
       </section>
 
       {/* Projects */}
-      <section aria-labelledby="projects" className="space-y-10">
+      <section aria-labelledby="projects" className="space-y-20">
         <SectionTitle id="projects" eyebrow="Projects" heading="Things I've built" />
         <div data-track="center" className="grid grid-cols-1 gap-12 md:px-8 lg:grid-cols-2 lg:gap-24">
           <div className="space-y-5">

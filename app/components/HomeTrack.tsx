@@ -7,6 +7,7 @@ type Side = "mid" | "center" | "left" | "right";
 
 const GUTTER = 28;
 const RADIUS = 16;
+const TURN_GAP = 40;
 
 // Sections opt in with data-track; the track runs down that side of each one and turns just above the next.
 function sideX(side: Side, width: number) {
@@ -57,7 +58,7 @@ function buildTrack(container: HTMLElement) {
     const x = sideX(section.side, width);
     points.push([x, y]);
     const next = sections[i + 1];
-    y = next ? next.top - 24 : section.bottom;
+    y = next ? next.top - TURN_GAP : section.bottom;
     points.push([x, y]);
   });
   return { d: roundedPath(points), width, height: box.height };
@@ -70,10 +71,8 @@ export function HomeTrack() {
   const cx = useMotionValue(0);
   const cy = useMotionValue(0);
 
-  const { scrollYProgress } = useScroll({
-    target: rootRef,
-    offset: ["start center", "end center"],
-  });
+  // Page scroll, not the track's own position: the ball sits at the start at the top of the page and at the end at the bottom.
+  const { scrollYProgress } = useScroll();
 
   useLayoutEffect(() => {
     const container = rootRef.current?.parentElement;
