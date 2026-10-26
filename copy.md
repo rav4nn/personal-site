@@ -4,20 +4,26 @@
 
 ## Home page
 
-Source of truth: `app/page.tsx` (cards come from `app/components/lanes/lanes.ts`). The home page is the home of the Mac apps and has nothing else on it: no photos, about text, projects list, blog cards, study card, GitHub stats or contact block.
+Source of truth: `app/page.tsx` (cards come from `app/components/lanes/lanes.ts`, the About block from `app/components/HomeAbout.tsx`). Order: hero, the three Lane cards, the About block, the link row. No projects list, blog cards, study card or GitHub stats.
 
 **Heading:** Small Mac apps / that fix macOS.
 **Sub line:** by Hardeep, AI engineer
 
 **Cards** (tile animation, name, status dot, one line):
 - CallLane (green dot, "Live"): Music stays loud on calls. Links to https://calllane.app.
-- MacLane (indigo dot, "Beta"): Your Mac, for cloud agents. No link yet (no public page).
+- MacLane (amber dot, "Coming soon"): Your Mac, for cloud agents. No link yet (no public page).
 - GuardLane (amber dot, "Coming soon"): Agent tools, kept safe. No link yet (app not built).
+
+**About block** (below the cards):
+- Eyebrow: About. Heading: "I build AI agents by day and Mac apps by night."
+- Photo `hero_2.webp`, then: "I'm Hardeep Singh. I studied Chemical Engineering at IIT Delhi and taught myself to code. These days I'm Team Lead and Senior AI Engineer at Squidgy AI, where I build agents that do real work for real clients." / "Most of my day is spent with coding agents, so I keep building the tools they are missing. The Lane apps above came out of that: small Mac apps that fix macOS, and give agents a safe way into my Mac." / "Off screen I play chess, brew too much specialty coffee, and keep hunting for the best chhole bhature in Delhi."
+- "What I'm working on now", 4 cards: Day job (Team Lead at Squidgy AI: Concierge, SiteBuddy, ~50 client sites) · Mac apps (The Lane apps; link Try CallLane) · Learning in public (Harnesses, evals, prompts; Study lessons and the daily Claude Code 101 series on X; link Read the lessons) · Side builds (MVPs for founders; CoffeeCoach and SplitWala reached 3,000+ people; link Say hello → hello@hardeep.cv).
+- Link: More about me → /about
 
 **Link row:** Writing (/blog) · Study (/study) · X (https://x.com/rav4nn) · GitHub (https://github.com/rav4nn)
 
 **Meta title:** Hardeep - Small Mac apps that fix macOS
-**Meta description:** CallLane, MacLane and GuardLane: small Mac apps that fix macOS. Built by Hardeep, AI engineer.
+**Meta description:** CallLane, MacLane and GuardLane: small Mac apps that fix macOS. Built by Hardeep Singh, Team Lead and Senior AI Engineer at Squidgy AI.
 
 **Nav labels:** Apps (/projects) · Writing (/blog) · Study (/study) · About (/about). The hardeep.cv logo links home. /toolbox is not in the nav.
 
@@ -83,7 +89,7 @@ Source of truth: `content/blog/*.mdx` (Velite collection `posts`). The nav calls
 
 ## About me
 
-**Heading:** "I'm Hardeep, AI engineer && problem solver."
+**Heading:** "I'm Hardeep, AI agent builder && Mac app maker."
 **Subheading:** "Here's a quick intro about me && what I love to do"
 
 **Photo grid:**
@@ -97,13 +103,14 @@ Source of truth: `content/blog/*.mdx` (Velite collection `posts`). The nav calls
 I studied Chemical Engineering at IIT Delhi — where I learnt to think in systems and optimize under constraints. What I didn't expect was that the most interesting problems I'd encounter were messy, unstructured, and sitting inside data. That's what pulled me toward software. Now I build AI products that take that mess and make it usable — pipelines, tooling, apps.
 
 **Building things I actually want to exist:**
-I like building things that solve problems for me, and seeing them become products that other people use. CoffeeCoach took off on Reddit without a single paid promotion. youtube-rag-scraper hit stars on GitHub because apparently a lot of people had the same frustration with video content being impossible to query. FluxRAG helped me understand RAG pipelines, eval and benchmarking which is enhancing my current AI Agent centric projects.
+I like building things that solve problems for me, and seeing them become products that other people use. CallLane started because macOS turned my music down on every call. MacLane started because I wanted cloud agents to use my Mac while I'm away from the desk. Before those, CoffeeCoach took off on Reddit without a single paid promotion, and youtube-rag-scraper hit stars on GitHub because a lot of people had the same frustration with video content being impossible to query.
 
 **Life beyond the screen:**
 I play chess obsessively. I played football every week until I tore my ACL last year. Still in recovery, still bitter about it. I befriend every mountain dog I meet. And I'm on an ongoing, probably never-ending hunt for the best chhole bhature in Delhi.
 
 **Building AI agents:**
-Since IIT Delhi I've been building independently — a COVID-19 crisis platform, contract SaaS work for a UK-based client, and eventually full-stack AI products that people actually use. I care about the things that matter in production — latency, evaluation, hallucination rates, cost per query. FluxRAG exists because I wanted to benchmark those tradeoffs properly before shipping anything.
+I'm Team Lead and Senior AI Engineer at Squidgy AI, a UK startup. I lead the AI team and build the multi-agent systems we run for clients. I built Concierge, an MCP service that indexes 9 repos into a knowledge base, so agents ask what lives where instead of re-reading code. I also built SiteBuddy, an agent that rebuilds a website in 2-3 minutes for under $1 in token cost. Around 50 sites shipped.
+Outside work I study how agents are built: harnesses, evals and prompts. I turn the best talks into visual lessons on Study and post a daily Claude Code 101 series on X. On evenings and weekends I build MVPs for founders.
 
 ---
 

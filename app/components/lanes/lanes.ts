@@ -30,7 +30,7 @@ export const lanes: readonly Lane[] = [
   {
     name: "MacLane",
     line: "Your Mac, for cloud agents",
-    status: "beta",
+    status: "soon",
     Tile: MacLaneTile,
   },
   {

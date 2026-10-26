@@ -3,7 +3,7 @@ import { HorizontalLine } from "@/app/components/HorizontalLine";
 
 export const metadata: Metadata = {
   title: "About | Hardeep Singh",
-  description: "Learn about Hardeep Singh — Senior AI Engineer building production AI agents and full-stack AI products.",
+  description: "Hardeep Singh, Team Lead and Senior AI Engineer at Squidgy AI. I build AI agents in production and small Mac apps that fix macOS.",
 };
 import { getTimeOfDayGreeting } from "app/lib/utils";
 import React from "react";
@@ -16,6 +16,7 @@ import { GetInTouch } from "@/app/components/GetInTouch";
 import { AboutLink } from "@/app/components/AboutLink";
 import { getRepoStats } from "@/app/lib/stats/github-stats";
 import Image from "next/image";
+import Link from "next/link";
 
 // react-doctor-disable-next-line react-doctor/no-giant-component
 export default async function AboutPage() {
@@ -34,7 +35,7 @@ export default async function AboutPage() {
                 <span>{timeOfDayGreeting}</span>
               </div>
               <h1 className="mx-auto max-w-2xl text-balance text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-5xl lg:text-left lg:text-6xl lg:leading-[64px]">
-                I&apos;m Hardeep, AI engineer && problem solver.
+                I&apos;m Hardeep, AI agent builder && Mac app maker.
               </h1>
             </div>
             <div className="order-1 my-12 flex-shrink-0 lg:order-2 lg:my-0">
@@ -162,13 +163,23 @@ export default async function AboutPage() {
                   I like building things that solve problems for me, and seeing
                   them become products that other people use.{" "}
                   <AboutLink
+                    href="https://calllane.app"
+                    className="inline-flex items-baseline gap-1 font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 transition-colors hover:text-indigo-500 hover:decoration-indigo-400"
+                  >
+                    CallLane
+                    <svg className="inline h-3 w-3 shrink-0 self-center" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3.5 3H9v5.5M9 3L3 9" /></svg>
+                  </AboutLink>{" "}
+                  started because macOS turned my music down on every call.
+                  MacLane started because I wanted cloud agents to use my Mac
+                  while I&apos;m away from the desk. Before those,{" "}
+                  <AboutLink
                     href="https://coffeecoach.app"
                     className="inline-flex items-baseline gap-1 font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 transition-colors hover:text-indigo-500 hover:decoration-indigo-400"
                   >
                     CoffeeCoach
                     <svg className="inline h-3 w-3 shrink-0 self-center" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3.5 3H9v5.5M9 3L3 9" /></svg>
                   </AboutLink>{" "}
-                  took off on Reddit without a single paid promotion.{" "}
+                  took off on Reddit without a single paid promotion, and{" "}
                   <AboutLink
                     href="https://github.com/rav4nn/youtube-rag-scraper"
                     className="inline-flex items-baseline gap-1 font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 transition-colors hover:text-indigo-500 hover:decoration-indigo-400"
@@ -176,18 +187,9 @@ export default async function AboutPage() {
                     youtube-rag-scraper
                     <svg className="inline h-3 w-3 shrink-0 self-center" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3.5 3H9v5.5M9 3L3 9" /></svg>
                   </AboutLink>{" "}
-                  hit {ytStats.stars} GitHub stars because apparently a lot of people had
+                  hit {ytStats.stars} GitHub stars because a lot of people had
                   the same frustration with video content being impossible to
-                  query.{" "}
-                  <AboutLink
-                    href="https://github.com/rav4nn/flux-rag"
-                    className="inline-flex items-baseline gap-1 font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 transition-colors hover:text-indigo-500 hover:decoration-indigo-400"
-                  >
-                    FluxRAG
-                    <svg className="inline h-3 w-3 shrink-0 self-center" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3.5 3H9v5.5M9 3L3 9" /></svg>
-                  </AboutLink>{" "}
-                  helped me understand RAG pipelines, eval and benchmarking
-                  which is enhancing my current AI Agent centric projects.
+                  query.
                 </p>
               </div>
               <div className="hidden lg:block">
@@ -263,24 +265,25 @@ export default async function AboutPage() {
                   Building AI agents
                 </h2>
                 <p className="mb-6 text-base leading-8 text-text-secondary">
-                  At Squidgy AI I built Concierge, an MCP service that indexes
-                  9 repos into a knowledge base — agents ask what lives where
-                  instead of re-reading code, saving 50-100k tokens per session.
-                  I also built SiteBuddy, an agent that rebuilds a website in
-                  2-3 minutes for under $1 in token cost. Around 50 sites shipped.
+                  I&apos;m Team Lead and Senior AI Engineer at Squidgy AI, a UK
+                  startup. I lead the AI team and build the multi-agent systems
+                  we run for clients. I built Concierge, an MCP service that
+                  indexes 9 repos into a knowledge base, so agents ask what
+                  lives where instead of re-reading code. I also built
+                  SiteBuddy, an agent that rebuilds a website in 2-3 minutes for
+                  under $1 in token cost. Around 50 sites shipped.
                 </p>
                 <p className="mb-6 text-base leading-8 text-text-secondary">
-                  Two concurrent contracts, 3,000+ organic users across shipped
-                  products, and 75+ GitHub stars on open-source tools.{" "}
-                  <AboutLink
-                    href="https://github.com/rav4nn/flux-rag"
-                    className="inline-flex items-baseline gap-1 font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 transition-colors hover:text-indigo-500 hover:decoration-indigo-400"
+                  Outside work I study how agents are built: harnesses, evals
+                  and prompts. I turn the best talks into visual lessons on{" "}
+                  <Link
+                    href="/study"
+                    className="font-medium text-indigo-600 underline decoration-indigo-300 underline-offset-2 transition-colors hover:text-indigo-500 hover:decoration-indigo-400"
                   >
-                    FluxRAG
-                    <svg className="inline h-3 w-3 shrink-0 self-center" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3.5 3H9v5.5M9 3L3 9" /></svg>
-                  </AboutLink>{" "}
-                  exists because I wanted to benchmark those tradeoffs properly
-                  before shipping anything.
+                    Study
+                  </Link>{" "}
+                  and post a daily Claude Code 101 series on X. On evenings and
+                  weekends I build MVPs for founders.
                 </p>
               </div>
               <div className="hidden lg:block">
