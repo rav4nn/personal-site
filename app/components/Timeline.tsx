@@ -20,9 +20,7 @@ export function Timeline({ avatarUrl }: TimelineProps) {
       <m.div
         className="absolute -left-0.5 z-10 flex"
         style={{
-          top: 0,
-          height: "100%",
-          y: useTransform(scrollYProgress, [0, 1], ["100%", "0%"]),
+          top: useTransform(scrollYProgress, [0, 1], ["100%", "0%"]),
         }}
       >
         <div className="relative h-9 w-9 overflow-hidden rounded-full border-2 border-bg-primary bg-bg-primary shadow-md">
