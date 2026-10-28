@@ -191,6 +191,67 @@
   font: 600 11px ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
+/* Quick Space Switch: each input jumps the Space in 0.2 s while the macOS ghost slides for 1 s */
+.qss {
+  background: radial-gradient(110% 90% at 50% 0%, #3b1422 0%, #1c0a11 58%, #10060a 100%);
+}
+.qsCue {
+  opacity: 0.4;
+  animation: qsCue 6s ease-out infinite;
+}
+.q2 { animation-delay: 2s; }
+.q3 { animation-delay: 4s; }
+@keyframes qsCue {
+  0%, 12% { opacity: 1; }
+  22%, 100% { opacity: 0.4; }
+}
+.qsHl {
+  animation: qsHl 6s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+@keyframes qsHl {
+  0% { transform: translateX(0); }
+  3.33%, 33.33% { transform: translateX(111px); }
+  36.67%, 66.67% { transform: translateX(222px); }
+  70%, 100% { transform: translateX(0); }
+}
+.qsGhost {
+  opacity: 0;
+  animation: qsGhost 6s linear infinite;
+}
+@keyframes qsGhost {
+  0% { transform: translateX(0); opacity: 0; }
+  1% { transform: translateX(1px); opacity: 0.9; }
+  16.67% { transform: translateX(111px); opacity: 0.9; }
+  22%, 33.33% { transform: translateX(111px); opacity: 0; }
+  34.33% { transform: translateX(112px); opacity: 0.9; }
+  50% { transform: translateX(222px); opacity: 0.9; }
+  55%, 66.67% { transform: translateX(222px); opacity: 0; }
+  67.67% { transform: translateX(221px); opacity: 0.9; }
+  83.33% { transform: translateX(0); opacity: 0.9; }
+  88.67%, 100% { transform: translateX(0); opacity: 0; }
+}
+.qsFast,
+.qsSlow {
+  transform-box: fill-box;
+  transform-origin: 0 50%;
+}
+.qsFast {
+  animation: qsFast 2s linear infinite;
+}
+@keyframes qsFast {
+  0% { transform: scaleX(0); opacity: 1; }
+  10%, 80% { transform: scaleX(1); opacity: 1; }
+  92%, 100% { transform: scaleX(1); opacity: 0; }
+}
+.qsSlow {
+  animation: qsSlow 2s linear infinite;
+}
+@keyframes qsSlow {
+  0% { transform: scaleX(0); opacity: 1; }
+  50%, 80% { transform: scaleX(1); opacity: 1; }
+  92%, 100% { transform: scaleX(1); opacity: 0; }
+}
+
 /* Reduced motion: stop every animation and rest on the frame where the story reads. */
 @media (prefers-reduced-motion: reduce) {
   .tile * {
@@ -207,4 +268,8 @@
   .tick { stroke-dashoffset: 0; }
   .chk { stroke-dashoffset: 0; }
   .chip { opacity: 1; }
+  .qsCue:not(.q2):not(.q3) { opacity: 1; }
+  .qsHl { transform: translateX(111px); }
+  .qsGhost { transform: translateX(44px); opacity: 0.9; }
+  .qsSlow { transform: scaleX(0.4); }
 }
