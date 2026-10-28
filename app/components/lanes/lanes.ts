@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import { CallLaneTile } from "./CallLaneTile";
 import { GuardLaneTile } from "./GuardLaneTile";
 import { MacLaneTile } from "./MacLaneTile";
+import { QuickSpaceSwitchTile } from "./QuickSpaceSwitchTile";
 
 export type LaneStatus = "live" | "beta" | "soon";
 
@@ -26,6 +27,13 @@ export const lanes: readonly Lane[] = [
     status: "live",
     href: "https://calllane.app",
     Tile: CallLaneTile,
+  },
+  {
+    name: "Quick Space Switch",
+    line: "Spaces switch instantly",
+    status: "live",
+    href: "https://github.com/rav4nn/quick-space-switch",
+    Tile: QuickSpaceSwitchTile,
   },
   {
     name: "MacLane",

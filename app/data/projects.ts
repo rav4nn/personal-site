@@ -48,6 +48,17 @@ export async function getProjects(): Promise<Project[]> {
       stats: ["no kernel extension", "macOS 14+"],
     },
     {
+      title: "Quick Space Switch",
+      description:
+        "Switch Spaces on a Mac and macOS plays a slide that takes about a second. Quick Space Switch is a {{menu-bar app}} that skips the slide, so the next Space is there in {{about 0.2 s}}. It works with a {{three-finger swipe}}, Control+Arrow, and {{Logitech mouse gestures}}.\n\nFree and open source. A fork of jurplel's InstantSpaceSwitcher, {{signed and notarized}} by Apple.",
+      short:
+        "A menu-bar app that switches Spaces instantly, without the macOS slide.",
+      type: "Mac apps",
+      url: "https://github.com/rav4nn/quick-space-switch",
+      logo: "/projects/quick-space-switch.webp",
+      stats: ["open source, MIT", "notarized by Apple", "macOS 13+"],
+    },
+    {
       title: "coffeecoach.app",
       description:
         "Most coffee brewing advice online is scattered and contradictory. I ingested high-quality brewing data, made a {{RAG pipeline}} on top of it, and built an {{agentic coaching system}} based on that data — {{LLM orchestration}} with {{feedback loops}} that adapt recommendations based on user input.\n\nWrapped it all in a {{full-stack}} AI coaching app.",

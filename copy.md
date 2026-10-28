@@ -10,7 +10,7 @@ Source of truth: `app/page.tsx`. Order: intro, Work, Projects, link row.
 
 **Work** ("What I'm working on right now", AI only, links to /about): Day job (Team Lead, Squidgy AI: multi-agent systems, Concierge, SiteBuddy, ~50 client sites) · Agent tools (MacLane, GuardLane) · Learning in public (visual lessons, daily Claude Code 101 on X) · Side builds (AI-built MVPs for founders).
 
-**Projects** ("Things I've built", links to /projects): two equal columns split by the track. Left "Mac apps" = the three Lane apps as list rows (small tile, name, status, line) from `app/components/lanes/lanes.ts` (CallLane Live → calllane.app; MacLane and GuardLane Coming soon, no link); right "Other things I've built" = every non-Mac project from `app/data/projects.ts` (logo, title, short line, first stat).
+**Projects** ("Things I've built", links to /projects): two equal columns split by the track. Left "Mac apps" = the Mac apps as list rows (small tile, name, status, line) from `app/components/lanes/lanes.ts` (CallLane Live → calllane.app; Quick Space Switch Live "Spaces switch instantly" → github.com/rav4nn/quick-space-switch; MacLane and GuardLane Coming soon, no link); right "Other things I've built" = every non-Mac project from `app/data/projects.ts` (logo, title, short line, first stat).
 
 **Link row:** Writing (/blog) · Study (/study) · X (https://x.com/rav4nn) · GitHub (https://github.com/rav4nn)
 
@@ -47,6 +47,10 @@ Browser MCPs pull Chrome to the front mid-sentence, and they can't get into the 
 **CallLane** — *Mac apps*
 Short: A menu-bar app that stops macOS from turning your music down when a call starts.
 Join a call on a Mac and macOS drops your music by about 20 dB. Your AirPods fall back to headset quality too. CallLane is a menu-bar app that gives call apps their own audio device, so the rest of your audio stays at full volume. It locks the input to your Mac's mic, so your headphones keep high-quality audio through the call. *(no kernel extension, macOS 14+)*
+
+**Quick Space Switch** — *Mac apps*
+Short: A menu-bar app that switches Spaces instantly, without the macOS slide.
+Switch Spaces on a Mac and macOS plays a slide that takes about a second. Quick Space Switch is a menu-bar app that skips the slide, so the next Space is there in about 0.2 s. It works with a three-finger swipe, Control+Arrow, and Logitech mouse gestures. Free and open source. A fork of jurplel's InstantSpaceSwitcher, signed and notarized by Apple. *(open source, MIT, notarized by Apple, macOS 13+)*
 
 **coffeecoach.app** — *Products*
 Short: An agentic brewing coach on a RAG pipeline of high-quality coffee data.
